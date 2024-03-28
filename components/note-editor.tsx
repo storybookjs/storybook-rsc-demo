@@ -4,6 +4,7 @@ import { useState } from 'react'
 import NotePreview from './note-preview'
 import { useFormStatus } from 'react-dom'
 import { deleteNote, saveNote } from '../app/actions'
+import Image from 'next/image'
 
 export default function NoteEditor({
   noteId,
@@ -51,10 +52,10 @@ export default function NoteEditor({
             formAction={() => saveNote(noteId, title, body)}
             role="menuitem"
           >
-            <img
+            <Image
               src="/checkmark.svg"
-              width="14px"
-              height="10px"
+              width={14}
+              height={10}
               alt=""
               role="presentation"
             />
@@ -67,10 +68,10 @@ export default function NoteEditor({
               formAction={() => deleteNote(noteId)}
               role="menuitem"
             >
-              <img
+              <Image
                 src="/cross.svg"
-                width="10px"
-                height="10px"
+                width={10}
+                height={10}
                 alt=""
                 role="presentation"
               />

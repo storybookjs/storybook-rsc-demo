@@ -1,5 +1,5 @@
-import { kv } from '@vercel/kv'
 import NoteUI from '#components/note-ui'
+import prisma from '#prisma/prisma'
 
 export const metadata = {
   robots: {
@@ -8,7 +8,11 @@ export const metadata = {
 }
 
 export default async function Page({ params }: { params: { id: string } }) {
-  const note = await kv.hget('notes', params.id)
+  const note = await prisma.note.findUnique({
+    where: {
+      id: params.id,
+    },
+  });
 
   if (note === null) {
     return (

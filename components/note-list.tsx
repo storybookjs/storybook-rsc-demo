@@ -6,6 +6,7 @@ import { load } from 'cheerio'
 // @ts-expect-error add types/upgrade dep
 import marked from 'marked'
 import ClientSidebarNote from './sidebar-note'
+import { Note } from '#types/index'
 
 export default function NoteList({ notes, searchText }: { notes: any[]; searchText: string | null }) {
   if (notes.length === 0) {
@@ -48,8 +49,8 @@ function excerpts(html: string, length: number) {
   return excerpt
 }
 
-function SidebarNote({ note }: { note: Record<string, any> }) {
-  const updatedAt = new Date(note.updated_at)
+function SidebarNote({ note }: { note: Note }) {
+  const updatedAt = note.updated_at
   const lastUpdatedAt = isToday(updatedAt)
     ? format(updatedAt, 'h:mm bb')
     : format(updatedAt, 'M/d/yy')

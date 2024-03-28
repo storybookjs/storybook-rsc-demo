@@ -18,7 +18,7 @@ const allowedAttributes = Object.assign(
   }
 )
 
-export default function NotePreview({ children }: { children: React.ReactElement }) {
+export default function NotePreview({ children }: { children: React.ReactNode }) {
   return (
     <div className="note-preview">
       <div

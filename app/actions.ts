@@ -1,6 +1,6 @@
 'use server'
 
-import { kv } from '@vercel/kv'
+import prisma from '#prisma/prisma'
 import { getUser, userCookieKey } from '#libs/session'
 import { cookies } from 'next/headers'
 import { revalidatePath } from 'next/cache'
@@ -22,18 +22,36 @@ export async function saveNote(
   const payload = {
     id: noteId,
     title: title.slice(0, 255),
-    updated_at: Date.now(),
+    updated_at: new Date(),
     body: body.slice(0, 2048),
-    created_by: user
+    created_by: user,
   }
 
-  await kv.hset('notes', { [noteId]: JSON.stringify(payload) })
+  await prisma.note.upsert({
+    where: { id: noteId },
+    update: payload,
+    create: payload,
+  })
 
   revalidatePath('/')
   redirect(`/note/${noteId}`)
 }
 
 export async function deleteNote(noteId: string) {
+  await prisma.note.delete({
+    where: {
+      id: noteId,
+    },
+  })
+
   revalidatePath('/')
+  redirect('/')
+}
+
+export async function logout() {
+  console.log('LOGGING OUT')
+  const cookieStore = cookies()
+  cookieStore.delete(userCookieKey)
+
   redirect('/')
 }

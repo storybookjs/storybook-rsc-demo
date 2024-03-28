@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { cookies } from 'next/headers'
 import { getUser, userCookieKey } from '#libs/session'
+import Image from 'next/image'
 
 export default function AuthButton({
   children,
@@ -26,11 +27,13 @@ export default function AuthButton({
           role="menuitem"
         >
           {children}
-          <img
+          <Image
             src={`https://avatars.githubusercontent.com/${user}?s=40`}
             alt="User Avatar"
             title={user}
             className="avatar"
+            width={40}
+            height={40}
           />
         </button>
       </a>

@@ -1,17 +1,18 @@
-import { format } from 'date-fns'
 import NotePreview from '#components/note-preview'
 import NoteEditor from '#components/note-editor'
 import AuthButton from '#components/auth-button'
-import { cookies } from 'next/headers'
+import { Note } from '#types/index'
 import { getUser, userCookieKey } from '#libs/session'
 import Image from 'next/image'
+import { cookies } from 'next/headers'
+import { format } from 'date-fns'
 
-export default function NoteUI({ note, isEditing }: { note: any; isEditing: boolean }) {
+export default function NoteUI({ note, isEditing }: { note: Note; isEditing: boolean }) {
   const cookieStore = cookies()
   const userCookie = cookieStore.get(userCookieKey)
   const user = getUser(userCookie?.value)
   const { id, title, body, updated_at, created_by: createdBy } = note
-  const updatedAt = new Date(updated_at || 0)
+  const updatedAt = updated_at || new Date()
 
   if (isEditing) {
     return <NoteEditor noteId={id} initialTitle={title} initialBody={body} />
@@ -35,6 +36,8 @@ export default function NoteUI({ note, isEditing }: { note: any; isEditing: bool
               alt="User Avatar"
               title={createdBy}
               className="avatar"
+              width={40}
+              height={40}
             />
             &nbsp;
             <a

@@ -8,14 +8,7 @@ import NoteList from '#components/note-list'
 import NoteListSkeleton from '#components/note-list-skeleton'
 import SearchField from '#components/search'
 import Image from 'next/image'
-
-type Note = {
-  id: string
-  created_by: string
-  title: string
-  body: string
-  updated_at: number
-}
+import { Note } from '#types/index'
 
 export default function Sidebar({
   children,

@@ -1,44 +1,41 @@
 import './style.css'
 
 import React from 'react'
-import { kv } from '@vercel/kv'
 import Sidebar from '#components/sidebar'
 import AuthButton from '#components/auth-button'
+import prisma from '#prisma/prisma'
+import { Note } from '#types/index'
+import LogoutButton from '#components/logout-button'
 
 export const metadata = {
   title: 'Next.js App Router + React Server Components Demo',
-  description: 'Demo of React Server Components in Next.js. Hosted on Vercel.',
+  description: 'Demo of React Server Components in Next.js.',
   openGraph: {
     title: 'Next.js App Router + React Server Components Demo',
     description:
-      'Demo of React Server Components in Next.js. Hosted on Vercel.',
-    images: ['https://next-rsc-notes.vercel.app/og.png']
+      'Demo of React Server Components in Next.js.',
+    images: ['https://next-rsc-notes.vercel.app/og.png'],
   },
   robots: {
     index: true,
-    follow: true
+    follow: true,
   },
-  metadataBase: new URL('https://next-rsc-notes.vercel.app/')
-}
-
-type Note = {
-  id: string
-  created_by: string
-  title: string
-  body: string
-  updated_at: number
 }
 
 export default async function RootLayout({
-  children
+  children,
 }: {
   children: React.ReactNode
 }) {
-  const notes = await kv.hgetall('notes')
+  const notes = await prisma.note.findMany({
+    orderBy: {
+      id: 'asc',
+    },
+  })
   let notesArray: Note[] = notes
     ? (Object.values(notes) as Note[]).sort(
-        (a, b) => Number(a.id) - Number(b.id)
-      )
+      (a, b) => Number(a.id) - Number(b.id)
+    )
     : []
 
   return (
@@ -53,6 +50,7 @@ export default async function RootLayout({
               Learn more →
             </a>
           </div>
+          <LogoutButton />
           <div className="main">
             <Sidebar notes={notesArray}>
               <AuthButton noteId={null}>Add</AuthButton>

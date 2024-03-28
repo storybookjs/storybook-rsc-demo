@@ -368,6 +368,27 @@ ul.notes-list {
   animation-duration: 0.6s;
 }
 
+.logout {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2001;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  color: white;
+}
+
+.logout:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
 .banner {
   z-index: 2000;
   width: 100%;
