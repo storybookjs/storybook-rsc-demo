@@ -1,5 +1,7 @@
+// @ts-expect-error add types/upgrade dep
 import marked from 'marked'
 import React from 'react'
+// @ts-expect-error add types/upgrade dep
 import sanitizeHtml from 'sanitize-html'
 
 const allowedTags = sanitizeHtml.defaults.allowedTags.concat([

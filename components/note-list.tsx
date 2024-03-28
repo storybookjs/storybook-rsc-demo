@@ -3,6 +3,7 @@
 import React from 'react'
 import { format, isToday } from 'date-fns'
 import { load } from 'cheerio'
+// @ts-expect-error add types/upgrade dep
 import marked from 'marked'
 import ClientSidebarNote from './sidebar-note'
 
