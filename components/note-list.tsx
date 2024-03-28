@@ -2,11 +2,11 @@
 
 import React from 'react'
 import { format, isToday } from 'date-fns'
-import cheerio from 'cheerio'
+import { load } from 'cheerio'
 import marked from 'marked'
 import ClientSidebarNote from './sidebar-note'
 
-export default async function NoteList({ notes, searchText }) {
+export default function NoteList({ notes, searchText }: { notes: any[]; searchText: string | null }) {
   if (notes.length === 0) {
     return (
       <div className="notes-empty">
@@ -21,8 +21,8 @@ export default async function NoteList({ notes, searchText }) {
     <ul className="notes-list">
       {notes.map((note) =>
         note &&
-        (!searchText ||
-          note.title.toLowerCase().includes(searchText.toLowerCase())) ? (
+          (!searchText ||
+            note.title.toLowerCase().includes(searchText.toLowerCase())) ? (
           <li key={note.id}>
             <SidebarNote note={note} />
           </li>
@@ -32,9 +32,8 @@ export default async function NoteList({ notes, searchText }) {
   )
 }
 
-function excerpts(html, length) {
-  const text = cheerio
-    .load(html)
+function excerpts(html: string, length: number) {
+  const text = load(html)
     .text()
     .trim()
     .replace(/(\r\n|\r|\n|\s)+/g, ' ')
@@ -48,7 +47,7 @@ function excerpts(html, length) {
   return excerpt
 }
 
-function SidebarNote({ note }) {
+function SidebarNote({ note }: { note: Record<string, any> }) {
   const updatedAt = new Date(note.updated_at)
   const lastUpdatedAt = isToday(updatedAt)
     ? format(updatedAt, 'h:mm bb')

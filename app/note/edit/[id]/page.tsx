@@ -1,7 +1,7 @@
 import { kv } from '@vercel/kv'
 import { cookies } from 'next/headers'
-import { getUser, userCookieKey } from 'libs/session'
-import NoteUI from 'components/note-ui'
+import { getUser, userCookieKey } from '#libs/session'
+import NoteUI from '#components/note-ui'
 
 export const metadata = {
   robots: {

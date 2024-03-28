@@ -1,11 +1,12 @@
 import { format } from 'date-fns'
-import NotePreview from 'components/note-preview'
-import NoteEditor from 'components/note-editor'
-import AuthButton from 'components/auth-button'
+import NotePreview from '#components/note-preview'
+import NoteEditor from '#components/note-editor'
+import AuthButton from '#components/auth-button'
 import { cookies } from 'next/headers'
-import { getUser, userCookieKey } from 'libs/session'
+import { getUser, userCookieKey } from '#libs/session'
+import Image from 'next/image'
 
-export default function NoteUI({ note, isEditing }) {
+export default function NoteUI({ note, isEditing }: { note: any; isEditing: boolean }) {
   const cookieStore = cookies()
   const userCookie = cookieStore.get(userCookieKey)
   const user = getUser(userCookie?.value)
@@ -29,7 +30,7 @@ export default function NoteUI({ note, isEditing }) {
             }}
           >
             By{' '}
-            <img
+            <Image
               src={`https://avatars.githubusercontent.com/${createdBy}?s=40`}
               alt="User Avatar"
               title={createdBy}

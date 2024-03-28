@@ -2,8 +2,8 @@ import './style.css'
 
 import React from 'react'
 import { kv } from '@vercel/kv'
-import Sidebar from 'components/sidebar'
-import AuthButton from 'components/auth-button'
+import Sidebar from '#components/sidebar'
+import AuthButton from '#components/auth-button'
 
 export const metadata = {
   title: 'Next.js App Router + React Server Components Demo',

@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-import apiMiddleware from 'middleware/api'
-import authMiddleware from 'middleware/auth'
-import editMiddleware from 'middleware/edit'
-import logoutMiddleware from 'middleware/logout'
+import apiMiddleware from '#middleware/api'
+import authMiddleware from '#middleware/auth'
+import editMiddleware from '#middleware/edit'
+import logoutMiddleware from '#middleware/logout'
 
 function matchPathname(url, pathname) {
   return url.pathname.startsWith(pathname)

@@ -3,9 +3,11 @@
 import React, { Suspense } from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import SearchField from 'components/search'
-import NoteList from 'components/note-list'
-import NoteListSkeleton from 'components/note-list-skeleton'
+
+import NoteList from '#components/note-list'
+import NoteListSkeleton from '#components/note-list-skeleton'
+import SearchField from '#components/search'
+import Image from 'next/image'
 
 type Note = {
   id: string
@@ -28,11 +30,11 @@ export default function Sidebar({
       <section className="col sidebar">
         <Link href={'/'} className="link--unstyled">
           <section className="sidebar-header">
-            <img
+            <Image
               className="logo"
               src="/logo.svg"
-              width="22px"
-              height="20px"
+              width={22}
+              height={20}
               alt=""
               role="presentation"
             />

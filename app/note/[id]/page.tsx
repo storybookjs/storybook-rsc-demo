@@ -1,5 +1,5 @@
 import { kv } from '@vercel/kv'
-import NoteUI from 'components/note-ui'
+import NoteUI from '#components/note-ui'
 
 export const metadata = {
   robots: {

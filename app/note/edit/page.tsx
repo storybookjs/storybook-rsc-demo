@@ -1,4 +1,4 @@
-import NoteUI from 'components/note-ui'
+import NoteUI from '#components/note-ui'
 
 export const metadata = {
   robots: {

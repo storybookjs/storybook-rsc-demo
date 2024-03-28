@@ -1,4 +1,5 @@
 import marked from 'marked'
+import React from 'react'
 import sanitizeHtml from 'sanitize-html'
 
 const allowedTags = sanitizeHtml.defaults.allowedTags.concat([
@@ -15,7 +16,7 @@ const allowedAttributes = Object.assign(
   }
 )
 
-export default function NotePreview({ children }) {
+export default function NotePreview({ children }: { children: React.ReactElement }) {
   return (
     <div className="note-preview">
       <div

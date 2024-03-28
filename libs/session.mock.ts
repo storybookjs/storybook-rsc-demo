@@ -34,6 +34,7 @@ function arrayBufferToBase64(buffer: ArrayBufferLike) {
 
 // Encrypt
 export function createEncrypt() {
+  console.log('STORYBOOK STUFF')
   return async function (data: string) {
     const pwHash = await crypto.subtle.digest('SHA-256', pwUtf8)
     const encryptKey = await crypto.subtle.importKey(
@@ -76,7 +77,7 @@ export function createDecrypt() {
   }
 }
 
-export function getSession(userCookie = '') {
+export function getSession(userCookie: string) {
   const none = [null, null]
   const value = decodeURIComponent(userCookie)
   if (!value) return none
@@ -87,6 +88,6 @@ export function getSession(userCookie = '') {
   return [user, session]
 }
 
-export function getUser(userCookie?: string) {
+export function getUser(userCookie: string) {
   return getSession(userCookie)[0]
 }

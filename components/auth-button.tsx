@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { cookies } from 'next/headers'
-import { getUser, userCookieKey } from 'libs/session'
+import { getUser, userCookieKey } from '#libs/session'
 
 export default function AuthButton({
   children,
