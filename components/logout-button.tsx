@@ -1,14 +1,11 @@
 import { logout } from '#app/actions'
-import { getUser, userCookieKey } from '#libs/session'
-import { cookies } from 'next/headers'
+import { getUserFromSession } from '#libs/get-user-from-session'
 
 export default function LogoutButton() {
-  const cookieStore = cookies()
-  const userCookie = cookieStore.get(userCookieKey)
-  const user = getUser(userCookie?.value)
+  const user = getUserFromSession()
 
   return user && <form action={logout}>
-    <button className="logout" type="submit">
+    <button className="logout-button" type="submit">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"

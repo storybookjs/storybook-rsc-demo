@@ -1,20 +1,22 @@
 'use client'
 
 import { useState } from 'react'
-import NotePreview from './note-preview'
+import NotePreview from '#components/note-preview'
 import { useFormStatus } from 'react-dom'
-import { deleteNote, saveNote } from '../app/actions'
+import { deleteNote, saveNote } from '#app/actions'
 import Image from 'next/image'
+
+type Props = {
+  noteId: string | null
+  initialTitle: string
+  initialBody: string
+}
 
 export default function NoteEditor({
   noteId,
   initialTitle,
   initialBody
-}: {
-  noteId: string | null
-  initialTitle: string
-  initialBody: string
-}) {
+}: Props) {
   const { pending } = useFormStatus()
   const [title, setTitle] = useState(initialTitle)
   const [body, setBody] = useState(initialBody)

@@ -1,18 +1,17 @@
 import Link from 'next/link'
-import { cookies } from 'next/headers'
-import { getUser, userCookieKey } from '#libs/session'
 import Image from 'next/image'
+import { getUserFromSession } from '#libs/get-user-from-session'
+
+type Props = {
+  children?: React.ReactNode
+  noteId: string | null
+}
 
 export default function AuthButton({
   children,
   noteId
-}: {
-  children: React.ReactNode
-  noteId: string | null
-}) {
-  const cookieStore = cookies()
-  const userCookie = cookieStore.get(userCookieKey)
-  const user = getUser(userCookie?.value)
+}: Props) {
+  const user = getUserFromSession()
   const isDraft = noteId == null
 
   if (user) {

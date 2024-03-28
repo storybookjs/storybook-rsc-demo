@@ -2,15 +2,17 @@ import NotePreview from '#components/note-preview'
 import NoteEditor from '#components/note-editor'
 import AuthButton from '#components/auth-button'
 import { Note } from '#types/index'
-import { getUser, userCookieKey } from '#libs/session'
 import Image from 'next/image'
-import { cookies } from 'next/headers'
 import { format } from 'date-fns'
+import { getUserFromSession } from '#libs/get-user-from-session'
 
-export default function NoteUI({ note, isEditing }: { note: Note; isEditing: boolean }) {
-  const cookieStore = cookies()
-  const userCookie = cookieStore.get(userCookieKey)
-  const user = getUser(userCookie?.value)
+type Props = {
+  note: Note
+  isEditing: boolean
+}
+
+export default function NoteUI({ note, isEditing }: Props) {
+  const user = getUserFromSession()
   const { id, title, body, updated_at, created_by: createdBy } = note
   const updatedAt = updated_at || new Date()
 

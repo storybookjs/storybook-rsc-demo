@@ -1,19 +1,18 @@
 'use server'
 
 import prisma from '#prisma/prisma'
-import { getUser, userCookieKey } from '#libs/session'
+import { userCookieKey } from '#libs/session'
 import { cookies } from 'next/headers'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
+import { getUserFromSession } from '#libs/get-user-from-session'
 
 export async function saveNote(
   noteId: string | null,
   title: string,
   body: string
 ) {
-  const cookieStore = cookies()
-  const userCookie = cookieStore.get(userCookieKey)
-  const user = getUser(userCookie?.value)
+  const user = getUserFromSession()
 
   if (!noteId) {
     noteId = Date.now().toString()
@@ -49,7 +48,6 @@ export async function deleteNote(noteId: string) {
 }
 
 export async function logout() {
-  console.log('LOGGING OUT')
   const cookieStore = cookies()
   cookieStore.delete(userCookieKey)
 

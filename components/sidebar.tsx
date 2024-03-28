@@ -10,13 +10,15 @@ import SearchField from '#components/search'
 import Image from 'next/image'
 import { Note } from '#types/index'
 
+type Props = {
+  children: React.ReactNode
+  notes: Note[]
+}
+
 export default function Sidebar({
   children,
   notes
-}: {
-  children: React.ReactNode
-  notes: Note[]
-}) {
+}: Props) {
   return (
     <>
       <input type="checkbox" className="sidebar-toggle" id="sidebar-toggle" />

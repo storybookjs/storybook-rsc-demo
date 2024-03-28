@@ -1,6 +1,5 @@
-import { cookies } from 'next/headers'
-import { getUser, userCookieKey } from '#libs/session'
 import NoteUI from '#components/note-ui'
+import { getUserFromSession } from '#libs/get-user-from-session'
 
 export const metadata = {
   robots: {
@@ -8,15 +7,12 @@ export const metadata = {
   }
 }
 
-type Note = {
-  id: string
-  created_by: string
+type Props = {
+  params: { id: string }
 }
 
-export default async function EditPage({ params }: { params: { id: string } }) {
-  const cookieStore = cookies()
-  const userCookie = cookieStore.get(userCookieKey)
-  const user = getUser(userCookie?.value)
+export default async function EditPage({ params }: Props) {
+  const user = getUserFromSession()
 
   const note = await prisma.note.findUnique({
     where: {

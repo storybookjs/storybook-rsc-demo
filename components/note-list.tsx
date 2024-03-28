@@ -8,7 +8,12 @@ import marked from 'marked'
 import ClientSidebarNote from './sidebar-note'
 import { Note } from '#types/index'
 
-export default function NoteList({ notes, searchText }: { notes: any[]; searchText: string | null }) {
+type Props = {
+  notes: Note[]
+  searchText: string | null
+}
+
+export default function NoteList({ notes, searchText }: Props) {
   if (notes.length === 0) {
     return (
       <div className="notes-empty">

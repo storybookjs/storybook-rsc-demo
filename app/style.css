@@ -368,11 +368,14 @@ ul.notes-list {
   animation-duration: 0.6s;
 }
 
-.logout {
+.logout-section {
   position: absolute;
   top: 0;
   right: 0;
   z-index: 2001;
+}
+
+.logout-button {
   background: transparent;
   border: none;
   cursor: pointer;
@@ -385,7 +388,7 @@ ul.notes-list {
   color: white;
 }
 
-.logout:hover {
+.logout-button:hover {
   background: rgba(255, 255, 255, 0.1);
 }
 

@@ -3,7 +3,14 @@
 import { useState, useRef, useEffect, useTransition } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 
-export default function SidebarNote({ id, title, children, expandedChildren }) {
+type Props = {
+  id: string
+  title: string
+  children: React.ReactNode
+  expandedChildren: React.ReactNode
+}
+
+export default function SidebarNote({ id, title, children, expandedChildren }: Props) {
   const router = useRouter()
   const pathname = usePathname()
   const selectedId = pathname?.split('/')[1] || null
@@ -12,14 +19,13 @@ export default function SidebarNote({ id, title, children, expandedChildren }) {
   const isActive = id === selectedId
 
   // Animate after title is edited
-  const itemRef = useRef(null)
+  const itemRef = useRef<HTMLDivElement>(null)
   const prevTitleRef = useRef(title)
 
   useEffect(() => {
     if (title !== prevTitleRef.current) {
       prevTitleRef.current = title
-      // @ts-ignore
-      itemRef.current.classList.add('flash')
+      itemRef.current?.classList.add('flash')
     }
   }, [title])
 
@@ -27,8 +33,7 @@ export default function SidebarNote({ id, title, children, expandedChildren }) {
     <div
       ref={itemRef}
       onAnimationEnd={() => {
-        // @ts-ignore
-        itemRef.current.classList.remove('flash')
+        itemRef.current?.classList.remove('flash')
       }}
       className={[
         'sidebar-note-list-item',
@@ -42,17 +47,16 @@ export default function SidebarNote({ id, title, children, expandedChildren }) {
           backgroundColor: isPending
             ? 'var(--gray-80)'
             : isActive
-            ? 'var(--tertiary-blue)'
-            : undefined,
+              ? 'var(--tertiary-blue)'
+              : undefined,
           border: isActive
             ? '1px solid var(--primary-border)'
             : '1px solid transparent'
         }}
         onClick={() => {
           // hide the sidebar
-          const sidebarToggle = document.getElementById('sidebar-toggle')
+          const sidebarToggle = document.getElementById('sidebar-toggle') as HTMLInputElement
           if (sidebarToggle) {
-            // @ts-ignore
             sidebarToggle.checked = true
           }
           router.push(`/note/${id}`)

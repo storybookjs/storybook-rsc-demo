@@ -7,7 +7,11 @@ export const metadata = {
   }
 }
 
-export default async function Page({ params }: { params: { id: string } }) {
+type Props = {
+  params: { id: string }
+}
+
+export default async function Page({ params }: Props) {
   const note = await prisma.note.findUnique({
     where: {
       id: params.id,
