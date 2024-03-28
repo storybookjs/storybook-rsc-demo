@@ -5,7 +5,7 @@ import { saveNote, deleteNote } from '#app/actions.mock'
 import { expect, fireEvent, userEvent, within } from '@storybook/test';
 
 const meta = {
-  title: 'No Mocks/NoteUI',
+  title: 'Mocked/NoteUI',
   component: NoteUI,
 } satisfies Meta<typeof NoteUI>
 
