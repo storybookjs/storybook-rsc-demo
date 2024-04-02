@@ -37,4 +37,5 @@ next-env.d.ts
 
 *storybook.log
 
+.env
 /prisma/dev.db
