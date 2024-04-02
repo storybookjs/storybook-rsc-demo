@@ -1,10 +1,10 @@
 import NotePreview from '#components/note-preview'
 import NoteEditor from '#components/note-editor'
 import AuthButton from '#components/auth-button'
-import { Note } from '#types/index'
 import Image from 'next/image'
 import { format } from 'date-fns'
 import { getUserFromSession } from '#libs/get-user-from-session'
+import { type Note } from '@prisma/client'
 
 type Props = {
   note: Note
@@ -13,8 +13,7 @@ type Props = {
 
 export default function NoteUI({ note, isEditing }: Props) {
   const user = getUserFromSession()
-  const { id, title, body, updated_at, created_by: createdBy } = note
-  const updatedAt = updated_at || new Date()
+  const { id, title, body, updatedAt, createdBy } = note
 
   if (isEditing) {
     return <NoteEditor noteId={id} initialTitle={title} initialBody={body} />
@@ -29,7 +28,7 @@ export default function NoteUI({ note, isEditing }: Props) {
             style={{
               flex: '1 0 100%',
               order: '-1',
-              marginTop: 10
+              marginTop: 10,
             }}
           >
             By{' '}

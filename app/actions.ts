@@ -1,6 +1,6 @@
 'use server'
 
-import prisma from '#prisma/prisma'
+import { prisma } from '#prisma/prisma'
 import { userCookieKey } from '#libs/session'
 import { cookies } from 'next/headers'
 import { revalidatePath } from 'next/cache'
@@ -10,9 +10,13 @@ import { getUserFromSession } from '#libs/get-user-from-session'
 export async function saveNote(
   noteId: string | null,
   title: string,
-  body: string
+  body: string,
 ) {
   const user = getUserFromSession()
+
+  if (!user) {
+    redirect('/')
+  }
 
   if (!noteId) {
     noteId = Date.now().toString()
@@ -21,9 +25,8 @@ export async function saveNote(
   const payload = {
     id: noteId,
     title: title.slice(0, 255),
-    updated_at: new Date(),
     body: body.slice(0, 2048),
-    created_by: user,
+    createdBy: user,
   }
 
   await prisma.note.upsert({
