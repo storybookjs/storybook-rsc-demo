@@ -1,5 +1,5 @@
 import { fn } from '@storybook/test'
-import * as original from '#libs/get-user-from-session'
+import type * as original from './get-user-from-session'
 
 export const getUserFromSession = fn<
   [],

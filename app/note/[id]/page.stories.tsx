@@ -2,6 +2,7 @@ import { Meta, StoryObj } from '@storybook/react'
 import Page from '#app/note/[id]/page'
 import { prisma } from '#prisma/prisma'
 import Layout from '#app/layout'
+import { getUserFromSession } from '#libs/get-user-from-session.mock'
 
 const meta = {
   component: Page,
@@ -43,4 +44,15 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {}
+export const LoggedIn: Story = {
+  loaders() {
+    getUserFromSession.mockReturnValue('storybookjs')
+  }
+}
+
+export const NotLoggedIn: Story = {
+  loaders() {
+    getUserFromSession.mockReturnValue('storybookjs')
+  }
+}
+
