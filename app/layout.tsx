@@ -5,6 +5,7 @@ import Sidebar from '#components/sidebar'
 import AuthButton from '#components/auth-button'
 import { prisma } from '#prisma/prisma'
 import LogoutButton from '#components/logout-button'
+import { type Note } from '@prisma/client'
 
 export const metadata = {
   title: 'Next.js App Router + React Server Components Demo',
