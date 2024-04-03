@@ -3,8 +3,7 @@ import './style.css'
 import React from 'react'
 import Sidebar from '#components/sidebar'
 import AuthButton from '#components/auth-button'
-import prisma from '#prisma/prisma'
-import { Note } from '#types/index'
+import { prisma } from '#prisma/prisma'
 import LogoutButton from '#components/logout-button'
 
 export const metadata = {
@@ -12,8 +11,7 @@ export const metadata = {
   description: 'Demo of React Server Components in Next.js.',
   openGraph: {
     title: 'Next.js App Router + React Server Components Demo',
-    description:
-      'Demo of React Server Components in Next.js.',
+    description: 'Demo of React Server Components in Next.js.',
     images: ['https://next-rsc-notes.vercel.app/og.png'],
   },
   robots: {
@@ -32,10 +30,10 @@ export default async function RootLayout({
       id: 'asc',
     },
   })
-  let notesArray: Note[] = notes
+  let notesArray = notes
     ? (Object.values(notes) as Note[]).sort(
-      (a, b) => Number(a.id) - Number(b.id)
-    )
+        (a, b) => Number(a.id) - Number(b.id),
+      )
     : []
 
   return (

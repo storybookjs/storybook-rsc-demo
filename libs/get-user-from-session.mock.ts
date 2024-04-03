@@ -1,4 +1,7 @@
 import { fn } from '@storybook/test'
-// import * as mock from './get-user-from-session'
+import * as original from '#libs/get-user-from-session'
 
-export const getUserFromSession = fn<any, string | null>(() => null)
+export const getUserFromSession = fn<
+  [],
+  string | null
+>() satisfies typeof original.getUserFromSession

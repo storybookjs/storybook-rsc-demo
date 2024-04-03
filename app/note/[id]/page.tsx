@@ -1,5 +1,5 @@
 import NoteUI from '#components/note-ui'
-import prisma from '#prisma/prisma'
+import { prisma } from '#prisma/prisma'
 
 export const metadata = {
   robots: {

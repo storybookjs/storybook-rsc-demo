@@ -11,9 +11,11 @@ datasource db {
 }
 
 model Note {
-  id         String   @id
-  title      String
-  body       String
-  updated_at DateTime
-  created_by String
+  id        String @id
+  title     String
+  body      String
+  createdBy String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

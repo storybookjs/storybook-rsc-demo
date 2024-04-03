@@ -22,14 +22,5 @@ const config: StorybookConfig = {
     experimentalRSC: true,
   },
   staticDirs: ['../public'],
-  webpackFinal: async (config) => {
-    config.resolve = config.resolve || {}
-    config.resolve.conditionNames = [
-      'storybook',
-      ...(config.resolve.conditionNames || []),
-      '...',
-    ]
-    return config
-  },
 }
 export default config

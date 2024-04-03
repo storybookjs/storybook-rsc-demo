@@ -8,17 +8,14 @@ import NoteList from '#components/note-list'
 import NoteListSkeleton from '#components/note-list-skeleton'
 import SearchField from '#components/search'
 import Image from 'next/image'
-import { Note } from '#types/index'
+import { type Note } from '@prisma/client'
 
 type Props = {
   children: React.ReactNode
   notes: Note[]
 }
 
-export default function Sidebar({
-  children,
-  notes
-}: Props) {
+export default function Sidebar({ children, notes }: Props) {
   return (
     <>
       <input type="checkbox" className="sidebar-toggle" id="sidebar-toggle" />

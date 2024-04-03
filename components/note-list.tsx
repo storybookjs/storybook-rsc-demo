@@ -6,7 +6,7 @@ import { load } from 'cheerio'
 // @ts-expect-error add types/upgrade dep
 import marked from 'marked'
 import ClientSidebarNote from './sidebar-note'
-import { Note } from '#types/index'
+import { type Note } from '@prisma/client'
 
 type Props = {
   notes: Note[]
@@ -28,12 +28,12 @@ export default function NoteList({ notes, searchText }: Props) {
     <ul className="notes-list">
       {notes.map((note) =>
         note &&
-          (!searchText ||
-            note.title.toLowerCase().includes(searchText.toLowerCase())) ? (
+        (!searchText ||
+          note.title.toLowerCase().includes(searchText.toLowerCase())) ? (
           <li key={note.id}>
             <SidebarNote note={note} />
           </li>
-        ) : null
+        ) : null,
       )}
     </ul>
   )
@@ -55,7 +55,7 @@ function excerpts(html: string, length: number) {
 }
 
 function SidebarNote({ note }: { note: Note }) {
-  const updatedAt = note.updated_at
+  const updatedAt = note.updatedAt
   const lastUpdatedAt = isToday(updatedAt)
     ? format(updatedAt, 'h:mm bb')
     : format(updatedAt, 'M/d/yy')
