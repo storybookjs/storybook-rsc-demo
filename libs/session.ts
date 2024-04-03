@@ -1,4 +1,4 @@
-import { sign, unsign } from 'cookie-signature'
+import { sign, unsign } from 'cookie-signature-edge'
 
 export const userCookieKey = '_un'
 export const cookieSep = '^)&_*($'
@@ -14,14 +14,14 @@ function encode(value: string) {
 // Encrypt
 export function createEncrypt() {
   return async function (data: string) {
-    return sign(data, pwUtf8)
+    return sign(data, pwUtf8.toString())
   }
 }
 
 // Decrypt
 export function createDecrypt() {
   return async function decrypt(data: string) {
-    const decrypted = unsign(data, pwUtf8)
+    const decrypted = unsign(data, pwUtf8.toString())
     if (decrypted) return decrypted
     throw new Error('Invalid signature')
   }
