@@ -6,18 +6,30 @@ import { format } from 'date-fns'
 import { getUserFromSession } from '#libs/get-user-from-session'
 import { type Note } from '@prisma/client'
 
-type Props = {
-  note: Note
-  isEditing: boolean
-}
+type Props =
+  | {
+      note: Partial<Note>
+      isEditing: true
+    }
+  | {
+      note: Note
+      isEditing: false
+    }
 
 export default function NoteUI({ note, isEditing }: Props) {
   const user = getUserFromSession()
-  const { id, title, body, updatedAt, createdBy } = note
 
   if (isEditing) {
-    return <NoteEditor noteId={id} initialTitle={title} initialBody={body} />
+    return (
+      <NoteEditor
+        noteId={note.id}
+        initialTitle={note.title ?? ''}
+        initialBody={note.body ?? ''}
+      />
+    )
   }
+
+  const { id, title, body, updatedAt, createdBy } = note
 
   return (
     <div className="note">

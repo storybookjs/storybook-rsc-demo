@@ -7,7 +7,7 @@ import { deleteNote, saveNote } from '#app/actions'
 import Image from 'next/image'
 
 type Props = {
-  noteId: string | null
+  noteId: string | undefined
   initialTitle: string
   initialBody: string
 }
@@ -15,7 +15,7 @@ type Props = {
 export default function NoteEditor({
   noteId,
   initialTitle,
-  initialBody
+  initialBody,
 }: Props) {
   const { pending } = useFormStatus()
   const [title, setTitle] = useState(initialTitle)
