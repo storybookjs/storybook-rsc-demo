@@ -13,6 +13,10 @@ const meta = {
     )
   },
   async loaders() {
+    // TODO
+    // const cookieStore = cookies()
+    // cookieStore.set(userCookieKey, await createUserCookie('storybookjs'));
+
     await prisma.note.create({
       data: {
         id: '1',

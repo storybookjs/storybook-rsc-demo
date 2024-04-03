@@ -8,6 +8,9 @@ dependencies:
   cheerio:
     specifier: ^1.0.0-rc.12
     version: 1.0.0-rc.12
+  cookie-signature:
+    specifier: ^1.2.1
+    version: 1.2.1
   date-fns:
     specifier: ^3.6.0
     version: 3.6.0
@@ -61,6 +64,9 @@ devDependencies:
   '@storybook/test':
     specifier: 0.0.0-pr-26688-sha-d43fe28e
     version: 0.0.0-pr-26688-sha-d43fe28e(jest@29.7.0)
+  '@types/cookie-signature':
+    specifier: ^1.1.2
+    version: 1.1.2
   '@types/node':
     specifier: ^20
     version: 20.8.9
@@ -3500,6 +3506,12 @@ packages:
       '@types/node': 20.8.9
     dev: true
 
+  /@types/cookie-signature@1.1.2:
+    resolution: {integrity: sha512-2OhrZV2LVnUAXklUFwuYUTokalh/dUb8rqt70OW6ByMSxYpauPZ+kfNLknX3aJyjY5iu8i3cUyoLZP9Fn37tTg==}
+    dependencies:
+      '@types/node': 20.8.9
+    dev: true
+
   /@types/cross-spawn@6.0.6:
     resolution: {integrity: sha512-fXRhhUkG4H3TQk5dBhQ7m/JDdSNHKwR2BBia62lhwEIq9xGiQKLxd6LymNhn47SjXhsUEPmxi+PKw2OkW4LLjA==}
     dependencies:
@@ -5169,6 +5181,11 @@ packages:
   /cookie-signature@1.0.6:
     resolution: {integrity: sha512-QADzlaHc8icV8I7vbaJXJwod9HWYp8uCqf1xa4OfNu1T7JVxQIrUgOWtHdNDtPiywmFbiS12VjotIXLrKM3orQ==}
     dev: true
+
+  /cookie-signature@1.2.1:
+    resolution: {integrity: sha512-78KWk9T26NhzXtuL26cIJ8/qNHANyJ/ZYrmEXFzUmhZdjpBv+DlWlOANRTGBt48YcyslsLrj0bMLFTmXvLRCOw==}
+    engines: {node: '>=6.6.0'}
+    dev: false
 
   /cookie@0.6.0:
     resolution: {integrity: sha512-U71cyTamuh1CRNCfpGY6to28lxvNwPG4Guz/EVjgf3Jmzv0vlDp1atT9eS5dDjMYHucpHbWns6Lwf3BKz6svdw==}
