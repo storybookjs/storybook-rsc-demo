@@ -38,28 +38,24 @@ export default async function RootLayout({
     : []
 
   return (
-    <html lang="en">
-      <body>
-        <div className="container">
-          <div className="banner">
-            <a
-              href="https://nextjs.org/docs/app/building-your-application/rendering/server-components"
-              target="_blank"
-            >
-              Learn more →
-            </a>
-          </div>
-          <div className="logout-section">
-            <LogoutButton />
-          </div>
-          <div className="main">
-            <Sidebar notes={notesArray}>
-              <AuthButton noteId={null}>Add</AuthButton>
-            </Sidebar>
-            <section className="col note-viewer">{children}</section>
-          </div>
-        </div>
-      </body>
-    </html>
+    <div className="container">
+      <div className="banner">
+        <a
+          href="https://nextjs.org/docs/app/building-your-application/rendering/server-components"
+          target="_blank"
+        >
+          Learn more →
+        </a>
+      </div>
+      <div className="logout-section">
+        <LogoutButton />
+      </div>
+      <div className="main">
+        <Sidebar notes={notesArray}>
+          <AuthButton noteId={null}>Add</AuthButton>
+        </Sidebar>
+        <section className="col note-viewer">{children}</section>
+      </div>
+    </div>
   )
 }
