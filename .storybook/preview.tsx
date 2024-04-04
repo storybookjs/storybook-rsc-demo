@@ -5,7 +5,7 @@ import { mocked } from '@storybook/test'
 import { prisma } from '#prisma/prisma.mock'
 
 import Layout from '#app/layout';
-import { cookies } from 'next/headers'
+import { cookies, headers } from 'next/headers'
 
 const preview: Preview = {
   parameters: {
@@ -23,9 +23,13 @@ const preview: Preview = {
   loaders() {
     const data = prisma.$getInternalState()
     for (var member in data) data[member as keyof typeof data] = []
-    console.log("LOADER FROM PREVIEW")
     // @ts-expect-error TODO fix this later
     mocked(cookies()).mockRestore()
+    // @ts-expect-error TODO fix this later
+    mocked(headers()).mockRestore()
+
+    // Layout uses html/body which breaks Storybook. We can disable it via a header
+    headers().set('use-html-tag', false)
   },
   decorators: [(Story, { parameters }) => {
     if (parameters.mode === 'page') {

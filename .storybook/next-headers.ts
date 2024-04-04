@@ -5,75 +5,150 @@ const getCookieStore = () => {
   const store = new Map()
 
   return {
-    mockRestore() {
+    mockRestore: () => {
       store.clear()
     },
+
     set: fn((key: string, value: any) => {
       store.set(key, { value })
       action('[cookies] set')({ key, value })
     }).mockName('cookies().set'),
 
-    delete(key: string) {
+    delete: fn((key: string | string[]) => {
       if (Array.isArray(key)) {
         key.forEach((k) => {
           store.delete(k)
-          action('[cookies] delete')(key)
+          action('[cookies] delete')(k)
         })
       } else {
         store.delete(key)
         action('[cookies] delete')(key)
       }
-    },
+    }).mockName('cookies().delete'),
 
-    get(key: string) {
+    get: fn((key: string | string[]) => {
+      let value
       if (Array.isArray(key)) {
-        const value = key.reduce((acc, k) => {
-          const cookie = store.get(k)
-          if (cookie) {
-            acc[k] = cookie.value
-          }
-          return acc
-        }, {})
-
-        action('[cookies] get')({ key, value })
-        return value
+        value = key.reduce(
+          (acc, k) => {
+            const cookie = store.get(k)
+            if (cookie) {
+              acc[k] = cookie.value
+            }
+            return acc
+          },
+          {} as Record<string, any>,
+        )
       } else {
-        const value = store.get(key)
-        action('[cookies] get')({ key, value })
-        return value
+        const cookie = store.get(key)
+        value = cookie ? cookie.value : undefined
       }
-    },
+      action('[cookies] get')({ key, value })
+      return value
+    }).mockName('cookies().get'),
 
-    getAll() {
-      const allCookies = {}
+    getAll: fn(() => {
+      const allCookies: Record<string, any> = {}
       store.forEach((value, key) => {
         allCookies[key] = value.value
       })
       action('[cookies] getAll')(allCookies)
       return allCookies
-    },
+    }).mockName('cookies().getAll'),
 
-    has(key: string) {
-      const value = store.has(key)
-      action('[cookies] has')({ key, value })
-      return value
-    },
+    has: fn((key: string) => {
+      const exists = store.has(key)
+      action('[cookies] has')({ key, value: exists })
+      return exists
+    }).mockName('cookies().has'),
 
-    get size() {
-      const value = store.size
-      action('[cookies] size')({ value })
-      return value
-    },
+    size: fn(() => {
+      const size = store.size
+      action('[cookies] size')({ value: size })
+      return size
+    }).mockName('cookies().size'),
   }
 }
 
-let store: any
+let cookieStore: any
 
 export const cookies = () => {
-  if (store) {
-    return store
+  if (!cookieStore) {
+    cookieStore = getCookieStore()
   }
-  store = getCookieStore()
+  return cookieStore
+}
 
-  return store
+const getHeadersStore = () => {
+  const store = new Map()
+
+  return {
+    mockRestore: () => {
+      store.clear()
+    },
+
+    set: fn((key: string, value: any) => {
+      store.set(key, value)
+      action('[headers] set')({ key, value })
+    }).mockName('headers().set'),
+
+    entries: fn(() => {
+      const entries = Array.from(store.entries())
+      action('[headers] entries')(entries)
+      return entries
+    }).mockName('headers().entries'),
+
+    forEach: fn((callback: (...args: any[]) => void) => {
+      store.forEach((value, key) => {
+        callback(value, key, store)
+      })
+    }).mockName('headers().forEach'),
+
+    get: fn((key: string | string[]) => {
+      let value
+      if (Array.isArray(key)) {
+        value = key.reduce(
+          (acc, k) => {
+            const header = store.get(k)
+            if (header) {
+              acc[k] = header
+            }
+            return acc
+          },
+          {} as Record<string, any>,
+        )
+      } else {
+        value = store.get(key)
+      }
+      action('[headers] get')({ key, value })
+      return value
+    }).mockName('headers().get'),
+
+    has: fn((key: string) => {
+      const exists = store.has(key)
+      action('[headers] has')({ key, value: exists })
+      return exists
+    }).mockName('headers().has'),
+
+    keys: fn(() => {
+      const keys = Array.from(store.keys())
+      action('[headers] keys')(keys)
+      return keys
+    }).mockName('headers().keys'),
+
+    values: fn(() => {
+      const values = Array.from(store.values())
+      action('[headers] values')(values)
+      return values
+    }).mockName('headers().values'),
+  }
+}
+
+let headerStore: any
+
+export const headers = () => {
+  if (!headerStore) {
+    headerStore = getHeadersStore()
+  }
+  return headerStore
 }

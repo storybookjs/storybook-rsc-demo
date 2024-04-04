@@ -2,6 +2,7 @@ import './style.css'
 
 import React from 'react'
 import Sidebar from '#components/sidebar'
+import { headers } from 'next/headers'
 import AuthButton from '#components/auth-button'
 import { prisma } from '#prisma/prisma'
 import LogoutButton from '#components/logout-button'
@@ -26,6 +27,9 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
+  const shouldAddHTML = headers().get('use-html-tag') ?? true
+
   const notes = await prisma.note.findMany({
     orderBy: {
       id: 'asc',
@@ -37,25 +41,31 @@ export default async function RootLayout({
     )
     : []
 
+  const Wrapper = ({ children }: { children: React.ReactNode }) => (
+    shouldAddHTML ? <html><body>{children}</body></html> : children
+  )
+
   return (
-        <div className="container">
-          <div className="banner">
-            <a
-              href="https://nextjs.org/docs/app/building-your-application/rendering/server-components"
-              target="_blank"
-            >
-              Learn more →
-            </a>
-          </div>
-          <div className="logout-section">
-            <LogoutButton />
-          </div>
-          <div className="main">
-            <Sidebar notes={notesArray}>
-              <AuthButton noteId={null}>Add</AuthButton>
-            </Sidebar>
-            <section className="col note-viewer">{children}</section>
-          </div>
+    <Wrapper>
+      <div className="container">
+        <div className="banner">
+          <a
+            href="https://nextjs.org/docs/app/building-your-application/rendering/server-components"
+            target="_blank"
+          >
+            Learn more →
+          </a>
         </div>
+        <div className="logout-section">
+          <LogoutButton />
+        </div>
+        <div className="main">
+          <Sidebar notes={notesArray}>
+            <AuthButton noteId={null}>Add</AuthButton>
+          </Sidebar>
+          <section className="col note-viewer">{children}</section>
+        </div>
+      </div>
+    </Wrapper>
   )
 }
