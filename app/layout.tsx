@@ -33,29 +33,29 @@ export default async function RootLayout({
   })
   let notesArray = notes
     ? (Object.values(notes) as Note[]).sort(
-        (a, b) => Number(a.id) - Number(b.id),
-      )
+      (a, b) => Number(a.id) - Number(b.id),
+    )
     : []
 
   return (
-    <div className="container">
-      <div className="banner">
-        <a
-          href="https://nextjs.org/docs/app/building-your-application/rendering/server-components"
-          target="_blank"
-        >
-          Learn more →
-        </a>
-      </div>
-      <div className="logout-section">
-        <LogoutButton />
-      </div>
-      <div className="main">
-        <Sidebar notes={notesArray}>
-          <AuthButton noteId={null}>Add</AuthButton>
-        </Sidebar>
-        <section className="col note-viewer">{children}</section>
-      </div>
-    </div>
+        <div className="container">
+          <div className="banner">
+            <a
+              href="https://nextjs.org/docs/app/building-your-application/rendering/server-components"
+              target="_blank"
+            >
+              Learn more →
+            </a>
+          </div>
+          <div className="logout-section">
+            <LogoutButton />
+          </div>
+          <div className="main">
+            <Sidebar notes={notesArray}>
+              <AuthButton noteId={null}>Add</AuthButton>
+            </Sidebar>
+            <section className="col note-viewer">{children}</section>
+          </div>
+        </div>
   )
 }
