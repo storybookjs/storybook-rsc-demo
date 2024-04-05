@@ -8,6 +8,9 @@ dependencies:
   cheerio:
     specifier: ^1.0.0-rc.12
     version: 1.0.0-rc.12
+  cookie-signature-edge:
+    specifier: ^1.0.7
+    version: 1.0.7
   date-fns:
     specifier: ^3.6.0
     version: 3.6.0
@@ -5165,6 +5168,10 @@ packages:
 
   /convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
+
+  /cookie-signature-edge@1.0.7:
+    resolution: {integrity: sha512-Dns00nsYQsBAeSgshGVjb/RiyMqdIjTxpVbyGIUHvmGyMACLbEfIzgty1P5YuOm62tS2iXdFsQVl8b/KUj7/eA==}
+    dev: false
 
   /cookie-signature@1.0.6:
     resolution: {integrity: sha512-QADzlaHc8icV8I7vbaJXJwod9HWYp8uCqf1xa4OfNu1T7JVxQIrUgOWtHdNDtPiywmFbiS12VjotIXLrKM3orQ==}

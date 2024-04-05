@@ -16,7 +16,7 @@ type Story = StoryObj<typeof meta>
 
 export const LoggedIn: Story = {
   loaders: () => {
-    getUserFromSession.mockReturnValueOnce('storybookjs')
+    getUserFromSession.mockReturnValue('storybookjs')
   },
   args: {
     children: "Add"

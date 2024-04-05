@@ -1,10 +1,11 @@
 import NoteUI from '#components/note-ui'
 import { getUserFromSession } from '#libs/get-user-from-session'
+import { prisma } from '#prisma/prisma'
 
 export const metadata = {
   robots: {
-    index: false
-  }
+    index: false,
+  },
 }
 
 type Props = {
@@ -18,9 +19,9 @@ export default async function EditPage({ params }: Props) {
     where: {
       id: params.id,
     },
-  });
+  })
 
-  const isCreator = note?.created_by === user || true
+  const isCreator = note?.createdBy === user || true
 
   if (note === null) {
     return (

@@ -112,7 +112,7 @@ select {
     monospace;
 }
 
-html {
+html, #storybook-root {
   font-size: 100%;
   height: 100%;
 }

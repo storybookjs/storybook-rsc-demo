@@ -8,7 +8,7 @@ import { redirect } from 'next/navigation'
 import { getUserFromSession } from '#libs/get-user-from-session'
 
 export async function saveNote(
-  noteId: string | null,
+  noteId: string | undefined,
   title: string,
   body: string,
 ) {

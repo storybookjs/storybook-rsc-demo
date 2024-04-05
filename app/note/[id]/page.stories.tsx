@@ -1,17 +1,17 @@
 import { Meta, StoryObj } from '@storybook/react'
 import Page from '#app/note/[id]/page'
 import { prisma } from '#prisma/prisma'
-import Layout from '#app/layout'
+import { cookies } from 'next/headers'
+import { createUserCookie, userCookieKey } from '#libs/session'
 
 const meta = {
   component: Page,
-  decorators(Story) {
-    return (
-      <Layout>
-        <Story />
-      </Layout>
-    )
+  parameters: {
+    mode: 'page',
+    layout: 'fullscreen'
   },
+  // TODO: fix autodocs by having docs stories run sequentially
+  // tags: ['autodocs'],
   async loaders() {
     await prisma.note.create({
       data: {
@@ -39,4 +39,13 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {}
+export const LoggedIn: Story = {
+  async loaders() {
+    console.log("LOADER FROM LOGGED IN")
+    const cookieStore = cookies()
+    cookieStore.set(userCookieKey, await createUserCookie('storybookjs'));
+  }
+}
+
+export const NotLoggedIn: Story = {}
+

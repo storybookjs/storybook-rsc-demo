@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { userCookieKey, cookieSep, createEncrypt } from '#libs/session'
+import { userCookieKey } from '#libs/session'
+import { createUserCookie } from '#libs/session'
 
 const CLIENT_ID = process.env.OAUTH_CLIENT_KEY
 const CLIENT_SECRET = process.env.OAUTH_CLIENT_SECRET
@@ -9,7 +10,6 @@ export default async function middleware(req: NextRequest) {
   const { nextUrl } = req
   const { searchParams } = nextUrl
   const query = Object.fromEntries(searchParams)
-  const encrypt = createEncrypt()
   const { code } = query
 
   // When there's no `code` param specified,
@@ -61,7 +61,7 @@ export default async function middleware(req: NextRequest) {
       { message: err.toString() },
       {
         status: 500,
-      }
+      },
     )
   }
 
@@ -70,14 +70,11 @@ export default async function middleware(req: NextRequest) {
       { message: 'Github authorization failed' },
       {
         status: 400,
-      }
+      },
     )
   }
 
-  const user = {
-    name: token,
-    encrypted: await encrypt(token),
-  }
+  const cookieValue = await createUserCookie(token)
 
   const url = req.nextUrl.clone()
   url.searchParams.delete('code')
@@ -85,10 +82,7 @@ export default async function middleware(req: NextRequest) {
 
   const res = NextResponse.redirect(url)
 
-  res.cookies.set(
-    userCookieKey,
-    `${user.name}${cookieSep}${user.encrypted}; Secure; HttpOnly`
-  )
+  res.cookies.set(userCookieKey, `${cookieValue}; Secure; HttpOnly`)
 
   return res
 }
