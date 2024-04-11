@@ -1,8 +1,8 @@
+import { expect, fireEvent, userEvent, within } from '@storybook/test';
 import { Meta, StoryObj } from '@storybook/react'
-import NoteUI from "./note-ui";
 import { notes } from '#prisma/mock-data'
 import { saveNote, deleteNote } from '#app/actions.mock'
-import { expect, fireEvent, userEvent, within } from '@storybook/test';
+import NoteUI from "./note-ui";
 
 const meta = {
   title: 'Mocked/NoteUI',

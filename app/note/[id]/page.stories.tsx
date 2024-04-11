@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react'
 import Page from '#app/note/[id]/page'
 import { prisma } from '#prisma/prisma'
-import { cookies } from 'next/headers'
+import { cookies } from '@storybook/nextjs/headers.mock'
 import { createUserCookie, userCookieKey } from '#libs/session'
 
 const meta = {
@@ -41,9 +41,8 @@ type Story = StoryObj<typeof meta>
 
 export const LoggedIn: Story = {
   async loaders() {
-    console.log("LOADER FROM LOGGED IN")
-    const cookieStore = cookies()
-    cookieStore.set(userCookieKey, await createUserCookie('storybookjs'));
+    const cookiesMock = cookies()
+    cookiesMock.set(userCookieKey, await createUserCookie('storybookjs'));
   }
 }
 

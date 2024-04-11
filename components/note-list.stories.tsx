@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react'
-import NoteList from "./note-list";
 import { notes } from '#prisma/mock-data'
+import NoteList from "./note-list";
 
 const meta = {
   title: 'No Mocks/NoteList',

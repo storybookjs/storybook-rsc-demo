@@ -23,10 +23,6 @@ const preview: Preview = {
   loaders() {
     const data = prisma.$getInternalState()
     for (var member in data) data[member as keyof typeof data] = []
-    // @ts-expect-error TODO fix this later
-    mocked(cookies()).mockRestore()
-    // @ts-expect-error TODO fix this later
-    mocked(headers()).mockRestore()
 
     // Layout uses html/body which breaks Storybook. We can disable it via a header
     headers().set('use-html-tag', false)
