@@ -17,7 +17,7 @@ export default function AuthButton({
   if (user) {
     return (
       // Use hard link
-      <a href={`/note/edit/${noteId || ''}`} className="link--unstyled">
+      <Link href={`/note/edit/${noteId || ''}`} className="link--unstyled">
         <button
           className={[
             'edit-button',
@@ -35,7 +35,7 @@ export default function AuthButton({
             height={40}
           />
         </button>
-      </a>
+      </Link>
     )
   }
 

@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react'
+import { useSearchParams } from '@storybook/nextjs/navigation.mock'
 import Page from '#app/note/[id]/page'
 import { prisma } from '#prisma/prisma'
 import { cookies } from '@storybook/nextjs/headers.mock'
@@ -8,7 +9,13 @@ const meta = {
   component: Page,
   parameters: {
     mode: 'page',
-    layout: 'fullscreen'
+    layout: 'fullscreen',
+    // docs: {
+    //   story: {
+    //     inline: false,
+    //     height: 800,
+    //   }
+    // }
   },
   // TODO: fix autodocs by having docs stories run sequentially
   // tags: ['autodocs'],
@@ -47,4 +54,16 @@ export const LoggedIn: Story = {
 }
 
 export const NotLoggedIn: Story = {}
+
+export const WithSearchFilter: Story = {
+  async loaders() {
+    useSearchParams.mockReturnValue({ get: () => 'RSC' })
+  }
+}
+
+export const EmptyState: Story = {
+  async loaders() {
+    await prisma.note.deleteMany()
+  }
+}
 
