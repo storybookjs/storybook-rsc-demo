@@ -1,11 +1,10 @@
 import React from 'react'
 import '../app/style.css'
 import type { Preview } from '@storybook/react'
-import { mocked } from '@storybook/test'
 import { prisma } from '#prisma/prisma.mock'
 
 import Layout from '#app/layout';
-import { cookies, headers } from 'next/headers'
+import { headers } from 'next/headers'
 
 const preview: Preview = {
   parameters: {
