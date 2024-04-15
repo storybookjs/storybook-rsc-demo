@@ -1,5 +1,5 @@
 import { type Prisma, type PrismaClient } from '@prisma/client'
-import { fn } from '@storybook/test'
+import { fn, isMockFunction } from '@storybook/test'
 import createPrismaMock, { PrismaMockData } from 'prisma-mock'
 import json from '#prisma/dmmf.json'
 
@@ -22,4 +22,13 @@ export let prisma = createPrismaMock<
 
 export function resetMockDB() {
   prisma = createPrismaClientMock()
+
+  // Give some more useful spy names
+  for (const [tableName, table] of Object.entries(prisma)) {
+    for (const [methodName, method] of Object.entries(table)) {
+      if (isMockFunction(method)) {
+        method.mockName(`prisma.${tableName}.${methodName}`)
+      }
+    }
+  }
 }

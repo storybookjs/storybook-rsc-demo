@@ -4,6 +4,7 @@ import { cookies } from '@storybook/nextjs/headers.mock'
 import Page from '#app/note/[id]/page'
 import { prisma } from '#lib/db'
 import { createUserCookie, userCookieKey } from '#lib/session'
+import { PageDecorator } from '#.storybook/decorators'
 
 const meta = {
   component: Page,
@@ -11,6 +12,7 @@ const meta = {
     mode: 'page',
     layout: 'fullscreen',
   },
+  decorators: [PageDecorator],
   async beforeEach() {
     await prisma.note.create({
       data: {
