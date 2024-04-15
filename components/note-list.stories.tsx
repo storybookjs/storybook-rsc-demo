@@ -3,7 +3,6 @@ import { notes } from '#prisma/mock-data'
 import NoteList from "./note-list";
 
 const meta = {
-  title: 'No Mocks/NoteList',
   component: NoteList,
   args: {
     searchText: null
