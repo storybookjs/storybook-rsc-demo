@@ -7,10 +7,7 @@ type Props = {
   noteId: string | null
 }
 
-export default function AuthButton({
-  children,
-  noteId
-}: Props) {
+export default function AuthButton({ children, noteId }: Props) {
   const user = getUserFromSession()
   const isDraft = noteId == null
 
@@ -21,7 +18,7 @@ export default function AuthButton({
         <button
           className={[
             'edit-button',
-            isDraft ? 'edit-button--solid' : 'edit-button--outline'
+            isDraft ? 'edit-button--solid' : 'edit-button--outline',
           ].join(' ')}
           role="menuitem"
         >
@@ -44,7 +41,7 @@ export default function AuthButton({
       <button
         className={[
           'edit-button',
-          isDraft ? 'edit-button--solid' : 'edit-button--outline'
+          isDraft ? 'edit-button--solid' : 'edit-button--outline',
         ].join(' ')}
         role="menuitem"
       >

@@ -8,10 +8,7 @@ import { PageDecorator } from '#.storybook/decorators'
 
 const meta = {
   component: Page,
-  parameters: {
-    mode: 'page',
-    layout: 'fullscreen',
-  },
+  parameters: { layout: 'fullscreen' },
   decorators: [PageDecorator],
   async beforeEach() {
     await prisma.note.create({

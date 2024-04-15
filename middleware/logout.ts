@@ -9,7 +9,7 @@ export default async function middleware(req: NextRequest) {
 
   res.cookies.set(
     userCookieKey,
-    `deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`
+    `deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`,
   )
 
   return res

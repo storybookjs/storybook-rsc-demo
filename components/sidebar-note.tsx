@@ -10,7 +10,12 @@ type Props = {
   expandedChildren: React.ReactNode
 }
 
-export default function SidebarNote({ id, title, children, expandedChildren }: Props) {
+export default function SidebarNote({
+  id,
+  title,
+  children,
+  expandedChildren,
+}: Props) {
   const router = useRouter()
   const pathname = usePathname()
   const selectedId = pathname?.split('/')[1] || null
@@ -37,7 +42,7 @@ export default function SidebarNote({ id, title, children, expandedChildren }: P
       }}
       className={[
         'sidebar-note-list-item',
-        isExpanded ? 'note-expanded' : ''
+        isExpanded ? 'note-expanded' : '',
       ].join(' ')}
     >
       {children}
@@ -51,11 +56,13 @@ export default function SidebarNote({ id, title, children, expandedChildren }: P
               : undefined,
           border: isActive
             ? '1px solid var(--primary-border)'
-            : '1px solid transparent'
+            : '1px solid transparent',
         }}
         onClick={() => {
           // hide the sidebar
-          const sidebarToggle = document.getElementById('sidebar-toggle') as HTMLInputElement
+          const sidebarToggle = document.getElementById(
+            'sidebar-toggle',
+          ) as HTMLInputElement
           if (sidebarToggle) {
             sidebarToggle.checked = true
           }
