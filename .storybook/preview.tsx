@@ -19,7 +19,7 @@ const preview: Preview = {
       appDirectory: true,
     },
   },
-  loaders() {
+  beforeEach() {
     const data = prisma.$getInternalState()
     for (var member in data) data[member as keyof typeof data] = []
 

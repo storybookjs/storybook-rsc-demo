@@ -19,7 +19,7 @@ const meta = {
   },
   // TODO: fix autodocs by having docs stories run sequentially
   // tags: ['autodocs'],
-  async loaders() {
+  async beforeEach() {
     await prisma.note.create({
       data: {
         id: '1',
@@ -47,7 +47,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const LoggedIn: Story = {
-  async loaders() {
+  async beforeEach() {
     const cookiesMock = cookies()
     cookiesMock.set(userCookieKey, await createUserCookie('storybookjs'));
   }
@@ -56,13 +56,13 @@ export const LoggedIn: Story = {
 export const NotLoggedIn: Story = {}
 
 export const WithSearchFilter: Story = {
-  async loaders() {
+  async beforeEach() {
     useSearchParams.mockReturnValue({ get: () => 'RSC' })
   }
 }
 
 export const EmptyState: Story = {
-  async loaders() {
+  async beforeEach() {
     await prisma.note.deleteMany()
   }
 }

@@ -19,7 +19,7 @@ export default meta;
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  loaders: () => {
+  beforeEach: () => {
     getUserFromSession.mockReturnValueOnce('storybookjs')
   },
   args: {

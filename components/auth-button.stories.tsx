@@ -15,7 +15,7 @@ export default meta;
 type Story = StoryObj<typeof meta>
 
 export const LoggedIn: Story = {
-  loaders: () => {
+  beforeEach: () => {
     getUserFromSession.mockReturnValue('storybookjs')
   },
   args: {
@@ -24,7 +24,7 @@ export const LoggedIn: Story = {
 }
 
 export const LoggedOut: Story = {
-  loaders: () => {
+  beforeEach: () => {
     getUserFromSession.mockReturnValueOnce(null)
   },
 }
