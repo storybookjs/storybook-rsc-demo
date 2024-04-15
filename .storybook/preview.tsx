@@ -1,10 +1,7 @@
 import React from 'react'
 import '../app/style.css'
 import type { Preview } from '@storybook/react'
-import { prisma } from '#lib/db.mock'
-
-import Layout from '#app/layout'
-import { headers } from 'next/headers'
+import { Layout } from '#app/layout'
 import { resetMockDB } from '#lib/db.mock'
 
 const preview: Preview = {
