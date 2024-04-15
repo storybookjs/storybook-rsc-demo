@@ -5,7 +5,7 @@ import json from '#prisma/dmmf.json'
 
 // @ts-expect-error Maybe we should contribute to prisma-mock
 // To make sure it is not tightly coupled with jest
-globalThis.jest = fn
+globalThis.jest = { fn }
 
 const createPrismaClientMock = () =>
   createPrismaMock<

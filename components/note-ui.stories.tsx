@@ -1,33 +1,30 @@
-import { expect, fireEvent, userEvent, within } from '@storybook/test';
+import { expect, fireEvent, userEvent, within } from '@storybook/test'
 import { Meta, StoryObj } from '@storybook/react'
-import { notes } from '#prisma/mock-data'
 import { saveNote, deleteNote } from '#app/actions.mock'
-import NoteUI from "./note-ui";
+import NoteUI from '#components/note-ui'
+import { createNotes } from '#mocks/notes'
 
 const meta = {
   title: 'Mocked/NoteUI',
   component: NoteUI,
 } satisfies Meta<typeof NoteUI>
 
-export default meta;
+export default meta
 
 type Story = StoryObj<typeof meta>
 
+const notes = createNotes()
+
 export const Default: Story = {
-  args: {
-    isEditing: false,
-    note: notes[0],
-  }
+  args: { isEditing: false, note: notes[0] },
 }
 
 export const EditMode: Story = {
-  args: {
-    isEditing: true,
-    note: notes[0],
-  }
+  args: { isEditing: true, note: notes[0] },
 }
 
 export const EditModeFlow: Story = {
+  name: 'Edit Mode Flow ▶',
   args: {
     isEditing: true,
     note: notes[0],
@@ -58,6 +55,5 @@ export const EditModeFlow: Story = {
       await userEvent.click(deleteButton)
       await expect(deleteNote).toHaveBeenCalled()
     })
-  }
+  },
 }
-EditModeFlow.storyName = 'Edit Mode Flow ▶'
