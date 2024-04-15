@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react'
 import AuthButton from "./auth-button";
-import { getUserFromSession } from '#libs/get-user-from-session.mock';
+import { getUserFromSession } from '#lib/session.mock';
 
 const meta = {
   title: 'Mocked/AuthButton',

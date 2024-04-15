@@ -1,11 +1,11 @@
 'use server'
 
-import { prisma } from '#prisma/prisma'
-import { userCookieKey } from '#libs/session'
+import { prisma } from '#lib/db'
+import { userCookieKey } from '#lib/session'
 import { cookies } from 'next/headers'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
-import { getUserFromSession } from '#libs/get-user-from-session'
+import { getUserFromSession } from '#lib/session'
 
 export async function saveNote(
   noteId: string | undefined,

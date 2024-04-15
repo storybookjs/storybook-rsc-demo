@@ -4,7 +4,7 @@ import React from 'react'
 import Sidebar from '#components/sidebar'
 import { headers } from 'next/headers'
 import AuthButton from '#components/auth-button'
-import { prisma } from '#prisma/prisma'
+import { prisma } from '#lib/db'
 import LogoutButton from '#components/logout-button'
 import { type Note } from '@prisma/client'
 

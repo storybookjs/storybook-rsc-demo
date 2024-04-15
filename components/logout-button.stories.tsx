@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react'
 import { within, userEvent, expect } from '@storybook/test'
 import LogoutButton from "./logout-button";
-import { getUserFromSession } from '#libs/get-user-from-session.mock';
+import { getUserFromSession } from '#lib/session.mock';
 import { logout } from '#app/actions.mock';
 
 const meta = {

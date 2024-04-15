@@ -5,13 +5,13 @@
       "storybook": "./app/actions.mock.ts",
       "default": "./app/actions.ts"
     },
-    "#libs/get-user-from-session": {
-      "storybook": "./libs/get-user-from-session.mock.ts",
-      "default": "./libs/get-user-from-session.ts"
+    "#lib/session": {
+      "storybook": "./lib/session.mock.ts",
+      "default": "./lib/session.ts"
     },
-    "#prisma/prisma": {
-      "storybook": "./prisma/prisma.mock.ts",
-      "default": "./prisma/prisma.ts"
+    "#lib/db": {
+      "storybook": "./lib/db.mock.ts",
+      "default": "./lib/db.ts"
     },
     "#*": [
       "./*",

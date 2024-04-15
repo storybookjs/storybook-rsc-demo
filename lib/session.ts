@@ -1,4 +1,5 @@
 import { sign, unsign } from 'cookie-signature-edge'
+import { cookies } from 'next/headers'
 
 export const userCookieKey = '_un'
 export const cookieSep = '^)&_*($'
@@ -45,4 +46,10 @@ export function getUser(userCookie?: string) {
 export async function createUserCookie(token: string) {
   const encrypt = createEncrypt()
   return `${token}${cookieSep}${await encrypt(token)}`
+}
+
+export function getUserFromSession() {
+  const cookieStore = cookies()
+  const userCookie = cookieStore.get(userCookieKey)
+  return getUser(userCookie?.value)
 }

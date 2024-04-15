@@ -1,9 +1,9 @@
 import { Meta, StoryObj } from '@storybook/react'
 import { useSearchParams } from '@storybook/nextjs/navigation.mock'
 import Page from '#app/note/[id]/page'
-import { prisma } from '#prisma/prisma'
+import { prisma } from '#lib/db'
 import { cookies } from '@storybook/nextjs/headers.mock'
-import { createUserCookie, userCookieKey } from '#libs/session'
+import { createUserCookie, userCookieKey } from '#lib/session'
 
 const meta = {
   component: Page,

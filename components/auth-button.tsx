@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { getUserFromSession } from '#libs/get-user-from-session'
+import { getUserFromSession } from '#lib/session'
 
 type Props = {
   children?: React.ReactNode

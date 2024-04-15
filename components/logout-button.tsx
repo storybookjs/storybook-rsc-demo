@@ -1,5 +1,5 @@
 import { logout } from '#app/actions'
-import { getUserFromSession } from '#libs/get-user-from-session'
+import { getUserFromSession } from '#lib/session'
 
 export default function LogoutButton() {
   const user = getUserFromSession()

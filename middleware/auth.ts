@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { userCookieKey } from '#libs/session'
-import { createUserCookie } from '#libs/session'
+import { userCookieKey } from '#lib/session'
+import { createUserCookie } from '#lib/session'
 
 const CLIENT_ID = process.env.OAUTH_CLIENT_KEY
 const CLIENT_SECRET = process.env.OAUTH_CLIENT_SECRET
