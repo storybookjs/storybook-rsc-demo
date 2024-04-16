@@ -1,16 +1,16 @@
 import { Meta, StoryObj } from '@storybook/react'
-import AuthButton from "./auth-button";
-import { getUserFromSession } from '#libs/get-user-from-session.mock';
+import AuthButton from './auth-button'
+import { getUserFromSession } from '#lib/session.mock'
 
 const meta = {
   title: 'Mocked/AuthButton',
   component: AuthButton,
   args: {
-    noteId: null
-  }
+    noteId: null,
+  },
 } satisfies Meta<typeof AuthButton>
 
-export default meta;
+export default meta
 
 type Story = StoryObj<typeof meta>
 
@@ -19,8 +19,8 @@ export const LoggedIn: Story = {
     getUserFromSession.mockReturnValue('storybookjs')
   },
   args: {
-    children: "Add"
-  }
+    children: 'Add',
+  },
 }
 
 export const LoggedOut: Story = {

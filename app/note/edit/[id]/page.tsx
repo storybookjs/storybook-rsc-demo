@@ -1,6 +1,6 @@
 import NoteUI from '#components/note-ui'
-import { getUserFromSession } from '#libs/get-user-from-session'
-import { prisma } from '#prisma/prisma'
+import { getUserFromSession } from '#lib/session'
+import { prisma } from '#lib/db'
 
 export const metadata = {
   robots: {

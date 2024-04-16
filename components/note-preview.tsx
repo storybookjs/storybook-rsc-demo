@@ -8,17 +8,21 @@ const allowedTags = sanitizeHtml.defaults.allowedTags.concat([
   'img',
   'h1',
   'h2',
-  'h3'
+  'h3',
 ])
 const allowedAttributes = Object.assign(
   {},
   sanitizeHtml.defaults.allowedAttributes,
   {
-    img: ['alt', 'src']
-  }
+    img: ['alt', 'src'],
+  },
 )
 
-export default function NotePreview({ children }: { children: React.ReactNode }) {
+export default function NotePreview({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
     <div className="note-preview">
       <div
@@ -26,8 +30,8 @@ export default function NotePreview({ children }: { children: React.ReactNode })
         dangerouslySetInnerHTML={{
           __html: sanitizeHtml(marked(children || ''), {
             allowedTags,
-            allowedAttributes
-          })
+            allowedAttributes,
+          }),
         }}
       />
     </div>

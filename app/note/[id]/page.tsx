@@ -1,10 +1,10 @@
 import NoteUI from '#components/note-ui'
-import { prisma } from '#prisma/prisma'
+import { prisma } from '#lib/db'
 
 export const metadata = {
   robots: {
-    index: false
-  }
+    index: false,
+  },
 }
 
 type Props = {
@@ -16,7 +16,7 @@ export default async function Page({ params }: Props) {
     where: {
       id: params.id,
     },
-  });
+  })
 
   if (note === null) {
     return (

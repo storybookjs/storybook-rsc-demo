@@ -1,6 +1,6 @@
 import { type Note } from '@prisma/client'
 
-export const notes: Note[] = [
+export const createNotes: () => Note[] = () => [
   {
     id: '1',
     title: 'Module mocking in Storybook?',

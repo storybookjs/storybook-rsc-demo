@@ -3,18 +3,18 @@ import NoteEditor from '#components/note-editor'
 import AuthButton from '#components/auth-button'
 import Image from 'next/image'
 import { format } from 'date-fns'
-import { getUserFromSession } from '#libs/get-user-from-session'
+import { getUserFromSession } from '#lib/session'
 import { type Note } from '@prisma/client'
 
 type Props =
   | {
-    note: Partial<Note>
-    isEditing: true
-  }
+      note: Partial<Note>
+      isEditing: true
+    }
   | {
-    note: Note
-    isEditing: false
-  }
+      note: Note
+      isEditing: false
+    }
 
 export default function NoteUI({ note, isEditing }: Props) {
   const user = getUserFromSession()

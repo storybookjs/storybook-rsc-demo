@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { userCookieKey } from '#libs/session'
+import { userCookieKey } from '#lib/session'
 
 export default async function middleware(req: NextRequest) {
   const url = req.nextUrl.clone()
@@ -9,7 +9,7 @@ export default async function middleware(req: NextRequest) {
 
   res.cookies.set(
     userCookieKey,
-    `deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`
+    `deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`,
   )
 
   return res

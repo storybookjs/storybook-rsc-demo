@@ -1,24 +1,15 @@
 import { Meta, StoryObj } from '@storybook/react'
 import { useSearchParams } from '@storybook/nextjs/navigation.mock'
-import Page from '#app/note/[id]/page'
-import { prisma } from '#prisma/prisma'
 import { cookies } from '@storybook/nextjs/headers.mock'
-import { createUserCookie, userCookieKey } from '#libs/session'
+import Page from '#app/note/[id]/page'
+import { prisma } from '#lib/db'
+import { createUserCookie, userCookieKey } from '#lib/session'
+import { PageDecorator } from '#.storybook/decorators'
 
 const meta = {
   component: Page,
-  parameters: {
-    mode: 'page',
-    layout: 'fullscreen',
-    // docs: {
-    //   story: {
-    //     inline: false,
-    //     height: 800,
-    //   }
-    // }
-  },
-  // TODO: fix autodocs by having docs stories run sequentially
-  // tags: ['autodocs'],
+  parameters: { layout: 'fullscreen' },
+  decorators: [PageDecorator],
   async beforeEach() {
     await prisma.note.create({
       data: {
@@ -48,22 +39,20 @@ type Story = StoryObj<typeof meta>
 
 export const LoggedIn: Story = {
   async beforeEach() {
-    const cookiesMock = cookies()
-    cookiesMock.set(userCookieKey, await createUserCookie('storybookjs'));
-  }
+    cookies().set(userCookieKey, await createUserCookie('storybookjs'))
+  },
 }
 
 export const NotLoggedIn: Story = {}
 
 export const WithSearchFilter: Story = {
-  async beforeEach() {
+  beforeEach() {
     useSearchParams.mockReturnValue({ get: () => 'RSC' })
-  }
+  },
 }
 
 export const EmptyState: Story = {
   async beforeEach() {
     await prisma.note.deleteMany()
-  }
+  },
 }
-
