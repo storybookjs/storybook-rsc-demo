@@ -3,7 +3,6 @@ import NoteList from '#components/note-list'
 import { createNotes } from '#mocks/notes'
 
 const meta = {
-  title: 'No Mocks/NoteList',
   component: NoteList,
   args: {
     searchText: null,

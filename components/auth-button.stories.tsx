@@ -3,7 +3,6 @@ import AuthButton from './auth-button'
 import { getUserFromSession } from '#lib/session.mock'
 
 const meta = {
-  title: 'Mocked/AuthButton',
   component: AuthButton,
   args: {
     noteId: null,
