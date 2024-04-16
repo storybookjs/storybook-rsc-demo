@@ -3,7 +3,6 @@
 import { prisma } from '#lib/db'
 import { userCookieKey } from '#lib/session'
 import { cookies } from 'next/headers'
-import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { getUserFromSession } from '#lib/session'
 
@@ -35,7 +34,6 @@ export async function saveNote(
     create: payload,
   })
 
-  revalidatePath('/')
   redirect(`/note/${noteId}`)
 }
 
@@ -46,7 +44,6 @@ export async function deleteNote(noteId: string) {
     },
   })
 
-  revalidatePath('/')
   redirect('/')
 }
 
