@@ -53,3 +53,9 @@ export async function logout() {
 
   redirect('/')
 }
+
+export async function login() {
+  redirect(
+    `https://github.com/login/oauth/authorize?client_id=${process.env.OAUTH_CLIENT_KEY}&allow_signup=false`,
+  )
+}

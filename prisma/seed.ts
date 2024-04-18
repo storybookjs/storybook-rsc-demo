@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client'
-import { createNotes } from '#mocks/notes'
+import { createNotes } from '../mocks/notes'
 const prisma = new PrismaClient()
 
 async function main() {

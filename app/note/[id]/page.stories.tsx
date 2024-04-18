@@ -5,6 +5,8 @@ import Page from '#app/note/[id]/page'
 import { prisma } from '#lib/db'
 import { createUserCookie, userCookieKey } from '#lib/session'
 import { PageDecorator } from '#.storybook/decorators'
+import { login } from '#app/actions.mock'
+import * as auth from '#app/auth/route'
 
 const meta = {
   component: Page,
@@ -43,7 +45,13 @@ export const LoggedIn: Story = {
   },
 }
 
-export const NotLoggedIn: Story = {}
+export const NotLoggedIn: Story = {
+  beforeEach() {
+    login.mockImplementation(async () => {
+      return await auth.GET(new Request('/auth?code=storybookjs'))
+    })
+  },
+}
 
 export const WithSearchFilter: Story = {
   beforeEach() {

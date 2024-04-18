@@ -1,9 +1,11 @@
+import { ReactNode } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { getUserFromSession } from '#lib/session'
+import { login } from '#app/actions'
 
 type Props = {
-  children?: React.ReactNode
+  children?: ReactNode
   noteId: string | null
 }
 
@@ -37,7 +39,7 @@ export default function AuthButton({ children, noteId }: Props) {
   }
 
   return (
-    <Link href="/auth" className="link--unstyled">
+    <form action={login}>
       <button
         className={[
           'edit-button',
@@ -47,6 +49,6 @@ export default function AuthButton({ children, noteId }: Props) {
       >
         Login to Add
       </button>
-    </Link>
+    </form>
   )
 }
