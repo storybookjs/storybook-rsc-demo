@@ -1,7 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react'
-import { useSearchParams } from '@storybook/nextjs/navigation.mock'
 import { cookies } from '@storybook/nextjs/headers.mock'
-import Page from '#app/note/[id]/page'
+import { http } from 'msw'
+import { getWorker } from 'msw-storybook-addon'
+import Page from './page'
 import { prisma } from '#lib/db'
 import { createUserCookie, userCookieKey } from '#lib/session'
 import { PageDecorator } from '#.storybook/decorators'
@@ -47,15 +48,26 @@ export const LoggedIn: Story = {
 
 export const NotLoggedIn: Story = {
   beforeEach() {
+    // Point the login implementation to the endpoint github would have redirected too.
     login.mockImplementation(async () => {
       return await auth.GET(new Request('/auth?code=storybookjs'))
     })
-  },
-}
 
-export const WithSearchFilter: Story = {
-  beforeEach() {
-    useSearchParams.mockReturnValue({ get: () => 'RSC' })
+    // Mock out OAUTH
+    getWorker().use(
+      http.post(
+        'https://github.com/login/oauth/access_token',
+        async ({ request }) => {
+          let json = (await request.json()) as any
+          return Response.json({ access_token: json.code })
+        },
+      ),
+      http.get('https://api.github.com/user', async ({ request }) =>
+        Response.json({
+          login: request.headers.get('Authorization')?.replace('token ', ''),
+        }),
+      ),
+    )
   },
 }
 
