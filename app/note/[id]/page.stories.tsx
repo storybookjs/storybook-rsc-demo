@@ -3,7 +3,7 @@ import { cookies } from '@storybook/nextjs/headers.mock'
 import { http } from 'msw'
 import { getWorker } from 'msw-storybook-addon'
 import Page from './page'
-import { prisma } from '#lib/db'
+import { db } from '#lib/db'
 import { createUserCookie, userCookieKey } from '#lib/session'
 import { PageDecorator } from '#.storybook/decorators'
 import { login } from '#app/actions.mock'
@@ -14,7 +14,7 @@ const meta = {
   parameters: { layout: 'fullscreen' },
   decorators: [PageDecorator],
   async beforeEach() {
-    await prisma.note.create({
+    await db.note.create({
       data: {
         id: '1',
         title: 'Module mocking in Storybook?',
@@ -22,7 +22,7 @@ const meta = {
         createdBy: 'storybookjs',
       },
     })
-    await prisma.note.create({
+    await db.note.create({
       data: {
         id: '2',
         title: 'RSC support as well??',
@@ -73,6 +73,6 @@ export const NotLoggedIn: Story = {
 
 export const EmptyState: Story = {
   async beforeEach() {
-    await prisma.note.deleteMany()
+    await db.note.deleteMany()
   },
 }

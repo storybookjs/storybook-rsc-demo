@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react'
 import { cookies } from 'next/headers'
 import Page from './page'
-import { prisma } from '#lib/db'
+import { db } from '#lib/db'
 import { createUserCookie, userCookieKey } from '#lib/session'
 import { PageDecorator } from '#.storybook/decorators'
 
@@ -12,7 +12,7 @@ const meta = {
   async beforeEach() {
     cookies().set(userCookieKey, await createUserCookie('storybookjs'))
 
-    await prisma.note.create({
+    await db.note.create({
       data: {
         id: '1',
         title: 'Module mocking in Storybook?',
@@ -20,7 +20,7 @@ const meta = {
         createdBy: 'storybookjs',
       },
     })
-    await prisma.note.create({
+    await db.note.create({
       data: {
         id: '2',
         title: 'RSC support as well??',
