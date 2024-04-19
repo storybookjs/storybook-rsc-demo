@@ -5,7 +5,6 @@ import { getUserFromSession } from '#lib/session.mock'
 import { logout } from '#app/actions.mock'
 
 const meta = {
-  title: 'Mocked/LogoutButton',
   component: LogoutButton,
   parameters: {
     backgrounds: {

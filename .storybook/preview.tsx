@@ -6,6 +6,7 @@ import { onMockCall } from '@storybook/test'
 onMockCall((spy, args) => {
   console.log(spy.name, args)
 })
+
 const preview: Preview = {
   parameters: {
     controls: {

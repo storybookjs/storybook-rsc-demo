@@ -5,7 +5,6 @@ import NoteUI from '#components/note-ui'
 import { createNotes } from '#mocks/notes'
 
 const meta = {
-  title: 'Mocked/NoteUI',
   component: NoteUI,
 } satisfies Meta<typeof NoteUI>
 
