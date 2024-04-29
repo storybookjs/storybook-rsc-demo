@@ -1,50 +1,56 @@
 'use client'
 
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useTransition } from 'react'
+import { useFormStatus } from 'react-dom'
 
 export default function SearchField() {
   const { replace } = useRouter()
   const pathname = usePathname()
-  const [isPending, startTransition] = useTransition()
+  const searchParams = useSearchParams()
 
-  function handleSearch(term: string) {
-    const params = new URLSearchParams(window.location.search)
-    if (term) {
-      params.set('q', term)
+  console.log(pathname, [...searchParams])
+
+  function search(form: FormData) {
+    const params = new URLSearchParams(searchParams)
+    const query = form.get('q')
+    if (typeof query === 'string' && query) {
+      params.set('q', query)
     } else {
       params.delete('q')
     }
 
-    startTransition(() => {
-      replace(`${pathname}?${params.toString()}`)
-    })
+    replace(`${pathname}?${params.toString()}`)
   }
 
   return (
-    <div className="search" role="search">
+    <form action={search} className="search" role="search">
       <label className="offscreen" htmlFor="sidebar-search-input">
         Search for a note by title
       </label>
       <input
         id="sidebar-search-input"
         type="text"
-        name="search"
+        name="q"
+        defaultValue={searchParams.get('q') ?? undefined}
         placeholder="Search"
         spellCheck={false}
-        onChange={(e) => handleSearch(e.target.value)}
+        onChange={(e) => {
+          e.currentTarget.form?.requestSubmit()
+        }}
       />
-      <Spinner active={isPending} />
-    </div>
+      <Spinner />
+    </form>
   )
 }
 
-function Spinner({ active = true }) {
+function Spinner() {
+  const { pending } = useFormStatus()
   return (
     <div
-      className={['spinner', active && 'spinner--active'].join(' ')}
+      className={['spinner', pending && 'spinner--active'].join(' ')}
       role="progressbar"
-      aria-busy={active ? 'true' : 'false'}
+      aria-busy={pending ? 'true' : 'false'}
     />
   )
 }

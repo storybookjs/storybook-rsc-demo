@@ -3,7 +3,7 @@ import { cookies } from '@storybook/nextjs/headers.mock'
 import { http } from 'msw'
 import { getWorker } from 'msw-storybook-addon'
 import Page from './page'
-import { db } from '#lib/db'
+import { db, initMockDb } from '#lib/db.mock'
 import { createUserCookie, userCookieKey } from '#lib/session'
 import { PageDecorator } from '#.storybook/decorators'
 import { login } from '#app/actions.mock'
@@ -11,7 +11,6 @@ import * as auth from '#app/auth/route'
 
 const meta = {
   component: Page,
-  parameters: { layout: 'fullscreen' },
   decorators: [PageDecorator],
   async beforeEach() {
     await db.note.create({
@@ -31,9 +30,16 @@ const meta = {
       },
     })
   },
-  args: {
-    params: { id: '2' },
+  parameters: {
+    layout: 'fullscreen',
+    nextjs: {
+      navigation: {
+        pathname: '/note/[id]',
+        query: { id: '1' },
+      },
+    },
   },
+  args: { params: { id: '1' } },
 } satisfies Meta<typeof Page>
 
 export default meta
@@ -71,8 +77,18 @@ export const NotLoggedIn: Story = {
   },
 }
 
+export const WithSearchFilter: Story = {
+  parameters: {
+    nextjs: {
+      navigation: {
+        query: { q: 'RSC' },
+      },
+    },
+  },
+}
+
 export const EmptyState: Story = {
   async beforeEach() {
-    await db.note.deleteMany()
+    initMockDb({}) // init an empty DB
   },
 }

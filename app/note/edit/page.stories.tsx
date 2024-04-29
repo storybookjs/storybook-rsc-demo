@@ -7,7 +7,14 @@ import { PageDecorator } from '#.storybook/decorators'
 
 const meta = {
   component: Page,
-  parameters: { layout: 'fullscreen' },
+  parameters: {
+    layout: 'fullscreen',
+    nextjs: {
+      navigation: {
+        pathname: '/note/edit',
+      },
+    },
+  },
   decorators: [PageDecorator],
   async beforeEach() {
     cookies().set(userCookieKey, await createUserCookie('storybookjs'))
