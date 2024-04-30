@@ -1,6 +1,6 @@
 import '../app/style.css'
 import type { Preview } from '@storybook/react'
-import { resetMockDB } from '#lib/db.mock'
+import { initMockDb } from '#lib/db.mock'
 import { initialize, mswLoader } from 'msw-storybook-addon'
 
 initialize({ onUnhandledRequest: 'bypass' })
@@ -17,7 +17,7 @@ const preview: Preview = {
   },
   loaders: [mswLoader],
   beforeEach() {
-    resetMockDB()
+    initMockDb()
   },
 }
 
