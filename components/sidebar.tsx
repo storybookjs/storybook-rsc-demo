@@ -11,7 +11,7 @@ import Image from 'next/image'
 import { type Note } from '@prisma/client'
 
 type Props = {
-  children: React.ReactNode
+  children?: React.ReactNode
   notes: Note[]
 }
 

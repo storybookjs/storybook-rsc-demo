@@ -1,5 +1,4 @@
-import { type Note } from '@prisma/client'
-import { faker } from '@faker-js/faker'
+import { type Note, type PrismaClient } from '@prisma/client'
 
 export const createNotes: () => Note[] = () => {
   // Fixed dates for consistent screenshots
@@ -7,7 +6,7 @@ export const createNotes: () => Note[] = () => {
   const otherDate = new Date('2024-04-19T15:22:04Z')
   return [
     {
-      id: '1',
+      id: 1,
       title: 'Module mocking in Storybook?',
       body: "Yup, that's a thing now! 🎉",
       createdBy: 'storybookjs',
@@ -15,12 +14,18 @@ export const createNotes: () => Note[] = () => {
       updatedAt: date,
     },
     {
-      id: '2',
-      title: 'Hello World',
+      id: 2,
+      title: 'RSC support as well??',
       body: 'RSC is pretty cool, even cooler that Storybook supports it!',
       createdBy: 'storybookjs',
       createdAt: otherDate,
       updatedAt: otherDate,
     },
   ]
+}
+
+export const seed = async (db: PrismaClient) => {
+  for (const note of createNotes()) {
+    await db.note.create({ data: note })
+  }
 }

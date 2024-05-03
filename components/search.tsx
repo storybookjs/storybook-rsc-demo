@@ -1,15 +1,12 @@
 'use client'
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useTransition } from 'react'
 import { useFormStatus } from 'react-dom'
 
 export default function SearchField() {
   const { replace } = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
-
-  console.log(pathname, [...searchParams])
 
   function search(form: FormData) {
     const params = new URLSearchParams(searchParams)

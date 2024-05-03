@@ -26,7 +26,7 @@ const createPrismaClientMock = (
 
 export let db = createPrismaClientMock()
 
-export function initMockDb(
+export function initializeDB(
   data: Parameters<typeof createPrismaMock<PrismaClient>>[0] = {},
 ) {
   db = createPrismaClientMock(data)

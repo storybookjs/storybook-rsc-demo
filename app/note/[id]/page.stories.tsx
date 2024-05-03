@@ -2,8 +2,9 @@ import { Meta, StoryObj } from '@storybook/react'
 import { cookies } from '@storybook/nextjs/headers.mock'
 import { http } from 'msw'
 import { getWorker } from 'msw-storybook-addon'
+import { expect, userEvent, waitFor, within } from '@storybook/test'
 import Page from './page'
-import { db, initMockDb } from '#lib/db.mock'
+import { initializeDB, db } from '#lib/db.mock'
 import { createUserCookie, userCookieKey } from '#lib/session'
 import { PageDecorator } from '#.storybook/decorators'
 import { login } from '#app/actions.mock'
@@ -15,7 +16,6 @@ const meta = {
   async beforeEach() {
     await db.note.create({
       data: {
-        id: '1',
         title: 'Module mocking in Storybook?',
         body: "Yup, that's a thing now! 🎉",
         createdBy: 'storybookjs',
@@ -23,7 +23,6 @@ const meta = {
     })
     await db.note.create({
       data: {
-        id: '2',
         title: 'RSC support as well??',
         body: 'RSC is pretty cool, even cooler that Storybook supports it!',
         createdBy: 'storybookjs',
@@ -52,7 +51,9 @@ export const LoggedIn: Story = {
   },
 }
 
-export const NotLoggedIn: Story = {
+export const NotLoggedIn: Story = {}
+
+export const LoginShouldGetOAuthTokenAndSetCookie: Story = {
   beforeEach() {
     // Point the login implementation to the endpoint github would have redirected too.
     login.mockImplementation(async () => {
@@ -75,9 +76,31 @@ export const NotLoggedIn: Story = {
       ),
     )
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(cookies().get(userCookieKey)?.value).toBeUndefined()
+    await userEvent.click(
+      await canvas.findByRole('menuitem', { name: /login to add/i }),
+    )
+    await waitFor(async () => {
+      await expect(cookies().get(userCookieKey)?.value).toContain('storybookjs')
+    })
+  },
 }
 
-export const WithSearchFilter: Story = {
+export const LogoutShouldDeleteCookie: Story = {
+  async beforeEach() {
+    cookies().set(userCookieKey, await createUserCookie('storybookjs'))
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(cookies().get(userCookieKey)?.value).toContain('storybookjs')
+    await userEvent.click(await canvas.findByRole('button', { name: 'logout' }))
+    await expect(cookies().get(userCookieKey)).toBeUndefined()
+  },
+}
+
+export const SearchInputShouldFilterNotes: Story = {
   parameters: {
     nextjs: {
       navigation: {
@@ -89,6 +112,6 @@ export const WithSearchFilter: Story = {
 
 export const EmptyState: Story = {
   async beforeEach() {
-    initMockDb({}) // init an empty DB
+    initializeDB({}) // init an empty DB
   },
 }

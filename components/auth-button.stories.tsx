@@ -17,13 +17,7 @@ export const LoggedIn: Story = {
   beforeEach: () => {
     getUserFromSession.mockReturnValue('storybookjs')
   },
-  args: {
-    children: 'Add',
-  },
+  args: { children: 'Add' },
 }
 
-export const LoggedOut: Story = {
-  beforeEach: () => {
-    getUserFromSession.mockReturnValueOnce(null)
-  },
-}
+export const LoggedOut: Story = {}
