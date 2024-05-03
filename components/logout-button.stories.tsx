@@ -1,15 +1,13 @@
 import { Meta, StoryObj } from '@storybook/react'
-import { within, userEvent, expect } from '@storybook/test'
 import LogoutButton from './logout-button'
-import { getUserFromSession } from '#lib/session.mock'
-import { logout } from '#app/actions.mock'
+import { cookies } from '@storybook/nextjs/headers.mock'
+import { createUserCookie, userCookieKey } from '#lib/session'
 
 const meta = {
   component: LogoutButton,
-  parameters: {
-    backgrounds: {
-      default: 'dark',
-    },
+  parameters: { backgrounds: { default: 'dark' } },
+  async beforeEach() {
+    cookies().set(userCookieKey, await createUserCookie('storybookjs'))
   },
 } satisfies Meta<typeof LogoutButton>
 
@@ -17,17 +15,4 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {
-  beforeEach: () => {
-    getUserFromSession.mockReturnValueOnce('storybookjs')
-  },
-  args: {
-    children: 'Add',
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const button = canvas.getByRole('button')
-    await userEvent.click(button)
-    await expect(logout).toHaveBeenCalledTimes(1)
-  },
-}
+export const Default: Story = {}

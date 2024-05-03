@@ -1,11 +1,16 @@
 import { expect, fireEvent, userEvent, within } from '@storybook/test'
 import { Meta, StoryObj } from '@storybook/react'
+import { cookies } from '@storybook/nextjs/headers.mock'
 import { saveNote, deleteNote } from '#app/actions.mock'
 import NoteUI from '#components/note-ui'
 import { createNotes } from '#mocks/notes'
+import { createUserCookie, userCookieKey } from '#lib/session'
 
 const meta = {
   component: NoteUI,
+  async beforeEach() {
+    cookies().set(userCookieKey, await createUserCookie('storybookjs'))
+  }
 } satisfies Meta<typeof NoteUI>
 
 export default meta
@@ -44,13 +49,13 @@ export const EditModeFlow: Story = {
     })
 
     await step('Save flow', async () => {
-      const saveButton = canvas.getByRole('menuitem', { name: /done/i })
+      const saveButton = await canvas.findByRole('menuitem', { name: /done/i })
       await userEvent.click(saveButton)
       await expect(saveNote).toHaveBeenCalled()
     })
 
     await step('Delete flow', async () => {
-      const deleteButton = canvas.getByRole('menuitem', { name: /delete/i })
+      const deleteButton = await canvas.findByRole('menuitem', { name: /delete/i })
       await userEvent.click(deleteButton)
       await expect(deleteNote).toHaveBeenCalled()
     })

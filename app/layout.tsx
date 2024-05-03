@@ -3,7 +3,7 @@ import './style.css'
 import React from 'react'
 import Sidebar from '#components/sidebar'
 import AuthButton from '#components/auth-button'
-import { prisma } from '#lib/db'
+import { db } from '#lib/db'
 import LogoutButton from '#components/logout-button'
 import { type Note } from '@prisma/client'
 
@@ -36,7 +36,7 @@ export default async function RootLayout({
 }
 
 export async function Layout({ children }: { children: React.ReactNode }) {
-  const notes = await prisma.note.findMany({
+  const notes = await db.note.findMany({
     orderBy: {
       id: 'asc',
     },

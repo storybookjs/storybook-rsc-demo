@@ -1,36 +1,44 @@
 import { Meta, StoryObj } from '@storybook/react'
-import { useSearchParams } from '@storybook/nextjs/navigation.mock'
 import { cookies } from '@storybook/nextjs/headers.mock'
-import Page from '#app/note/[id]/page'
-import { prisma } from '#lib/db'
+import { http } from 'msw'
+import { getWorker } from 'msw-storybook-addon'
+import { expect, userEvent, waitFor, within } from '@storybook/test'
+import Page from './page'
+import { initializeDB, db } from '#lib/db.mock'
 import { createUserCookie, userCookieKey } from '#lib/session'
 import { PageDecorator } from '#.storybook/decorators'
+import { login } from '#app/actions.mock'
+import * as auth from '#app/auth/route'
 
 const meta = {
   component: Page,
-  parameters: { layout: 'fullscreen' },
   decorators: [PageDecorator],
   async beforeEach() {
-    await prisma.note.create({
+    await db.note.create({
       data: {
-        id: '1',
         title: 'Module mocking in Storybook?',
         body: "Yup, that's a thing now! 🎉",
         createdBy: 'storybookjs',
       },
     })
-    await prisma.note.create({
+    await db.note.create({
       data: {
-        id: '2',
         title: 'RSC support as well??',
         body: 'RSC is pretty cool, even cooler that Storybook supports it!',
         createdBy: 'storybookjs',
       },
     })
   },
-  args: {
-    params: { id: '2' },
+  parameters: {
+    layout: 'fullscreen',
+    nextjs: {
+      navigation: {
+        pathname: '/note/[id]',
+        query: { id: 1 },
+      },
+    },
   },
+  args: { params: { id: '1' } },
 } satisfies Meta<typeof Page>
 
 export default meta
@@ -45,14 +53,66 @@ export const LoggedIn: Story = {
 
 export const NotLoggedIn: Story = {}
 
-export const WithSearchFilter: Story = {
+export const LoginShouldGetOAuthTokenAndSetCookie: Story = {
   beforeEach() {
-    useSearchParams.mockReturnValue({ get: () => 'RSC' })
+    // Point the login implementation to the endpoint github would have redirected too.
+    login.mockImplementation(async () => {
+      return await auth.GET(new Request('/auth?code=storybookjs'))
+    })
+
+    // Mock out OAUTH
+    getWorker().use(
+      http.post(
+        'https://github.com/login/oauth/access_token',
+        async ({ request }) => {
+          let json = (await request.json()) as any
+          return Response.json({ access_token: json.code })
+        },
+      ),
+      http.get('https://api.github.com/user', async ({ request }) =>
+        Response.json({
+          login: request.headers.get('Authorization')?.replace('token ', ''),
+        }),
+      ),
+    )
+  },
+  play: async ({ canvasElement }) => {
+    console.log(db.$getInternalState())
+    const canvas = within(canvasElement)
+    await expect(cookies().get(userCookieKey)?.value).toBeUndefined()
+    await userEvent.click(
+      await canvas.findByRole('menuitem', { name: /login to add/i }),
+    )
+    await waitFor(async () => {
+      await expect(cookies().get(userCookieKey)?.value).toContain('storybookjs')
+    })
+  },
+}
+
+export const LogoutShouldDeleteCookie: Story = {
+  async beforeEach() {
+    cookies().set(userCookieKey, await createUserCookie('storybookjs'))
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(cookies().get(userCookieKey)?.value).toContain('storybookjs')
+    await userEvent.click(await canvas.findByRole('button', { name: 'logout' }))
+    await expect(cookies().get(userCookieKey)).toBeUndefined()
+  },
+}
+
+export const SearchInputShouldFilterNotes: Story = {
+  parameters: {
+    nextjs: {
+      navigation: {
+        query: { q: 'RSC' },
+      },
+    },
   },
 }
 
 export const EmptyState: Story = {
   async beforeEach() {
-    await prisma.note.deleteMany()
+    initializeDB({}) // init an empty DB
   },
 }

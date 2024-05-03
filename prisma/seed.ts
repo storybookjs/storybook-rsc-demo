@@ -1,16 +1,9 @@
 import { PrismaClient } from '@prisma/client'
-import { createNotes } from '#mocks/notes'
-const prisma = new PrismaClient()
+import { createNotes, seed } from '../mocks/notes'
+const db = new PrismaClient()
 
 async function main() {
-  for (const note of createNotes()) {
-    await prisma.note.upsert({
-      where: { id: note.id },
-      update: note,
-      create: note,
-    })
-  }
-
+  await seed(db)
   console.log('The database is seeded! 🌱')
 }
 
@@ -20,5 +13,5 @@ main()
     process.exit(1)
   })
   .finally(async () => {
-    await prisma.$disconnect()
+    await db.$disconnect()
   })

@@ -1,6 +1,6 @@
 'use server'
 
-import { prisma } from '#lib/db'
+import { db } from '#lib/db'
 import { userCookieKey } from '#lib/session'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
@@ -28,7 +28,7 @@ export async function saveNote(
     createdBy: user,
   }
 
-  await prisma.note.upsert({
+  await db.note.upsert({
     where: { id: noteId },
     update: payload,
     create: payload,
@@ -38,7 +38,7 @@ export async function saveNote(
 }
 
 export async function deleteNote(noteId: string) {
-  await prisma.note.delete({
+  await db.note.delete({
     where: {
       id: noteId,
     },
@@ -52,4 +52,10 @@ export async function logout() {
   cookieStore.delete(userCookieKey)
 
   redirect('/')
+}
+
+export async function login() {
+  redirect(
+    `https://github.com/login/oauth/authorize?client_id=${process.env.OAUTH_CLIENT_KEY}&allow_signup=false`,
+  )
 }

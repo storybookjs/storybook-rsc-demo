@@ -1,6 +1,6 @@
 import NoteUI from '#components/note-ui'
 import { getUserFromSession } from '#lib/session'
-import { prisma } from '#lib/db'
+import { db } from '#lib/db'
 
 export const metadata = {
   robots: {
@@ -15,7 +15,7 @@ type Props = {
 export default async function EditPage({ params }: Props) {
   const user = getUserFromSession()
 
-  const note = await prisma.note.findUnique({
+  const note = await db.note.findUnique({
     where: {
       id: params.id,
     },
