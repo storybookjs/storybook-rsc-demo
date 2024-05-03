@@ -34,7 +34,7 @@ const meta = {
     nextjs: {
       navigation: {
         pathname: '/note/[id]',
-        query: { id: '1' },
+        query: { id: 1 },
       },
     },
   },
@@ -77,6 +77,7 @@ export const LoginShouldGetOAuthTokenAndSetCookie: Story = {
     )
   },
   play: async ({ canvasElement }) => {
+    console.log(db.$getInternalState())
     const canvas = within(canvasElement)
     await expect(cookies().get(userCookieKey)?.value).toBeUndefined()
     await userEvent.click(
