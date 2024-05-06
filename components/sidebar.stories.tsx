@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react'
-import { notes } from '#prisma/mock-data';
 import Sidebar from "./sidebar";
+import { createNotes } from '#mocks/notes';
 
 const meta = {
   component: Sidebar,
@@ -11,7 +11,7 @@ export default meta;
 type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
-    notes: notes,
+    notes: createNotes(),
     children: null
   }
 }
