@@ -97,6 +97,9 @@ devDependencies:
   http-server:
     specifier: ^14.1.1
     version: 14.1.1
+  mockdate:
+    specifier: ^3.0.5
+    version: 3.0.5
   playwright:
     specifier: ^1.43.0
     version: 1.43.0
@@ -9640,6 +9643,10 @@ packages:
     resolution: {integrity: sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==}
     engines: {node: '>=10'}
     hasBin: true
+    dev: true
+
+  /mockdate@3.0.5:
+    resolution: {integrity: sha512-iniQP4rj1FhBdBYS/+eQv7j1tadJ9lJtdzgOpvsOHng/GbcDh2Fhdeq+ZRldrPYdXvCyfFUmFeEwEGXZB5I/AQ==}
     dev: true
 
   /ms@2.0.0:
