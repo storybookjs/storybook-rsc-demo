@@ -40,14 +40,16 @@ This application uses Prisma with SQLite. You need to set it up before running:
 ### Running the app locally
 
 1. `pnpm install`
-2. `pnpm dev`
+2. `pnpm prisma:setup` (if you haven't already)
+3. `pnpm dev`
 
 Go to `localhost:3000`.
 
 ### Running Storybook locally
 
 1. `pnpm install`
-2. `pnpm storybook`
+2. `pnpm prisma:setup` (if you haven't already)
+3. `pnpm storybook`
 
 Go to `localhost:6006`.
 
