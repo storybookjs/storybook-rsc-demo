@@ -30,6 +30,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test-storybook": "test-storybook",
+    "test-storybook:coverage": "test-storybook --coverage && nyc report --reporter=text --reporter=lcov -t ./coverage/storybook --report-dir ./coverage/storybook",
     "test-storybook:ci": "concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"pnpm run build-storybook --quiet && http-server storybook-static --port 6006 --silent\" \"wait-on http://127.0.0.1:6006/ && pnpm run test-storybook\"",
     "generate-dmmf": "tsx prisma/generate-dmmf.ts"
   },
@@ -53,6 +54,7 @@
     "@prisma/client": "^5.11.0",
     "@storybook/addon-actions": "0.0.0-pr-26853-sha-b51db447",
     "@storybook/addon-essentials": "0.0.0-pr-26853-sha-b51db447",
+    "@storybook/addon-coverage": "^1.0.1",
     "@storybook/addon-interactions": "0.0.0-pr-26853-sha-b51db447",
     "@storybook/blocks": "0.0.0-pr-26853-sha-b51db447",
     "@storybook/nextjs": "0.0.0-pr-26853-sha-b51db447",
@@ -70,6 +72,7 @@
     "eslint-plugin-storybook": "^0.8.0",
     "http-server": "^14.1.1",
     "mockdate": "^3.0.5",
+    "nyc": "^15.1.0",
     "playwright": "^1.43.0",
     "prettier": "^3.2.5",
     "prisma": "^5.11.0",
