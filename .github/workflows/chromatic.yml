@@ -19,6 +19,15 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Prepare environment
+        run: |
+          pnpm run prisma:setup
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          SESSION_KEY: ${{ secrets.SESSION_KEY }}
+          OAUTH_CLIENT_KEY: ${{ secrets.OAUTH_CLIENT_KEY }}
+          OAUTH_CLIENT_SECRET: ${{ secrets.OAUTH_CLIENT_SECRET }}
+
       - name: Run Chromatic
         uses: chromaui/action@latest
         with:
