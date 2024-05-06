@@ -69,6 +69,7 @@
     "eslint-config-next": "14.2.0",
     "eslint-plugin-storybook": "^0.8.0",
     "http-server": "^14.1.1",
+    "mockdate": "^3.0.5",
     "playwright": "^1.43.0",
     "prettier": "^3.2.5",
     "prisma": "^5.11.0",
