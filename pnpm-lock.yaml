@@ -47,8 +47,8 @@ devDependencies:
     specifier: 0.0.0-pr-26853-sha-b51db447
     version: 0.0.0-pr-26853-sha-b51db447
   '@storybook/addon-coverage':
-    specifier: ^1.0.1
-    version: 1.0.1
+    specifier: ^1.0.3
+    version: 1.0.3
   '@storybook/addon-essentials':
     specifier: 0.0.0-pr-26853-sha-b51db447
     version: 0.0.0-pr-26853-sha-b51db447(@types/react@18.2.33)(react-dom@18.2.0)(react@18.2.0)
@@ -2812,8 +2812,8 @@ packages:
       - supports-color
     dev: true
 
-  /@storybook/addon-coverage@1.0.1:
-    resolution: {integrity: sha512-jGDYPBbh3+LXMDw0Nmw+fUEDH3kuHvHSOjE1fqi4ac00CnwHnyD5PD6RFSpVxR4Fw/tCDPmKEubbOzQCSZGyJg==}
+  /@storybook/addon-coverage@1.0.3:
+    resolution: {integrity: sha512-UTv2rCn5yub6GJG6QMG1eLkewRwS1DmZ2S/9+sewfXDP86+CW3TTPU7eo4e04UMEwElh4sS+7J6y8BCavHXaSQ==}
     dependencies:
       '@istanbuljs/load-nyc-config': 1.1.0
       '@jsdevtools/coverage-istanbul-loader': 3.0.5

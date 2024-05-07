@@ -54,7 +54,7 @@
     "@prisma/client": "^5.11.0",
     "@storybook/addon-actions": "0.0.0-pr-26853-sha-b51db447",
     "@storybook/addon-essentials": "0.0.0-pr-26853-sha-b51db447",
-    "@storybook/addon-coverage": "^1.0.1",
+    "@storybook/addon-coverage": "^1.0.3",
     "@storybook/addon-interactions": "0.0.0-pr-26853-sha-b51db447",
     "@storybook/blocks": "0.0.0-pr-26853-sha-b51db447",
     "@storybook/nextjs": "0.0.0-pr-26853-sha-b51db447",
