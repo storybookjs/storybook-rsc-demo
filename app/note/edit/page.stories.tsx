@@ -4,6 +4,8 @@ import Page from './page'
 import { createUserCookie, userCookieKey } from '#lib/session'
 import { PageDecorator } from '#.storybook/decorators'
 import { db } from '#lib/db.mock'
+import { expect, fireEvent, userEvent, within } from '@storybook/test'
+import { saveNote } from '#app/actions.mock'
 
 const meta = {
   component: Page,
@@ -39,4 +41,36 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {}
+export const EditNewNote: Story = {}
+
+export const Save: Story = {
+  name: 'Save New Flow ▶',
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement)
+    const titleInput = await canvas.findByRole('textbox', {
+      name: /Enter a title for your note/i,
+    })
+    const bodyInput = canvas.getByRole('textbox', { name: /body/i })
+
+    await step('Clear inputs', async () => {
+      await userEvent.clear(titleInput)
+      await userEvent.clear(bodyInput)
+    })
+
+    await step('Edit inputs', async () => {
+      await fireEvent.change(titleInput, { target: { value: 'New Note Title' } })
+      await fireEvent.change(bodyInput, { target: { value: 'New Note Body' } })
+    })
+
+    await step('Save', async () => {
+      const saveButton = canvas.getByRole('menuitem', { name: /done/i })
+      await userEvent.click(saveButton)
+      await expect(saveNote).toHaveBeenCalledOnce()
+      await expect(saveNote).toHaveBeenCalledWith(
+        undefined,
+        'New Note Title',
+        'New Note Body',
+      )
+    })
+  },
+}
