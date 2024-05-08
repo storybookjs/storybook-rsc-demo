@@ -14,17 +14,17 @@ const createPrismaClientMock = () =>
     }
   >({}, json.datamodel as Prisma.DMMF.Datamodel)
 
-export let prisma = createPrismaMock<
+export let db = createPrismaMock<
   PrismaClient & {
     $getInternalState: () => Required<PrismaMockData<PrismaClient>>
   }
 >({}, json.datamodel as Prisma.DMMF.Datamodel)
 
 export function resetMockDB() {
-  prisma = createPrismaClientMock()
+  db = createPrismaClientMock()
 
   // Give some more useful spy names
-  for (const [tableName, table] of Object.entries(prisma)) {
+  for (const [tableName, table] of Object.entries(db)) {
     for (const [methodName, method] of Object.entries(table)) {
       if (isMockFunction(method)) {
         method.mockName(`prisma.${tableName}.${methodName}`)

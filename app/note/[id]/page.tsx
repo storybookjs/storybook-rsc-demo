@@ -1,5 +1,5 @@
 import NoteUI from '#components/note-ui'
-import { prisma } from '#lib/db'
+import { db } from '#lib/db'
 
 export const metadata = {
   robots: {
@@ -12,7 +12,7 @@ type Props = {
 }
 
 export default async function Page({ params }: Props) {
-  const note = await prisma.note.findUnique({
+  const note = await db.note.findUnique({
     where: {
       id: params.id,
     },
