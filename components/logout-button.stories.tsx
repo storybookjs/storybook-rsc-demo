@@ -28,6 +28,6 @@ export const Default: Story = {
     const canvas = within(canvasElement)
     const button = canvas.getByRole('button')
     await userEvent.click(button)
-    await expect(logout).toHaveBeenCalledTimes(1)
+    await expect(logout).toHaveBeenCalledOnce()
   },
 }
