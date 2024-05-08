@@ -6,7 +6,7 @@ export const createNotes: () => Note[] = () => {
   const otherDate = new Date('2024-04-19T15:22:04Z')
   return [
     {
-      id: 1,
+      id: '1',
       title: 'Module mocking in Storybook?',
       body: "Yup, that's a thing now! 🎉",
       createdBy: 'storybookjs',
@@ -14,7 +14,7 @@ export const createNotes: () => Note[] = () => {
       updatedAt: date,
     },
     {
-      id: 2,
+      id: '2',
       title: 'RSC support as well??',
       body: 'RSC is pretty cool, even cooler that Storybook supports it!',
       createdBy: 'storybookjs',
