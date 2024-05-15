@@ -6,7 +6,7 @@ import { login } from '#app/actions'
 
 type Props = {
   children?: ReactNode
-  noteId: string | null
+  noteId: number | null
 }
 
 export default function AuthButton({ children, noteId }: Props) {

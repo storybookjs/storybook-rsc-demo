@@ -12,7 +12,6 @@ import * as auth from '#app/auth/route'
 
 const meta = {
   component: Page,
-  parameters: { layout: 'fullscreen' },
   decorators: [PageDecorator],
   async beforeEach() {
     await db.note.create({
