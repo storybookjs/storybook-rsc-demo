@@ -10,6 +10,8 @@ const meta = {
   component: NoteUI,
   async beforeEach() {
     cookies().set(userCookieKey, await createUserCookie('storybookjs'))
+    saveNote.mockImplementation(async () => {})
+    deleteNote.mockImplementation(async () => {})
   },
 } satisfies Meta<typeof NoteUI>
 
