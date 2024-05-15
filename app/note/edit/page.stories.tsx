@@ -60,7 +60,7 @@ export const SaveNewNote: Story = {
       await canvas.findByRole('menuitem', { name: /done/i }),
     )
 
-    await expectRedirect()
+    await expectRedirect('/note/3')
 
     await expect(await db.note.findUnique({ where: { id: 3 } })).toEqual(
       expect.objectContaining({

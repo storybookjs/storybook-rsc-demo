@@ -67,7 +67,8 @@ export const SavingExistingNoteShouldUpdateDBAndRedirect: Story = {
     await userEvent.click(
       await canvas.findByRole('menuitem', { name: /done/i }),
     )
-    await expectRedirect()
+
+    await expectRedirect('/note/2')
 
     await expect(await db.note.findUnique({ where: { id: 2 } })).toEqual(
       expect.objectContaining({
@@ -90,7 +91,8 @@ export const DeleteNoteRemovesFromDBAndSidebar: Story = {
     await userEvent.click(
       await canvas.findByRole('menuitem', { name: /delete/i }),
     )
-    await expectRedirect()
+
+    await expectRedirect('/')
 
     await expect(
       await db.note.findMany({ where: { id: 2 } }),
