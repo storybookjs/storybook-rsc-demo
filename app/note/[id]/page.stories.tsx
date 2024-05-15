@@ -1,10 +1,9 @@
 import { type Meta, type StoryObj } from '@storybook/react'
 import { cookies } from '@storybook/nextjs/headers.mock'
 import { http } from 'msw'
-import { getWorker } from 'msw-storybook-addon'
 import { expect, userEvent, waitFor, within } from '@storybook/test'
 import Page from './page'
-import { initializeDB, db } from '#lib/db.mock'
+import { db, initializeDB } from '#lib/db.mock'
 import { createUserCookie, userCookieKey } from '#lib/session'
 import { PageDecorator } from '#.storybook/decorators'
 import { login } from '#app/actions.mock'
@@ -80,7 +79,6 @@ export const LoginShouldGetOAuthTokenAndSetCookie: Story = {
     })
   },
   play: async ({ canvasElement }) => {
-    console.log(db.$getInternalState())
     const canvas = within(canvasElement)
     await expect(cookies().get(userCookieKey)?.value).toBeUndefined()
     await userEvent.click(

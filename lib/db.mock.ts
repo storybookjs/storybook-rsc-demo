@@ -1,4 +1,4 @@
-import { type Prisma, type PrismaClient } from '@prisma/client'
+import { Prisma, type PrismaClient } from '@prisma/client'
 import { fn, isMockFunction } from '@storybook/test'
 import createPrismaMock from 'prisma-mock'
 import json from '#prisma/dmmf.json'
@@ -30,4 +30,9 @@ export function initializeDB(
   data: Parameters<typeof createPrismaMock<PrismaClient>>[0] = {},
 ) {
   db = createPrismaClientMock(data)
+
+  // @ts-ignore This Error class is not loaded properly in the browser, mocking it for now like a regular Error
+  Prisma.PrismaClientKnownRequestError = class PrismaClientKnownRequestError extends (
+    Error
+  ) {}
 }

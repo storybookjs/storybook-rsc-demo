@@ -23,12 +23,14 @@ export async function saveNote(
     createdBy: user,
   }
 
-  await db.note.upsert({
+  if (!noteId) {
+    const newNote = await db.note.create({ data: payload })
+    redirect(`/note/${newNote.id}`)
+  }
+  await db.note.update({
     where: { id: noteId },
-    update: payload,
-    create: payload,
+    data: payload,
   })
-
   redirect(`/note/${noteId}`)
 }
 
