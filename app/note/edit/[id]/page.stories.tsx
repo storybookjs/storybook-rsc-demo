@@ -2,14 +2,13 @@ import { expect, fireEvent, userEvent, within } from '@storybook/test'
 import { Meta, StoryObj } from '@storybook/react'
 import { cookies } from '@storybook/nextjs/headers.mock'
 import Page from './page'
-import { saveNote, deleteNote } from '#app/actions.mock'
+import { deleteNote, saveNote } from '#app/actions.mock'
 import { db } from '#lib/db'
 import { createUserCookie, userCookieKey } from '#lib/session'
 import { PageDecorator } from '#.storybook/decorators'
 
 const meta = {
   component: Page,
-  parameters: { layout: 'fullscreen' },
   decorators: [PageDecorator],
   async beforeEach() {
     cookies().set(userCookieKey, await createUserCookie('storybookjs'))
@@ -70,21 +69,23 @@ export const Save: Story = {
     })
 
     await step('Save', async () => {
-      const saveButton = canvas.getByRole('menuitem', { name: /done/i })
-      await userEvent.click(saveButton)
+      await userEvent.click(
+        await canvas.findByRole('menuitem', { name: /done/i }),
+      )
       await expect(saveNote).toHaveBeenCalledOnce()
       await expect(saveNote).toHaveBeenCalledWith(
-        '2',
+        2,
         'Edited Title',
         'Edited Body',
       )
     })
 
     await step('Delete', async () => {
-      const deleteButton = canvas.getByRole('menuitem', { name: /delete/i })
-      await userEvent.click(deleteButton)
+      await userEvent.click(
+        await canvas.findByRole('menuitem', { name: /delete/i }),
+      )
       await expect(deleteNote).toHaveBeenCalledOnce()
-      await expect(deleteNote).toHaveBeenCalledWith('2')
+      await expect(deleteNote).toHaveBeenCalledWith(2)
     })
   },
 }

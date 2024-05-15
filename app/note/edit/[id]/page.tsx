@@ -17,7 +17,7 @@ export default async function EditPage({ params }: Props) {
 
   const note = await db.note.findUnique({
     where: {
-      id: params.id,
+      id: Number(params.id),
     },
   })
 

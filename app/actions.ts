@@ -7,7 +7,7 @@ import { redirect } from 'next/navigation'
 import { getUserFromSession } from '#lib/session'
 
 export async function saveNote(
-  noteId: string | undefined,
+  noteId: number | undefined,
   title: string,
   body: string,
 ) {
@@ -16,11 +16,6 @@ export async function saveNote(
   if (!user) {
     redirect('/')
   }
-
-  if (!noteId) {
-    noteId = Date.now().toString()
-  }
-
   const payload = {
     id: noteId,
     title: title.slice(0, 255),
@@ -37,7 +32,7 @@ export async function saveNote(
   redirect(`/note/${noteId}`)
 }
 
-export async function deleteNote(noteId: string) {
+export async function deleteNote(noteId: number) {
   await db.note.delete({
     where: {
       id: noteId,
