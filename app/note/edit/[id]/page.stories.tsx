@@ -1,4 +1,4 @@
-import { expect, fireEvent, userEvent, within } from '@storybook/test'
+import { expect, fireEvent, userEvent, waitFor, within } from '@storybook/test'
 import { Meta, StoryObj } from '@storybook/react'
 import { cookies } from '@storybook/nextjs/headers.mock'
 import Page from './page'
@@ -84,7 +84,7 @@ export const Save: Story = {
       await userEvent.click(
         await canvas.findByRole('menuitem', { name: /delete/i }),
       )
-      await expect(deleteNote).toHaveBeenCalledOnce()
+      await waitFor(() => expect(deleteNote).toHaveBeenCalledOnce())
       await expect(deleteNote).toHaveBeenCalledWith(2)
     })
   },

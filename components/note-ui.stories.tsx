@@ -52,14 +52,14 @@ export const EditModeFlow: Story = {
       const saveButton = await canvas.findByRole('menuitem', { name: /done/i })
       await userEvent.click(saveButton)
       await expect(saveNote).toHaveBeenCalledOnce()
-      await expect(saveNote).toHaveBeenCalledWith('1', 'Edited Title', 'Edited Body')
+      await expect(saveNote).toHaveBeenCalledWith(1, 'Edited Title', 'Edited Body')
     })
 
     await step('Delete flow', async () => {
       const deleteButton = await canvas.findByRole('menuitem', { name: /delete/i })
       await userEvent.click(deleteButton)
       await expect(deleteNote).toHaveBeenCalledOnce()
-      await expect(deleteNote).toHaveBeenCalledWith('1')
+      await expect(deleteNote).toHaveBeenCalledWith(1)
     })
   },
 }
