@@ -54,27 +54,30 @@ export const LoggedIn: Story = {
 export const NotLoggedIn: Story = {}
 
 export const LoginShouldGetOAuthTokenAndSetCookie: Story = {
+  parameters: {
+    msw: {
+      // Mock out OAUTH
+      handlers: [
+        http.post(
+          'https://github.com/login/oauth/access_token',
+          async ({ request }) => {
+            let json = (await request.json()) as any
+            return Response.json({ access_token: json.code })
+          },
+        ),
+        http.get('https://api.github.com/user', async ({ request }) =>
+          Response.json({
+            login: request.headers.get('Authorization')?.replace('token ', ''),
+          }),
+        ),
+      ],
+    },
+  },
   beforeEach() {
     // Point the login implementation to the endpoint github would have redirected too.
     login.mockImplementation(async () => {
       return await auth.GET(new Request('/auth?code=storybookjs'))
     })
-
-    // Mock out OAUTH
-    getWorker().use(
-      http.post(
-        'https://github.com/login/oauth/access_token',
-        async ({ request }) => {
-          let json = (await request.json()) as any
-          return Response.json({ access_token: json.code })
-        },
-      ),
-      http.get('https://api.github.com/user', async ({ request }) =>
-        Response.json({
-          login: request.headers.get('Authorization')?.replace('token ', ''),
-        }),
-      ),
-    )
   },
   play: async ({ canvasElement }) => {
     console.log(db.$getInternalState())
