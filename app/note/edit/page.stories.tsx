@@ -1,21 +1,27 @@
-import { expect, fireEvent, userEvent, within } from '@storybook/test'
+import { expect, userEvent, within } from '@storybook/test'
 import { Meta, StoryObj } from '@storybook/react'
 import { cookies } from '@storybook/nextjs/headers.mock'
-import Page from '#app/note/edit/page'
-import { saveNote, deleteNote } from '#app/actions.mock'
+import Page from './page'
 import { db } from '#lib/db'
 import { createUserCookie, userCookieKey } from '#lib/session'
 import { PageDecorator } from '#.storybook/decorators'
+import { expectRedirect } from '#lib/test-utils'
 
 const meta = {
   component: Page,
-  parameters: { layout: 'fullscreen' },
+  parameters: {
+    layout: 'fullscreen',
+    nextjs: {
+      navigation: {
+        pathname: '/note/edit',
+      },
+    },
+  },
   decorators: [PageDecorator],
   async beforeEach() {
     cookies().set(userCookieKey, await createUserCookie('storybookjs'))
     await db.note.create({
       data: {
-        id: '1',
         title: 'Module mocking in Storybook?',
         body: "Yup, that's a thing now! 🎉",
         createdBy: 'storybookjs',
@@ -23,7 +29,6 @@ const meta = {
     })
     await db.note.create({
       data: {
-        id: '2',
         title: 'RSC support as well??',
         body: 'RSC is pretty cool, even cooler that Storybook supports it!',
         createdBy: 'storybookjs',
@@ -38,34 +43,30 @@ type Story = StoryObj<typeof meta>
 
 export const EditNewNote: Story = {}
 
-export const Save: Story = {
-  name: 'Save New Flow ▶',
+export const SaveNewNote: Story = {
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement)
-    const titleInput = await canvas.findByRole('textbox', {
-      name: /Enter a title for your note/i,
-    })
-    const bodyInput = canvas.getByRole('textbox', { name: /body/i })
+    const titleInput = await canvas.findByLabelText(
+      'Enter a title for your note',
+    )
+    const bodyInput = await canvas.findByLabelText(
+      'Enter the body for your note',
+    )
+    await userEvent.clear(titleInput)
+    await userEvent.type(titleInput, 'New Note Title')
+    await userEvent.type(bodyInput, 'New Note Body')
 
-    await step('Clear inputs', async () => {
-      await userEvent.clear(titleInput)
-      await userEvent.clear(bodyInput)
-    })
+    await userEvent.click(
+      await canvas.findByRole('menuitem', { name: /done/i }),
+    )
 
-    await step('Edit inputs', async () => {
-      await fireEvent.change(titleInput, { target: { value: 'New Note Title' } })
-      await fireEvent.change(bodyInput, { target: { value: 'New Note Body' } })
-    })
+    await expectRedirect('/note/3')
 
-    await step('Save', async () => {
-      const saveButton = canvas.getByRole('menuitem', { name: /done/i })
-      await userEvent.click(saveButton)
-      await expect(saveNote).toHaveBeenCalledOnce()
-      await expect(saveNote).toHaveBeenCalledWith(
-        undefined,
-        'New Note Title',
-        'New Note Body',
-      )
-    })
+    await expect(await db.note.findUnique({ where: { id: 3 } })).toEqual(
+      expect.objectContaining({
+        title: 'New Note Title',
+        body: 'New Note Body',
+      }),
+    )
   },
 }

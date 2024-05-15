@@ -2,9 +2,7 @@ import NoteUI from '#components/note-ui'
 import { db } from '#lib/db'
 
 export const metadata = {
-  robots: {
-    index: false,
-  },
+  robots: { index: false },
 }
 
 type Props = {
@@ -12,12 +10,7 @@ type Props = {
 }
 
 export default async function Page({ params }: Props) {
-  const note = await db.note.findUnique({
-    where: {
-      id: params.id,
-    },
-  })
-
+  const note = await db.note.findUnique({ where: { id: Number(params.id) } })
   if (note === null) {
     return (
       <div className="note--empty-state">

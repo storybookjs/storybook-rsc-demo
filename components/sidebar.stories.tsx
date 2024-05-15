@@ -34,8 +34,7 @@ export const NotesExpanded: Story = {
 }
 
 
-//@ts-expect-error -- doesn't know about the Promise.withResolvers function
-const changeNoteGate = Promise.withResolvers();
+const changeNoteGate = Promise.withResolvers<void>();
 
 export const NoteChangedAnimation: Story = {
   render: () => {

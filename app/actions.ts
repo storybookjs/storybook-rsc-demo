@@ -7,7 +7,7 @@ import { redirect } from 'next/navigation'
 import { getUserFromSession } from '#lib/session'
 
 export async function saveNote(
-  noteId: string | undefined,
+  noteId: number | undefined,
   title: string,
   body: string,
 ) {
@@ -16,11 +16,6 @@ export async function saveNote(
   if (!user) {
     redirect('/')
   }
-
-  if (!noteId) {
-    noteId = Date.now().toString()
-  }
-
   const payload = {
     id: noteId,
     title: title.slice(0, 255),
@@ -28,16 +23,18 @@ export async function saveNote(
     createdBy: user,
   }
 
-  await db.note.upsert({
+  if (!noteId) {
+    const newNote = await db.note.create({ data: payload })
+    redirect(`/note/${newNote.id}`)
+  }
+  await db.note.update({
     where: { id: noteId },
-    update: payload,
-    create: payload,
+    data: payload,
   })
-
   redirect(`/note/${noteId}`)
 }
 
-export async function deleteNote(noteId: string) {
+export async function deleteNote(noteId: number) {
   await db.note.delete({
     where: {
       id: noteId,
@@ -52,4 +49,10 @@ export async function logout() {
   cookieStore.delete(userCookieKey)
 
   redirect('/')
+}
+
+export async function login() {
+  redirect(
+    `https://github.com/login/oauth/authorize?client_id=${process.env.OAUTH_CLIENT_KEY}&allow_signup=false`,
+  )
 }

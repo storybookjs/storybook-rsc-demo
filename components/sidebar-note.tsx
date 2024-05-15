@@ -4,7 +4,7 @@ import { useState, useRef, useEffect, useTransition } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 
 type Props = {
-  id: string
+  id: number
   title: string
   children: React.ReactNode
   expandedChildren: React.ReactNode
@@ -18,7 +18,7 @@ export default function SidebarNote({
 }: Props) {
   const router = useRouter()
   const pathname = usePathname()
-  const selectedId = pathname?.split('/')[1] || null
+  const selectedId = Number(pathname?.split('/')[1]) || null
   const [isPending] = useTransition()
   const [isExpanded, setIsExpanded] = useState(false)
   const isActive = id === selectedId

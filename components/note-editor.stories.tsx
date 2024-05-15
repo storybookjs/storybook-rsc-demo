@@ -6,7 +6,7 @@ const meta = {
   args: {
     initialTitle: 'This is a title',
     initialBody: 'This is a body',
-    noteId: '1',
+    noteId: 1,
   }
 } satisfies Meta<typeof NoteEditor>
 

@@ -7,7 +7,7 @@ export default function LogoutButton() {
   return (
     user && (
       <form action={logout}>
-        <button className="logout-button" type="submit">
+        <button className="logout-button" type="submit" aria-label='logout'>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"

@@ -7,7 +7,7 @@ import { deleteNote, saveNote } from '#app/actions'
 import Image from 'next/image'
 
 type Props = {
-  noteId: string | undefined
+  noteId: number | undefined
   initialTitle: string
   initialBody: string
 }

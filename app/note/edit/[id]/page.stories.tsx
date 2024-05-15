@@ -1,21 +1,19 @@
-import { expect, fireEvent, userEvent, within } from '@storybook/test'
+import { expect, userEvent, waitFor, within } from '@storybook/test'
 import { Meta, StoryObj } from '@storybook/react'
 import { cookies } from '@storybook/nextjs/headers.mock'
-import Page from '#app/note/edit/[id]/page'
-import { saveNote, deleteNote } from '#app/actions.mock'
+import Page from './page'
 import { db } from '#lib/db'
 import { createUserCookie, userCookieKey } from '#lib/session'
 import { PageDecorator } from '#.storybook/decorators'
+import { expectRedirect } from '#lib/test-utils'
 
 const meta = {
   component: Page,
-  parameters: { layout: 'fullscreen' },
   decorators: [PageDecorator],
   async beforeEach() {
     cookies().set(userCookieKey, await createUserCookie('storybookjs'))
     await db.note.create({
       data: {
-        id: '1',
         title: 'Module mocking in Storybook?',
         body: "Yup, that's a thing now! 🎉",
         createdBy: 'storybookjs',
@@ -23,12 +21,20 @@ const meta = {
     })
     await db.note.create({
       data: {
-        id: '2',
         title: 'RSC support as well??',
         body: 'RSC is pretty cool, even cooler that Storybook supports it!',
         createdBy: 'storybookjs',
       },
     })
+  },
+  parameters: {
+    layout: 'fullscreen',
+    nextjs: {
+      navigation: {
+        pathname: '/note/edit/[id]',
+        query: { id: '2' },
+      },
+    },
   },
   args: { params: { id: '2' } },
 } satisfies Meta<typeof Page>
@@ -43,41 +49,54 @@ export const UnknownId: Story = {
   args: { params: { id: '999' } },
 }
 
-export const Save: Story = {
-  name: 'Save and Delete Flow ▶',
+export const SavingExistingNoteShouldUpdateDBAndRedirect: Story = {
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement)
-    const titleInput = await canvas.findByRole('textbox', {
-      name: /Enter a title for your note/i,
-    })
-    const bodyInput = canvas.getByRole('textbox', { name: /body/i })
+    const titleInput = await canvas.findByLabelText(
+      'Enter a title for your note',
+    )
+    const bodyInput = await canvas.findByLabelText(
+      'Enter the body for your note',
+    )
 
-    await step('Clear inputs', async () => {
-      await userEvent.clear(titleInput)
-      await userEvent.clear(bodyInput)
-    })
+    await userEvent.clear(titleInput)
+    await userEvent.type(titleInput, 'Edited Title')
+    await userEvent.clear(bodyInput)
+    await userEvent.type(bodyInput, 'Edited Body')
 
-    await step('Edit inputs', async () => {
-      await fireEvent.change(titleInput, { target: { value: 'Edited Title' } })
-      await fireEvent.change(bodyInput, { target: { value: 'Edited Body' } })
-    })
+    await userEvent.click(
+      await canvas.findByRole('menuitem', { name: /done/i }),
+    )
 
-    await step('Save', async () => {
-      const saveButton = canvas.getByRole('menuitem', { name: /done/i })
-      await userEvent.click(saveButton)
-      await expect(saveNote).toHaveBeenCalledOnce()
-      await expect(saveNote).toHaveBeenCalledWith(
-        '2',
-        'Edited Title',
-        'Edited Body',
-      )
-    })
+    await expectRedirect('/note/2')
 
-    await step('Delete', async () => {
-      const deleteButton = canvas.getByRole('menuitem', { name: /delete/i })
-      await userEvent.click(deleteButton)
-      await expect(deleteNote).toHaveBeenCalledOnce()
-      await expect(deleteNote).toHaveBeenCalledWith('2')
-    })
+    await expect(await db.note.findUnique({ where: { id: 2 } })).toEqual(
+      expect.objectContaining({
+        title: 'Edited Title',
+        body: 'Edited Body',
+      }),
+    )
+  },
+}
+
+export const DeleteNoteRemovesFromDBAndSidebar: Story = {
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement)
+
+    await expect(
+      await db.note.findMany({ where: { id: 2 } }),
+      'Note with id 2 does exist',
+    ).toHaveLength(1)
+
+    await userEvent.click(
+      await canvas.findByRole('menuitem', { name: /delete/i }),
+    )
+
+    await expectRedirect('/')
+
+    await expect(
+      await db.note.findMany({ where: { id: 2 } }),
+      'Note with id 2 does not exist anymore',
+    ).toHaveLength(0)
   },
 }
