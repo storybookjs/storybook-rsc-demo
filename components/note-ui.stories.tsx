@@ -10,7 +10,7 @@ const meta = {
   component: NoteUI,
   async beforeEach() {
     cookies().set(userCookieKey, await createUserCookie('storybookjs'))
-  }
+  },
 } satisfies Meta<typeof NoteUI>
 
 export default meta
@@ -35,28 +35,32 @@ export const EditModeFlow: Story = {
   },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement)
-    const titleInput = canvas.getByRole('textbox', { name: /title/i })
-    const bodyInput = canvas.getByRole('textbox', { name: /body/i })
-
-    await step('Clear inputs', async () => {
-      await userEvent.clear(titleInput)
-      await userEvent.clear(bodyInput)
-    })
-
-    await step('Edit inputs', async () => {
-      await fireEvent.change(titleInput, { target: { value: 'Edited Title' } })
-      await fireEvent.change(bodyInput, { target: { value: 'Edited Body' } })
-    })
+    const titleInput = await canvas.findByLabelText(
+      'Enter a title for your note',
+    )
+    const bodyInput = await canvas.findByLabelText(
+      'Enter the body for your note',
+    )
+    await userEvent.clear(titleInput)
+    await userEvent.type(titleInput, 'Edited Title')
+    await userEvent.clear(bodyInput)
+    await userEvent.type(bodyInput, 'Edited Body')
 
     await step('Save flow', async () => {
       const saveButton = await canvas.findByRole('menuitem', { name: /done/i })
       await userEvent.click(saveButton)
       await expect(saveNote).toHaveBeenCalledOnce()
-      await expect(saveNote).toHaveBeenCalledWith(1, 'Edited Title', 'Edited Body')
+      await expect(saveNote).toHaveBeenCalledWith(
+        1,
+        'Edited Title',
+        'Edited Body',
+      )
     })
 
     await step('Delete flow', async () => {
-      const deleteButton = await canvas.findByRole('menuitem', { name: /delete/i })
+      const deleteButton = await canvas.findByRole('menuitem', {
+        name: /delete/i,
+      })
       await userEvent.click(deleteButton)
       await expect(deleteNote).toHaveBeenCalledOnce()
       await expect(deleteNote).toHaveBeenCalledWith(1)
