@@ -5,7 +5,7 @@ import Page from './page'
 import { db } from '#lib/db'
 import { createUserCookie, userCookieKey } from '#lib/session'
 import { PageDecorator } from '#.storybook/decorators'
-import { getRouter } from '@storybook/nextjs/navigation.mock'
+import { expectRedirect } from '#lib/test-utils'
 
 const meta = {
   component: Page,
@@ -49,9 +49,6 @@ export const UnknownId: Story = {
   args: { params: { id: '999' } },
 }
 
-const waitForRedirect = () =>
-  waitFor(() => expect(getRouter().push).toHaveBeenCalled())
-
 export const SavingExistingNoteShouldUpdateDBAndRedirect: Story = {
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement)
@@ -70,7 +67,7 @@ export const SavingExistingNoteShouldUpdateDBAndRedirect: Story = {
     await userEvent.click(
       await canvas.findByRole('menuitem', { name: /done/i }),
     )
-    await waitForRedirect()
+    await expectRedirect()
 
     await expect(await db.note.findUnique({ where: { id: 2 } })).toEqual(
       expect.objectContaining({
@@ -93,7 +90,7 @@ export const DeleteNoteRemovesFromDBAndSidebar: Story = {
     await userEvent.click(
       await canvas.findByRole('menuitem', { name: /delete/i }),
     )
-    await waitForRedirect()
+    await expectRedirect()
 
     await expect(
       await db.note.findMany({ where: { id: 2 } }),

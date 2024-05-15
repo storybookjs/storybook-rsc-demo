@@ -1,11 +1,11 @@
-import { expect, userEvent, waitFor, within } from '@storybook/test'
+import { expect, userEvent, within } from '@storybook/test'
 import { Meta, StoryObj } from '@storybook/react'
 import { cookies } from '@storybook/nextjs/headers.mock'
 import Page from './page'
 import { db } from '#lib/db'
 import { createUserCookie, userCookieKey } from '#lib/session'
 import { PageDecorator } from '#.storybook/decorators'
-import { getRouter } from '@storybook/nextjs/navigation.mock'
+import { expectRedirect } from '#lib/test-utils'
 
 const meta = {
   component: Page,
@@ -43,9 +43,6 @@ type Story = StoryObj<typeof meta>
 
 export const EditNewNote: Story = {}
 
-const waitForRedirect = () =>
-  waitFor(() => expect(getRouter().push).toHaveBeenCalled())
-
 export const SaveNewNote: Story = {
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement)
@@ -63,7 +60,7 @@ export const SaveNewNote: Story = {
       await canvas.findByRole('menuitem', { name: /done/i }),
     )
 
-    await waitForRedirect()
+    await expectRedirect()
 
     await expect(await db.note.findUnique({ where: { id: 3 } })).toEqual(
       expect.objectContaining({
