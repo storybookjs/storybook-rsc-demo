@@ -1,6 +1,5 @@
 import NoteUI from '#components/note-ui'
 import { db } from '#lib/db'
-import React from 'react'
 
 export const metadata = {
   robots: { index: false },

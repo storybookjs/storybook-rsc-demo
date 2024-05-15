@@ -12,6 +12,7 @@ import * as auth from '#app/auth/route'
 
 const meta = {
   component: Page,
+  parameters: { layout: 'fullscreen' },
   decorators: [PageDecorator],
   async beforeEach() {
     await db.note.create({
@@ -34,7 +35,7 @@ const meta = {
     nextjs: {
       navigation: {
         pathname: '/note/[id]',
-        query: { id: 1 },
+        query: { id: '1' },
       },
     },
   },
