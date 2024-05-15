@@ -1,5 +1,5 @@
 import { expect, fireEvent, userEvent, within } from '@storybook/test'
-import { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 import { cookies } from '@storybook/nextjs/headers.mock'
 import { saveNote, deleteNote } from '#app/actions.mock'
 import NoteUI from '#components/note-ui'
@@ -20,18 +20,18 @@ type Story = StoryObj<typeof meta>
 const notes = createNotes()
 
 export const Default: Story = {
-  args: { isEditing: false, note: notes[0] },
+  args: { isEditing: false, note: notes[0]! },
 }
 
 export const EditMode: Story = {
-  args: { isEditing: true, note: notes[0] },
+  args: { isEditing: true, note: notes[0]! },
 }
 
 export const EditModeFlow: Story = {
   name: 'Edit Mode Flow ▶',
   args: {
     isEditing: true,
-    note: notes[0],
+    note: notes[0]!,
   },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement)

@@ -63,6 +63,7 @@
     "@storybook/react": "^8.1.0",
     "@storybook/test": "^8.1.0",
     "@storybook/test-runner": "^0.17.0",
+    "@total-typescript/tsconfig": "^1.0.4",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -84,7 +85,7 @@
     "storybook": "^8.1.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.7.1",
-    "typescript": "^5.4.3",
+    "typescript": "^5.4.5",
     "wait-on": "^7.2.0"
   },
   "prettier": {

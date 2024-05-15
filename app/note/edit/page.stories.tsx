@@ -1,5 +1,5 @@
 import { expect, fireEvent, userEvent, within } from '@storybook/test'
-import { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 import { cookies } from '@storybook/nextjs/headers.mock'
 import Page from './page'
 import { saveNote, deleteNote } from '#app/actions.mock'
