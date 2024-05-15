@@ -6,7 +6,6 @@ import { saveNote, deleteNote } from '#app/actions.mock'
 import { db } from '#lib/db'
 import { createUserCookie, userCookieKey } from '#lib/session'
 import { PageDecorator } from '#.storybook/decorators'
-import { db } from '#lib/db.mock'
 
 const meta = {
   component: Page,
@@ -59,7 +58,9 @@ export const Save: Story = {
     })
 
     await step('Edit inputs', async () => {
-      await fireEvent.change(titleInput, { target: { value: 'New Note Title' } })
+      await fireEvent.change(titleInput, {
+        target: { value: 'New Note Title' },
+      })
       await fireEvent.change(bodyInput, { target: { value: 'New Note Body' } })
     })
 
