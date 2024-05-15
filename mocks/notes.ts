@@ -2,8 +2,8 @@ import { type Note, type PrismaClient } from '@prisma/client'
 
 export const createNotes: () => Note[] = () => {
   // Fixed dates for consistent screenshots
-  const date = new Date('2024-04-18T12:24:02Z')
-  const otherDate = new Date('2024-04-19T15:22:04Z')
+  const date = new Date('2024-04-12T12:24:02Z')
+  const otherDate = new Date('2024-04-13T12:24:02Z')
   return [
     {
       id: 1,
@@ -21,7 +21,7 @@ export const createNotes: () => Note[] = () => {
       createdAt: otherDate,
       updatedAt: otherDate,
     },
-  ]
+  ] as const
 }
 
 export const seed = async (db: PrismaClient) => {
