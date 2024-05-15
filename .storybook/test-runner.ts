@@ -1,4 +1,4 @@
-import { TestRunnerConfig, getStoryContext } from '@storybook/test-runner'
+import { type TestRunnerConfig, getStoryContext } from '@storybook/test-runner'
 import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport'
 
 const DEFAULT_VIEWPORT_SIZE = { width: 1280, height: 720 }

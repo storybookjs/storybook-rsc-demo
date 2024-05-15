@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 import AuthButton from './auth-button'
 import { getUserFromSession } from '#lib/session.mock'
 

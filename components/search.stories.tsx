@@ -1,5 +1,5 @@
 import { getRouter } from '@storybook/nextjs/navigation.mock'
-import { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 import Search from './search'
 import { expect, fireEvent, userEvent, within } from '@storybook/test'
 

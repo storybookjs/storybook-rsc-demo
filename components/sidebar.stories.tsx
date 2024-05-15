@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 import Sidebar from './sidebar'
 import { createNotes } from '#mocks/notes'
 import { expect, fireEvent, userEvent, within, waitFor } from '@storybook/test'
@@ -33,8 +33,7 @@ export const NotesExpanded: Story = {
   },
 }
 
-
-const changeNoteGate = Promise.withResolvers<void>();
+const changeNoteGate = Promise.withResolvers<void>()
 
 export const NoteChangedAnimation: Story = {
   render: () => {
@@ -44,20 +43,20 @@ export const NoteChangedAnimation: Story = {
         setNotes((prevNotes) => {
           return [
             {
-              ...prevNotes[0],
+              ...prevNotes[0]!,
               title: 'New title',
             },
             ...prevNotes.slice(1),
           ]
         })
-        changeNoteGate.resolve();
+        changeNoteGate.resolve()
       }, 1000)
     }, [])
     return <Sidebar notes={notes} />
   },
   play: async () => {
-    await changeNoteGate.promise;
-  }
+    await changeNoteGate.promise
+  },
 }
 
 export const ToggleSidebarOnMobile: Story = {
@@ -79,8 +78,8 @@ export const ToggleSidebarOnMobile: Story = {
     await step('Select note', async () => {
       const note = canvas.getAllByRole('button', {
         name: /Open note for preview/i,
-      })[0]
-      note.click()
+      })[0]!
+      await userEvent.click(note)
     })
 
     await waitFor(function sidebarIsNotVisible() {
