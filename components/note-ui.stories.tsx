@@ -3,10 +3,12 @@ import { type Meta, type StoryObj } from '@storybook/react'
 import { deleteNote, saveNote } from '#app/actions.mock'
 import NoteUI from '#components/note-ui'
 import { createNotes } from '#mocks/notes'
+import { getUserFromSession } from '#lib/session.mock'
 
 const meta = {
   component: NoteUI,
   async beforeEach() {
+    getUserFromSession.mockReturnValue('storybookjs')
     saveNote.mockImplementation(async () => {})
     deleteNote.mockImplementation(async () => {})
   },
