@@ -26,8 +26,7 @@ export const EditMode: Story = {
   args: { isEditing: true, note: notes[0]! },
 }
 
-export const EditModeFlow: Story = {
-  name: 'Edit Mode Flow ▶',
+export const SaveAndDeleteShouldTriggerActions: Story = {
   args: {
     isEditing: true,
     note: notes[0]!,
