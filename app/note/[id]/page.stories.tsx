@@ -8,6 +8,8 @@ import { createUserCookie, userCookieKey } from '#lib/session'
 import { PageDecorator } from '#.storybook/decorators'
 import { login } from '#app/actions.mock'
 import * as auth from '#app/auth/route'
+import { expectRedirect } from '#lib/test-utils'
+import { getRouter } from '@storybook/nextjs/navigation.mock'
 
 const meta = {
   component: Page,
@@ -84,9 +86,8 @@ export const LoginShouldGetOAuthTokenAndSetCookie: Story = {
     await userEvent.click(
       await canvas.findByRole('menuitem', { name: /login to add/i }),
     )
-    await waitFor(async () => {
-      await expect(cookies().get(userCookieKey)?.value).toContain('storybookjs')
-    })
+    await expectRedirect('/')
+    await expect(cookies().get(userCookieKey)?.value).toContain('storybookjs')
   },
 }
 
@@ -98,6 +99,7 @@ export const LogoutShouldDeleteCookie: Story = {
     const canvas = within(canvasElement)
     await expect(cookies().get(userCookieKey)?.value).toContain('storybookjs')
     await userEvent.click(await canvas.findByRole('button', { name: 'logout' }))
+    await expectRedirect('/')
     await expect(cookies().get(userCookieKey)).toBeUndefined()
   },
 }
