@@ -1,15 +1,12 @@
-import { expect, fireEvent, userEvent, within } from '@storybook/test'
+import { expect, userEvent, within } from '@storybook/test'
 import { type Meta, type StoryObj } from '@storybook/react'
-import { cookies } from '@storybook/nextjs/headers.mock'
-import { saveNote, deleteNote } from '#app/actions.mock'
+import { deleteNote, saveNote } from '#app/actions.mock'
 import NoteUI from '#components/note-ui'
 import { createNotes } from '#mocks/notes'
-import { createUserCookie, userCookieKey } from '#lib/session'
 
 const meta = {
   component: NoteUI,
   async beforeEach() {
-    cookies().set(userCookieKey, await createUserCookie('storybookjs'))
     saveNote.mockImplementation(async () => {})
     deleteNote.mockImplementation(async () => {})
   },
