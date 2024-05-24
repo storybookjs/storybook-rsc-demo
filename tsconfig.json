@@ -1,16 +1,8 @@
 {
+  "extends": "@total-typescript/tsconfig/bundler/dom",
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
+    "lib": ["esnext", "dom", "dom.iterable"],
     "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "target": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
     "plugins": [

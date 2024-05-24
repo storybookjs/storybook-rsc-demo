@@ -1,15 +1,14 @@
-import { expect, fireEvent, userEvent, within } from '@storybook/test'
-import { Meta, StoryObj } from '@storybook/react'
-import { cookies } from '@storybook/nextjs/headers.mock'
-import { saveNote, deleteNote } from '#app/actions.mock'
+import { expect, userEvent, within } from '@storybook/test'
+import { type Meta, type StoryObj } from '@storybook/react'
+import { deleteNote, saveNote } from '#app/actions.mock'
 import NoteUI from '#components/note-ui'
 import { createNotes } from '#mocks/notes'
-import { createUserCookie, userCookieKey } from '#lib/session'
+import { getUserFromSession } from '#lib/session.mock'
 
 const meta = {
   component: NoteUI,
   async beforeEach() {
-    cookies().set(userCookieKey, await createUserCookie('storybookjs'))
+    getUserFromSession.mockReturnValue('storybookjs')
     saveNote.mockImplementation(async () => {})
     deleteNote.mockImplementation(async () => {})
   },
@@ -22,18 +21,17 @@ type Story = StoryObj<typeof meta>
 const notes = createNotes()
 
 export const Default: Story = {
-  args: { isEditing: false, note: notes[0] },
+  args: { isEditing: false, note: notes[0]! },
 }
 
 export const EditMode: Story = {
-  args: { isEditing: true, note: notes[0] },
+  args: { isEditing: true, note: notes[0]! },
 }
 
-export const EditModeFlow: Story = {
-  name: 'Edit Mode Flow ▶',
+export const SaveAndDeleteShouldTriggerActions: Story = {
   args: {
     isEditing: true,
-    note: notes[0],
+    note: notes[0]!,
   },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement)
