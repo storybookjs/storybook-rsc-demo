@@ -4,7 +4,7 @@ import { initialize, mswLoader } from 'msw-storybook-addon'
 import * as MockDate from 'mockdate'
 import { initializeDB } from '#lib/db.mock'
 
-initialize({ onUnhandledRequest: 'bypass' })
+initialize({ onUnhandledRequest: 'bypass', quiet: true })
 
 const preview: Preview = {
   parameters: {
