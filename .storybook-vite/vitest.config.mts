@@ -7,7 +7,8 @@ export default defineConfig({
   plugins: [
     vitePluginNext({ dir: path.join(__dirname, '..') }),
     storybookTest({
-      renderer: 'react',
+      renderer: 'nextjs',
+      storybookScript: 'pnpm run storybook',
     }),
   ],
   publicDir: './public',
