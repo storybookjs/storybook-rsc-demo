@@ -1,3 +1,7 @@
+/**
+ * @vitest-environment jsdom
+ */
+
 import { getRouter } from '@storybook/nextjs/navigation.mock'
 import { type Meta, type StoryObj } from '@storybook/react'
 import Search from './search'

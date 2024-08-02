@@ -1,3 +1,7 @@
+/**
+ * @vitest-environment jsdom
+ */
+
 import { expect, userEvent, within } from '@storybook/test'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { deleteNote, saveNote } from '#app/actions.mock'
@@ -9,8 +13,8 @@ const meta = {
   component: NoteUI,
   async beforeEach() {
     getUserFromSession.mockReturnValue('storybookjs')
-    saveNote.mockImplementation(async () => {})
-    deleteNote.mockImplementation(async () => {})
+    saveNote.mockImplementation(async () => { })
+    deleteNote.mockImplementation(async () => { })
   },
 } satisfies Meta<typeof NoteUI>
 

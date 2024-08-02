@@ -1,3 +1,7 @@
+/**
+ * @vitest-environment jsdom
+ */
+
 import { expect, userEvent, waitFor, within } from '@storybook/test'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { cookies } from '@storybook/nextjs/headers.mock'

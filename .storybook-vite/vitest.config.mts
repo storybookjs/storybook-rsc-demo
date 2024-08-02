@@ -3,6 +3,8 @@ import { storybookTest } from '@storybook/experimental-vitest-plugin'
 import vitePluginNext from 'vite-plugin-storybook-nextjs'
 import { defineConfig } from 'vitest/config'
 
+const __dirname = import.meta.dirname;
+
 export default defineConfig({
   plugins: [
     vitePluginNext({ dir: path.join(__dirname, '..') }),

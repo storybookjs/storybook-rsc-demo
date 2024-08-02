@@ -1,3 +1,7 @@
+/**
+ * @vitest-environment jsdom
+ */
+
 import { type Meta, type StoryObj } from '@storybook/react'
 import { cookies } from '@storybook/nextjs/headers.mock'
 import { http } from 'msw'
@@ -9,7 +13,6 @@ import { PageDecorator } from '#.storybook/decorators'
 import { login } from '#app/actions.mock'
 import * as auth from '#app/auth/route'
 import { expectRedirect } from '#lib/test-utils'
-import { getRouter } from '@storybook/nextjs/navigation.mock'
 
 const meta = {
   component: Page,
@@ -77,7 +80,7 @@ export const LoginShouldGetOAuthTokenAndSetCookie: Story = {
   beforeEach() {
     // Point the login implementation to the endpoint github would have redirected too.
     login.mockImplementation(async () => {
-      return await auth.GET(new Request('/auth?code=storybookjs'))
+      return await auth.GET(new Request('http://www.example.com/auth?code=storybookjs'))
     })
   },
   play: async ({ canvasElement }) => {

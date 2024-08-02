@@ -8,13 +8,13 @@ import { type Note } from '@prisma/client'
 
 type Props =
   | {
-      note: Partial<Note>
-      isEditing: true
-    }
+    note: Partial<Note>
+    isEditing: true
+  }
   | {
-      note: Note
-      isEditing: false
-    }
+    note: Note
+    isEditing: false
+  }
 
 export default function NoteUI({ note, isEditing }: Props) {
   const user = getUserFromSession()
