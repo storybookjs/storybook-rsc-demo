@@ -64,12 +64,16 @@ export const SavingExistingNoteShouldUpdateDBAndRedirect: Story = {
     )
 
     await userEvent.clear(titleInput)
-    await userEvent.type(titleInput, 'Edited Title')
+    // WORKAROUND: FALSE_POSITIVE_POINTER_EVENTS
+    await userEvent.type(titleInput, 'Edited Title', { pointerEventsCheck: 0 })
     await userEvent.clear(bodyInput)
-    await userEvent.type(bodyInput, 'Edited Body')
+    // WORKAROUND: FALSE_POSITIVE_POINTER_EVENTS
+    await userEvent.type(bodyInput, 'Edited Body', { pointerEventsCheck: 0 })
 
     await userEvent.click(
       await canvas.findByRole('menuitem', { name: /done/i }),
+      // WORKAROUND: FALSE_POSITIVE_POINTER_EVENTS
+      { pointerEventsCheck: 0 }
     )
 
     await expectRedirect('/note/2')
@@ -94,6 +98,7 @@ export const DeleteNoteRemovesFromDBAndSidebar: Story = {
 
     await userEvent.click(
       await canvas.findByRole('menuitem', { name: /delete/i }),
+      { pointerEventsCheck: 0 }
     )
 
     await expectRedirect('/')

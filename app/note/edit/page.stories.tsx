@@ -57,11 +57,15 @@ export const SaveNewNote: Story = {
       'Enter the body for your note',
     )
     await userEvent.clear(titleInput)
-    await userEvent.type(titleInput, 'New Note Title')
-    await userEvent.type(bodyInput, 'New Note Body')
+    // WORKAROUND: FALSE_POSITIVE_POINTER_EVENTS
+    await userEvent.type(titleInput, 'New Note Title', { pointerEventsCheck: 0 })
+    // WORKAROUND: FALSE_POSITIVE_POINTER_EVENTS
+    await userEvent.type(bodyInput, 'New Note Body', { pointerEventsCheck: 0 })
 
     await userEvent.click(
       await canvas.findByRole('menuitem', { name: /done/i }),
+      // WORKAROUND: FALSE_POSITIVE_POINTER_EVENTS
+      { pointerEventsCheck: 0 }
     )
 
     await expectRedirect('/note/3')
