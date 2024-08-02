@@ -12,6 +12,18 @@ export default defineConfig({
       renderer: 'nextjs',
       storybookScript: 'pnpm run storybook',
     }),
+    {
+      name: 'crypto-polyfill',
+      config(config) {
+          if(!config.test?.browser?.enabled) {
+            return {
+              test: {
+                setupFiles: ['./.storybook-vite/vitest.setup.crypto.ts'],
+              }
+            }
+          }
+      },
+    }
   ],
   publicDir: './public',
   test: {
