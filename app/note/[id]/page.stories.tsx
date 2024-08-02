@@ -80,7 +80,7 @@ export const LoginShouldGetOAuthTokenAndSetCookie: Story = {
   beforeEach() {
     // Point the login implementation to the endpoint github would have redirected too.
     login.mockImplementation(async () => {
-      return await auth.GET(new Request('http://www.example.com/auth?code=storybookjs'))
+      return await auth.GET(new Request('/auth?code=storybookjs'))
     })
   },
   play: async ({ canvasElement }) => {
