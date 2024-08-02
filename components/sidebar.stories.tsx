@@ -66,6 +66,10 @@ export const ToggleSidebarOnMobile: Story = {
     },
     chromatic: { viewports: [320] },
   },
+  // In jsdom/happy-dom, the last assertion of this test will fail
+  // because the components dimensions are not calculatable in the
+  // virtual DOM. This is a limitation of the virtual DOM
+  tags: ['!test'],
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement)
     const searchInput = canvas.getByRole('menubar')

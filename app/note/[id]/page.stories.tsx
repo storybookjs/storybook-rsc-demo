@@ -52,6 +52,10 @@ type Story = StoryObj<typeof meta>
 export const LoggedIn: Story = {
   async beforeEach() {
     cookies().set(userCookieKey, await createUserCookie('storybookjs'))
+
+    return () => {
+      cookies().delete(userCookieKey)
+    }
   },
 }
 
@@ -80,7 +84,8 @@ export const LoginShouldGetOAuthTokenAndSetCookie: Story = {
   beforeEach() {
     // Point the login implementation to the endpoint github would have redirected too.
     login.mockImplementation(async () => {
-      return await auth.GET(new Request('/auth?code=storybookjs'))
+      const absoluteUrl = new URL('/auth?code=storybookjs', 'http://localhost').toString();
+      return await auth.GET(new Request(absoluteUrl))
     })
   },
   play: async ({ canvasElement }) => {
