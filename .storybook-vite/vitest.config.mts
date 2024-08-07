@@ -1,29 +1,28 @@
 import path from 'node:path'
-import { storybookTest } from '@storybook/experimental-vitest-plugin'
+import { storybookTest } from '@storybook/experimental-addon-vitest/plugin'
 import vitePluginNext from 'vite-plugin-storybook-nextjs'
 import { defineConfig } from 'vitest/config'
 
-const __dirname = import.meta.dirname;
+const __dirname = import.meta.dirname
 
 export default defineConfig({
   plugins: [
     vitePluginNext({ dir: path.join(__dirname, '..') }),
     storybookTest({
-      renderer: 'nextjs',
-      storybookScript: 'pnpm run storybook',
+      storybookScript: 'pnpm run storybook --ci',
     }),
     {
       name: 'crypto-polyfill',
       config(config) {
-          if(!config.test?.browser?.enabled) {
-            return {
-              test: {
-                setupFiles: ['./.storybook-vite/vitest.setup.crypto.ts'],
-              }
-            }
+        if (!config.test?.browser?.enabled) {
+          return {
+            test: {
+              setupFiles: ['./.storybook-vite/vitest.setup.crypto.ts'],
+            },
           }
+        }
       },
-    }
+    },
   ],
   publicDir: './public',
   test: {
