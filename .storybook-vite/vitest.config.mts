@@ -11,18 +11,6 @@ export default defineConfig({
     storybookTest({
       storybookScript: 'pnpm run storybook --ci',
     }),
-    {
-      name: 'crypto-polyfill',
-      config(config) {
-        if (!config.test?.browser?.enabled) {
-          return {
-            test: {
-              setupFiles: ['./.storybook-vite/vitest.setup.crypto.ts'],
-            },
-          }
-        }
-      },
-    },
   ],
   publicDir: './public',
   test: {
@@ -36,6 +24,5 @@ export default defineConfig({
       screenshotFailures: false,
     },
     setupFiles: ['./.storybook-vite/storybook.setup.ts'],
-    environment: 'happy-dom',
   },
 })

@@ -1,5 +1,8 @@
 {
   "private": true,
+  "engines": {
+    "node": ">=20"
+  },
   "imports": {
     "#app/actions": {
       "storybook": "./app/actions.mock.ts",
@@ -12,6 +15,10 @@
     "#lib/db": {
       "storybook": "./lib/db.mock.ts",
       "default": "./lib/db.ts"
+    },
+    "#lib/sanitize-html": {
+      "storybook": "./lib/sanitize-html.mock.ts",
+      "default": "./lib/sanitize-html.ts"
     },
     "#*": [
       "./*",
@@ -73,6 +80,8 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/sanitize-html": "^2.11.0",
+    "@ungap/with-resolvers": "^0.1.0",
     "@vitest/browser": "^2.0.4",
     "chromatic": "^11.3.0",
     "concurrently": "^8.2.2",
