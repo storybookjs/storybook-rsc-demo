@@ -50,7 +50,7 @@ export const UnknownId: Story = {
 }
 
 export const SavingExistingNoteShouldUpdateDBAndRedirect: Story = {
-  play: async ({ canvasElement, canvas }) => {
+  play: async ({ userEvent, canvas }) => {
     const titleInput = await canvas.findByLabelText(
       'Enter a title for your note',
     )
@@ -59,16 +59,12 @@ export const SavingExistingNoteShouldUpdateDBAndRedirect: Story = {
     )
 
     await userEvent.clear(titleInput)
-    // WORKAROUND: FALSE_POSITIVE_POINTER_EVENTS
-    await userEvent.type(titleInput, 'Edited Title', { pointerEventsCheck: 0 })
+    await userEvent.type(titleInput, 'Edited Title')
     await userEvent.clear(bodyInput)
-    // WORKAROUND: FALSE_POSITIVE_POINTER_EVENTS
-    await userEvent.type(bodyInput, 'Edited Body', { pointerEventsCheck: 0 })
+    await userEvent.type(bodyInput, 'Edited Body')
 
     await userEvent.click(
       await canvas.findByRole('menuitem', { name: /done/i }),
-      // WORKAROUND: FALSE_POSITIVE_POINTER_EVENTS
-      { pointerEventsCheck: 0 },
     )
 
     await expectRedirect('/note/2')

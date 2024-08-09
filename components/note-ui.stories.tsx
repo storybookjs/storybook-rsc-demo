@@ -1,4 +1,4 @@
-import { expect, userEvent } from '@storybook/test'
+import { expect } from '@storybook/test'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { deleteNote, saveNote } from '#app/actions.mock'
 import NoteUI from '#components/note-ui'
@@ -33,7 +33,7 @@ export const SaveAndDeleteShouldTriggerActions: Story = {
     isEditing: true,
     note: notes[0]!,
   },
-  play: async ({ canvas, step }) => {
+  play: async ({ canvas, step, userEvent }) => {
     const titleInput = await canvas.findByLabelText(
       'Enter a title for your note',
     )

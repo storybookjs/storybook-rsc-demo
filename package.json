@@ -66,6 +66,7 @@
     "@storybook/addon-viewport": "0.0.0-pr-28768-sha-81281ec6",
     "@storybook/blocks": "0.0.0-pr-28768-sha-81281ec6",
     "@storybook/builder-vite": "0.0.0-pr-28768-sha-81281ec6",
+    "@storybook/csf": "^0.1.11",
     "@storybook/experimental-addon-vitest": "0.0.0-pr-28768-sha-81281ec6",
     "@storybook/nextjs": "0.0.0-pr-28768-sha-81281ec6",
     "@storybook/react": "0.0.0-pr-28768-sha-81281ec6",

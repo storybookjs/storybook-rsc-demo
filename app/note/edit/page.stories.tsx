@@ -1,4 +1,4 @@
-import { expect, userEvent } from '@storybook/test'
+import { expect } from '@storybook/test'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { cookies } from '@storybook/nextjs/headers.mock'
 import Page from './page'
@@ -45,7 +45,7 @@ type Story = StoryObj<typeof meta>
 export const EditNewNote: Story = {}
 
 export const SaveNewNote: Story = {
-  play: async ({ canvas }) => {
+  play: async ({ canvas, userEvent }) => {
     const titleInput = await canvas.findByLabelText(
       'Enter a title for your note',
     )
@@ -53,18 +53,9 @@ export const SaveNewNote: Story = {
       'Enter the body for your note',
     )
     await userEvent.clear(titleInput)
-    // WORKAROUND: FALSE_POSITIVE_POINTER_EVENTS
-    await userEvent.type(titleInput, 'New Note Title', {
-      pointerEventsCheck: 0,
-    })
-    // WORKAROUND: FALSE_POSITIVE_POINTER_EVENTS
-    await userEvent.type(bodyInput, 'New Note Body', { pointerEventsCheck: 0 })
-
-    await userEvent.click(
-      await canvas.findByRole('menuitem', { name: /done/i }),
-      // WORKAROUND: FALSE_POSITIVE_POINTER_EVENTS
-      { pointerEventsCheck: 0 },
-    )
+    await userEvent.type(titleInput, 'New Note Title', {})
+    await userEvent.type(bodyInput, 'New Note Body')
+    await userEvent.click(await canvas.findByRole('menuitem', { name: /done/i }))
 
     await expectRedirect('/note/3')
 

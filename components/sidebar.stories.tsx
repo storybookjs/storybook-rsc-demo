@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { type Meta, type StoryObj } from '@storybook/react'
 import Sidebar from './sidebar'
 import { createNotes } from '#mocks/notes'
-import { expect, userEvent, waitFor } from '@storybook/test'
+import { expect, waitFor } from '@storybook/test'
 
 const meta = {
   component: Sidebar,
@@ -23,7 +23,7 @@ export const Empty: Story = {
 }
 
 export const NotesExpanded: Story = {
-  play: async ({ canvas }) => {
+  play: async ({ canvas, userEvent }) => {
     const expanders = canvas.getAllByAltText(/expand/i)
 
     expanders.forEach(async (expander) => {
@@ -65,7 +65,7 @@ export const ToggleSidebarOnMobile: Story = {
     },
     chromatic: { viewports: [320] },
   },
-  play: async ({ canvas, step }) => {
+  play: async ({ canvas, step, userEvent }) => {
     const searchInput = canvas.getByRole('menubar')
 
     await step('Sidebar is initially visible', async () => {
