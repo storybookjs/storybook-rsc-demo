@@ -1,4 +1,4 @@
-name: 'Chromatic'
+name: 'ci'
 
 on: push
 
@@ -37,6 +37,11 @@ jobs:
 
       - name: Run vitest
         run: pnpm run test
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Run Chromatic
         uses: chromaui/action@latest
