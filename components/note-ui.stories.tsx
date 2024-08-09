@@ -1,8 +1,4 @@
-/**
- * @vitest-environment jsdom
- */
-
-import { expect, userEvent, within } from '@storybook/test'
+import { expect, userEvent } from '@storybook/test'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { deleteNote, saveNote } from '#app/actions.mock'
 import NoteUI from '#components/note-ui'
@@ -13,8 +9,8 @@ const meta = {
   component: NoteUI,
   async beforeEach() {
     getUserFromSession.mockReturnValue('storybookjs')
-    saveNote.mockImplementation(async () => { })
-    deleteNote.mockImplementation(async () => { })
+    saveNote.mockImplementation(async () => {})
+    deleteNote.mockImplementation(async () => {})
   },
 } satisfies Meta<typeof NoteUI>
 
@@ -37,8 +33,7 @@ export const SaveAndDeleteShouldTriggerActions: Story = {
     isEditing: true,
     note: notes[0]!,
   },
-  play: async ({ canvasElement, step }) => {
-    const canvas = within(canvasElement)
+  play: async ({ canvas, step }) => {
     const titleInput = await canvas.findByLabelText(
       'Enter a title for your note',
     )

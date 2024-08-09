@@ -1,8 +1,4 @@
-/**
- * @vitest-environment jsdom
- */
-
-import { expect, userEvent, waitFor, within } from '@storybook/test'
+import { expect, userEvent } from '@storybook/test'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { cookies } from '@storybook/nextjs/headers.mock'
 import Page from './page'
@@ -54,8 +50,7 @@ export const UnknownId: Story = {
 }
 
 export const SavingExistingNoteShouldUpdateDBAndRedirect: Story = {
-  play: async ({ canvasElement, step }) => {
-    const canvas = within(canvasElement)
+  play: async ({ canvasElement, canvas }) => {
     const titleInput = await canvas.findByLabelText(
       'Enter a title for your note',
     )
@@ -73,7 +68,7 @@ export const SavingExistingNoteShouldUpdateDBAndRedirect: Story = {
     await userEvent.click(
       await canvas.findByRole('menuitem', { name: /done/i }),
       // WORKAROUND: FALSE_POSITIVE_POINTER_EVENTS
-      { pointerEventsCheck: 0 }
+      { pointerEventsCheck: 0 },
     )
 
     await expectRedirect('/note/2')
@@ -88,9 +83,7 @@ export const SavingExistingNoteShouldUpdateDBAndRedirect: Story = {
 }
 
 export const DeleteNoteRemovesFromDBAndSidebar: Story = {
-  play: async ({ canvasElement, step }) => {
-    const canvas = within(canvasElement)
-
+  play: async ({ canvas }) => {
     await expect(
       await db.note.findMany({ where: { id: 2 } }),
       'Note with id 2 does exist',
@@ -98,7 +91,7 @@ export const DeleteNoteRemovesFromDBAndSidebar: Story = {
 
     await userEvent.click(
       await canvas.findByRole('menuitem', { name: /delete/i }),
-      { pointerEventsCheck: 0 }
+      { pointerEventsCheck: 0 },
     )
 
     await expectRedirect('/')

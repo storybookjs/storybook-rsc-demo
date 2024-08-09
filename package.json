@@ -36,12 +36,9 @@
     "prisma:setup": "dotenv -e .env.local prisma migrate dev && pnpm run generate-dmmf",
     "prisma:seed": "dotenv -e .env.local prisma db seed",
     "prisma:studio": "dotenv -e .env.local prisma studio",
-    "storybook:webpack": "storybook dev -p 6006",
-    "storybook": "storybook dev -p 6006 -c .storybook-vite",
+    "storybook": "storybook dev -p 6006",
+    "storybook:vite": "storybook dev -p 6006 -c .storybook-vite",
     "build-storybook": "storybook build",
-    "test-storybook": "test-storybook",
-    "test-storybook:coverage": "test-storybook --coverage && DEBUG='istanbuljs' nyc report --reporter=text --reporter=lcov -t ./coverage/storybook --report-dir ./coverage/storybook",
-    "test-storybook:ci": "concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"pnpm run build-storybook --quiet && http-server storybook-static --port 6006 --silent\" \"wait-on http://127.0.0.1:6006/ && pnpm run test-storybook\"",
     "generate-dmmf": "tsx prisma/generate-dmmf.ts"
   },
   "prisma": {

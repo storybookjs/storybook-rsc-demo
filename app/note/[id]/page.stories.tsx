@@ -1,11 +1,7 @@
-/**
- * @vitest-environment jsdom
- */
-
 import { type Meta, type StoryObj } from '@storybook/react'
 import { cookies } from '@storybook/nextjs/headers.mock'
 import { http } from 'msw'
-import { expect, userEvent, waitFor, within } from '@storybook/test'
+import { expect, userEvent } from '@storybook/test'
 import Page from './page'
 import { db, initializeDB } from '#lib/db.mock'
 import { createUserCookie, userCookieKey } from '#lib/session'
@@ -13,6 +9,7 @@ import { PageDecorator } from '#.storybook/decorators'
 import { login } from '#app/actions.mock'
 import * as auth from '#app/auth/route'
 import { expectRedirect } from '#lib/test-utils'
+import NoteSkeleton from '#app/note/[id]/loading'
 
 const meta = {
   component: Page,
@@ -77,12 +74,10 @@ export const LoginShouldGetOAuthTokenAndSetCookie: Story = {
       ],
     },
   },
-  beforeEach() {},
   play: async ({ mount }) => {
     // Point the login implementation to the endpoint github would have redirected too.
     login.mockImplementation(async () => {
-      const absoluteUrl = new URL('/auth?code=storybookjs', 'http://localhost')
-      return await auth.GET(new Request(absoluteUrl.toString()))
+      return await auth.GET(new Request('/auth?code=storybookjs'))
     })
     const canvas = await mount()
     await expect(cookies().get(userCookieKey)?.value).toBeUndefined()
@@ -95,11 +90,10 @@ export const LoginShouldGetOAuthTokenAndSetCookie: Story = {
 }
 
 export const LogoutShouldDeleteCookie: Story = {
-  async beforeEach() {
+  async beforeEach() {},
+  play: async ({ mount }) => {
     cookies().set(userCookieKey, await createUserCookie('storybookjs'))
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
+    const canvas = await mount()
     await expect(cookies().get(userCookieKey)?.value).toContain('storybookjs')
     await userEvent.click(await canvas.findByRole('button', { name: 'logout' }))
     await expectRedirect('/')
@@ -121,4 +115,8 @@ export const EmptyState: Story = {
   async beforeEach() {
     initializeDB({}) // init an empty DB
   },
+}
+
+export const Loading: Story = {
+  render: () => <NoteSkeleton />,
 }
