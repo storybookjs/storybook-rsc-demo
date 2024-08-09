@@ -90,7 +90,6 @@ export const LoginShouldGetOAuthTokenAndSetCookie: Story = {
 }
 
 export const LogoutShouldDeleteCookie: Story = {
-  async beforeEach() {},
   play: async ({ mount }) => {
     cookies().set(userCookieKey, await createUserCookie('storybookjs'))
     const canvas = await mount()
