@@ -1,6 +1,6 @@
 import { storybookTest } from '@storybook/experimental-addon-vitest/plugin'
 import vitePluginNext from 'vite-plugin-storybook-nextjs'
-import { defineConfig } from 'vitest/config'
+import { coverageConfigDefaults, defineConfig } from 'vitest/config'
 
 export default defineConfig({
   plugins: [
@@ -21,5 +21,16 @@ export default defineConfig({
       screenshotFailures: false,
     },
     setupFiles: ['./.storybook/vitest.setup.ts'],
+    coverage: {
+      all: true,
+      include: [
+        '{app,lib,components}/**/*'
+      ],
+      exclude: [
+        ...coverageConfigDefaults.exclude,
+        '**/*.{stories,mock}.*'
+      ],
+      provider: 'istanbul'
+    }
   },
 })

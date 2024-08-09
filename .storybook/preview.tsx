@@ -8,6 +8,9 @@ initialize({ onUnhandledRequest: 'bypass', quiet: true })
 
 const preview: Preview = {
   parameters: {
+    react: {
+      rsc: true,
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
