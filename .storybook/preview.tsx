@@ -27,10 +27,6 @@ const preview: Preview = {
   },
   loaders: [mswLoader],
   beforeEach({ context, parameters }) {
-    if (parameters?.nextjs?.navigation) {
-      context.parameters.layout = 'fullscreen'
-    }
-
     context.userEvent = userEvent.setup({
       // When running vitest in browser mode, the pointer events are not correctly simulated.
       // This can be related to this [known issue](https://github.com/microsoft/playwright/issues/12821).
