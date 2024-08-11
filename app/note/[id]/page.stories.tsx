@@ -1,7 +1,7 @@
 import { type Meta, type StoryObj } from '@storybook/react'
 import { cookies } from '@storybook/nextjs/headers.mock'
 import { http } from 'msw'
-import { expect, userEvent } from '@storybook/test'
+import { expect } from '@storybook/test'
 import Page from './page'
 import { db, initializeDB } from '#lib/db.mock'
 import { createUserCookie, userCookieKey } from '#lib/session'
@@ -14,6 +14,8 @@ import NoteSkeleton from '#app/note/[id]/loading'
 const meta = {
   component: Page,
   decorators: [PageDecorator],
+  parameters: { layout: 'fullscreen' },
+  args: { params: { id: '1' } },
   async beforeEach() {
     await db.note.create({
       data: {
@@ -30,16 +32,6 @@ const meta = {
       },
     })
   },
-  parameters: {
-    layout: 'fullscreen',
-    nextjs: {
-      navigation: {
-        pathname: '/note/[id]',
-        query: { id: '1' },
-      },
-    },
-  },
-  args: { params: { id: '1' } },
 } satisfies Meta<typeof Page>
 
 export default meta
@@ -59,13 +51,10 @@ export const LoginShouldGetOAuthTokenAndSetCookie: Story = {
     msw: {
       // Mock out OAUTH
       handlers: [
-        http.post(
-          'https://github.com/login/oauth/access_token',
-          async ({ request }) => {
-            let json = (await request.json()) as any
-            return Response.json({ access_token: json.code })
-          },
-        ),
+        http.post('https://github.com/login/oauth/access_token', async ({ request }) => {
+          let json = (await request.json()) as any
+          return Response.json({ access_token: json.code })
+        }),
         http.get('https://api.github.com/user', async ({ request }) =>
           Response.json({
             login: request.headers.get('Authorization')?.replace('token ', ''),
@@ -74,23 +63,21 @@ export const LoginShouldGetOAuthTokenAndSetCookie: Story = {
       ],
     },
   },
-  play: async ({ mount }) => {
+  play: async ({ mount, userEvent }) => {
     // Point the login implementation to the endpoint github would have redirected too.
     login.mockImplementation(async () => {
       return await auth.GET(new Request('/auth?code=storybookjs'))
     })
     const canvas = await mount()
     await expect(cookies().get(userCookieKey)?.value).toBeUndefined()
-    await userEvent.click(
-      await canvas.findByRole('menuitem', { name: /login to add/i }),
-    )
+    await userEvent.click(await canvas.findByRole('menuitem', { name: /login to add/i }))
     await expectRedirect('/')
     await expect(cookies().get(userCookieKey)?.value).toContain('storybookjs')
   },
 }
 
 export const LogoutShouldDeleteCookie: Story = {
-  play: async ({ mount }) => {
+  play: async ({ mount, userEvent }) => {
     cookies().set(userCookieKey, await createUserCookie('storybookjs'))
     const canvas = await mount()
     await expect(cookies().get(userCookieKey)?.value).toContain('storybookjs')
@@ -102,11 +89,7 @@ export const LogoutShouldDeleteCookie: Story = {
 
 export const SearchInputShouldFilterNotes: Story = {
   parameters: {
-    nextjs: {
-      navigation: {
-        query: { q: 'RSC' },
-      },
-    },
+    nextjs: { navigation: { query: { q: 'RSC' } } },
   },
 }
 

@@ -71,7 +71,6 @@
     "@storybook/nextjs": "0.0.0-pr-28768-sha-81281ec6",
     "@storybook/react": "0.0.0-pr-28768-sha-81281ec6",
     "@storybook/test": "0.0.0-pr-28768-sha-81281ec6",
-    "@storybook/test-runner": "^0.19.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.0.0",
     "@total-typescript/tsconfig": "^1.0.4",
@@ -111,7 +110,8 @@
   },
   "prettier": {
     "singleQuote": true,
-    "semi": false
+    "semi": false,
+    "printWidth": 100
   },
   "msw": {
     "workerDirectory": [

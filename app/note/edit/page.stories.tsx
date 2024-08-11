@@ -10,14 +10,7 @@ import EditSkeleton from '#app/note/edit/loading'
 
 const meta = {
   component: Page,
-  parameters: {
-    layout: 'fullscreen',
-    nextjs: {
-      navigation: {
-        pathname: '/note/edit',
-      },
-    },
-  },
+  parameters: { layout: 'fullscreen' },
   decorators: [PageDecorator],
   async beforeEach() {
     cookies().set(userCookieKey, await createUserCookie('storybookjs'))
