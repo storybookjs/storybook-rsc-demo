@@ -9,18 +9,11 @@ initialize({ onUnhandledRequest: 'bypass', quiet: true })
 
 const preview: Preview = {
   parameters: {
-    react: {
-      rsc: true,
-    },
-    controls: {
-      matchers: {
-        color: /(background|color)$/i,
-        date: /Date$/i,
-      },
-    },
+    // We can disable this, as we set Suspense in the PageDecorator.
+    react: { rsc: false },
     test: {
-      // This is needed until Next will update to the React 19 beta: https://github.com/vercel/next.js/pull/65058
-      // In the React 19 beta ErrorBoundary errors (such as redirect) are only logged, and not thrown.
+      // This is not needed anymore when upgrading to Next 15.
+      // In Next 15 ErrorBoundary errors (such as redirect) are only logged, and not thrown.
       dangerouslyIgnoreUnhandledErrors: true,
     },
     nextjs: { appDirectory: true },
