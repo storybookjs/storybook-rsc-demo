@@ -20,6 +20,7 @@ export default defineConfig({
       headless: true,
       screenshotFailures: false,
     },
+    isolate: false,
     setupFiles: ['./.storybook/vitest.setup.ts'],
     coverage: {
       all: true,

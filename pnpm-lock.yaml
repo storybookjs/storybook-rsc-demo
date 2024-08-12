@@ -25,7 +25,7 @@ importers:
         version: 2.1.3
       next:
         specifier: ^14.2.5
-        version: 14.2.5(@babel/core@7.24.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 14.2.5(@babel/core@7.24.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       oauth:
         specifier: ^0.10.0
         version: 0.10.0
@@ -51,9 +51,6 @@ importers:
       '@storybook/addon-actions':
         specifier: 0.0.0-pr-28768-sha-81281ec6
         version: 0.0.0-pr-28768-sha-81281ec6(storybook@0.0.0-pr-28768-sha-81281ec6)
-      '@storybook/addon-coverage':
-        specifier: ^1.0.3
-        version: 1.0.3
       '@storybook/addon-essentials':
         specifier: 0.0.0-pr-28768-sha-81281ec6
         version: 0.0.0-pr-28768-sha-81281ec6(storybook@0.0.0-pr-28768-sha-81281ec6)
@@ -77,7 +74,7 @@ importers:
         version: 0.0.0-pr-28768-sha-81281ec6(storybook@0.0.0-pr-28768-sha-81281ec6)(vitest@2.0.4(@types/node@20.8.9)(@vitest/browser@2.0.4)(happy-dom@14.12.3)(jsdom@24.1.1)(terser@5.30.0))
       '@storybook/nextjs':
         specifier: 0.0.0-pr-28768-sha-81281ec6
-        version: 0.0.0-pr-28768-sha-81281ec6(@swc/core@1.7.3)(esbuild@0.21.5)(next@14.2.5(@babel/core@7.24.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@0.0.0-pr-28768-sha-81281ec6)(type-fest@4.15.0)(typescript@5.4.5)(webpack-hot-middleware@2.26.1)(webpack@5.91.0(@swc/core@1.7.3)(esbuild@0.21.5))
+        version: 0.0.0-pr-28768-sha-81281ec6(@swc/core@1.7.3)(esbuild@0.21.5)(next@14.2.5(@babel/core@7.24.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@0.0.0-pr-28768-sha-81281ec6)(type-fest@4.15.0)(typescript@5.4.5)(webpack-hot-middleware@2.26.1)(webpack@5.91.0(@swc/core@1.7.3)(esbuild@0.21.5))
       '@storybook/react':
         specifier: 0.0.0-pr-28768-sha-81281ec6
         version: 0.0.0-pr-28768-sha-81281ec6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@0.0.0-pr-28768-sha-81281ec6)(typescript@5.4.5)
@@ -188,7 +185,7 @@ importers:
         version: 5.3.5(@types/node@20.8.9)(terser@5.30.0)
       vite-plugin-storybook-nextjs:
         specifier: ^0.0.13
-        version: 0.0.13(@storybook/test@0.0.0-pr-28768-sha-81281ec6(storybook@0.0.0-pr-28768-sha-81281ec6))(next@14.2.5(@babel/core@7.24.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(storybook@0.0.0-pr-28768-sha-81281ec6)(vite@5.3.5(@types/node@20.8.9)(terser@5.30.0))
+        version: 0.0.13(@storybook/test@0.0.0-pr-28768-sha-81281ec6(storybook@0.0.0-pr-28768-sha-81281ec6))(next@14.2.5(@babel/core@7.24.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(storybook@0.0.0-pr-28768-sha-81281ec6)(vite@5.3.5(@types/node@20.8.9)(terser@5.30.0))
       vitest:
         specifier: ^2.0.4
         version: 2.0.4(@types/node@20.8.9)(@vitest/browser@2.0.4)(happy-dom@14.12.3)(jsdom@24.1.1)(terser@5.30.0)
@@ -1467,9 +1464,6 @@ packages:
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
 
-  '@jsdevtools/coverage-istanbul-loader@3.0.5':
-    resolution: {integrity: sha512-EUCPEkaRPvmHjWAAZkWMT7JDzpw7FKB00WTISaiXsbNOd5hCHg77XLA8sLYLFDo1zepYLo2w7GstN8YBqRXZfA==}
-
   '@mdx-js/react@3.0.1':
     resolution: {integrity: sha512-9ZrPIU4MGf6et1m1ov3zKf+q9+deetI51zprKB1D/z3NOb+rUxxtEl3mCjW5wTGh6VhRdwPueh1oRzi6ezkA8A==}
     peerDependencies:
@@ -1738,9 +1732,6 @@ packages:
     resolution: {integrity: sha512-BOzvz7eTmdPd1GpgcXrzCBlc4PHZc6pgYijpKVWrM+U82YGRl0ldeOqBD3Jbz2WPRpTc4q5QWx5RiTqb8qge6A==}
     peerDependencies:
       storybook: ^0.0.0-pr-28768-sha-81281ec6
-
-  '@storybook/addon-coverage@1.0.3':
-    resolution: {integrity: sha512-UTv2rCn5yub6GJG6QMG1eLkewRwS1DmZ2S/9+sewfXDP86+CW3TTPU7eo4e04UMEwElh4sS+7J6y8BCavHXaSQ==}
 
   '@storybook/addon-docs@0.0.0-pr-28768-sha-81281ec6':
     resolution: {integrity: sha512-Yrh+XP/7298SD1v/NyW98SeEiZ+MmTarTJpnykqbIXlaUdAIm+HY+8RRodfnycPsXYNnmQCeHZ7zjBc0pzw9Bw==}
@@ -4160,10 +4151,6 @@ packages:
     resolution: {integrity: sha512-pzqtp31nLv/XFOzXGuvhCb8qhjmTVo5vjVk19XE4CRlSWz0KoeJ3bw9XsA7nOp9YBf4qHjwBxkDzKcME/J29Yg==}
     engines: {node: '>=8'}
 
-  istanbul-lib-instrument@6.0.2:
-    resolution: {integrity: sha512-1WUsZ9R1lA0HtBSohTkm39WTPlNKSJ5iFk7UwqXkBLoHQT+hfqPsfsTDVuZdKGaBwn7din9bS7SsnoAr943hvw==}
-    engines: {node: '>=10'}
-
   istanbul-lib-instrument@6.0.3:
     resolution: {integrity: sha512-Vtgk7L/R2JHyyGW07spoFlB8/lpjiOLTjMdms6AFMraYt3BaJauod/NGrfnVG/y4Ix1JEuMRPDPEj2ua+zz1/Q==}
     engines: {node: '>=10'}
@@ -4547,9 +4534,6 @@ packages:
 
   merge-descriptors@1.0.1:
     resolution: {integrity: sha512-cCi6g3/Zr1iqQi6ySbseM1Xvooa98N0w31jzUYrXPX2xqObmFGHJ0tQ5u74H3mVh7wLouTseZyYIq39g8cNp1w==}
-
-  merge-source-map@1.1.0:
-    resolution: {integrity: sha512-Qkcp7P2ygktpMPh2mCQZaf3jhN6D3Z/qVZHSdWvQ+2Ef5HgRAPBO57A77+ENm0CPx2+1Ce/MYKi3ymqdfuqibw==}
 
   merge-stream@2.0.0:
     resolution: {integrity: sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w==}
@@ -5403,10 +5387,6 @@ packages:
   scheduler@0.23.2:
     resolution: {integrity: sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ==}
 
-  schema-utils@2.7.1:
-    resolution: {integrity: sha512-SHiNtMOUGWBQJwzISiVYKu82GiV4QYGePp3odlY1tuKO7gPtphAT5R/py0fA6xtbgLL/RvtJZnU9b8s0F1q0Xg==}
-    engines: {node: '>= 8.9.0'}
-
   schema-utils@3.3.0:
     resolution: {integrity: sha512-pN/yOAvcC+5rQ5nERGuwrjLlYvLTbCibnZ1I7B1LaiAz9BRBlE9GMgE/eqV30P7aJQUf7Ddimy/RsbYO/GrVGg==}
     engines: {node: '>= 10.13.0'}
@@ -6013,9 +5993,6 @@ packages:
     resolution: {integrity: sha512-ZpJVkxcakYtig5iakNeL7N3trufe3M6vGuzYAr4GsbCTwobDeyPJpE4cjDhhPluv8OvQCFzu2LWp6GkoKRITXA==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
-
-  vite-plugin-istanbul@3.0.4:
-    resolution: {integrity: sha512-DJy3cq6yOFbsM3gLQf/3zeuaJNJsfBv5dLFdZdv8sUV30xLtZI+66QeYfHUyP/5vBUYyLA+xNUCSG5uHY6w+5g==}
 
   vite-plugin-storybook-nextjs@0.0.13:
     resolution: {integrity: sha512-hO6pyFlbBk1S6C1p4UFoYFP9Z1VFqTFMSa3r1OGD5cnRTnf+ztgWB+ptjSst/B/pXzIrcJpFKUjksJpP53TdqQ==}
@@ -7680,16 +7657,6 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@jsdevtools/coverage-istanbul-loader@3.0.5':
-    dependencies:
-      convert-source-map: 1.9.0
-      istanbul-lib-instrument: 4.0.3
-      loader-utils: 2.0.4
-      merge-source-map: 1.1.0
-      schema-utils: 2.7.1
-    transitivePeerDependencies:
-      - supports-color
-
   '@mdx-js/react@3.0.1(@types/react@18.2.33)(react@18.3.1)':
     dependencies:
       '@types/mdx': 2.0.12
@@ -7902,20 +7869,6 @@ snapshots:
       lodash: 4.17.21
       storybook: 0.0.0-pr-28768-sha-81281ec6
       ts-dedent: 2.2.0
-
-  '@storybook/addon-coverage@1.0.3':
-    dependencies:
-      '@istanbuljs/load-nyc-config': 1.1.0
-      '@jsdevtools/coverage-istanbul-loader': 3.0.5
-      '@types/istanbul-lib-coverage': 2.0.6
-      convert-source-map: 2.0.0
-      espree: 9.6.1
-      istanbul-lib-instrument: 6.0.2
-      source-map: 0.7.4
-      test-exclude: 6.0.0
-      vite-plugin-istanbul: 3.0.4
-    transitivePeerDependencies:
-      - supports-color
 
   '@storybook/addon-docs@0.0.0-pr-28768-sha-81281ec6(storybook@0.0.0-pr-28768-sha-81281ec6)':
     dependencies:
@@ -8131,7 +8084,7 @@ snapshots:
     dependencies:
       storybook: 0.0.0-pr-28768-sha-81281ec6
 
-  '@storybook/nextjs@0.0.0-pr-28768-sha-81281ec6(@swc/core@1.7.3)(esbuild@0.21.5)(next@14.2.5(@babel/core@7.24.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@0.0.0-pr-28768-sha-81281ec6)(type-fest@4.15.0)(typescript@5.4.5)(webpack-hot-middleware@2.26.1)(webpack@5.91.0(@swc/core@1.7.3)(esbuild@0.21.5))':
+  '@storybook/nextjs@0.0.0-pr-28768-sha-81281ec6(@swc/core@1.7.3)(esbuild@0.21.5)(next@14.2.5(@babel/core@7.24.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@0.0.0-pr-28768-sha-81281ec6)(type-fest@4.15.0)(typescript@5.4.5)(webpack-hot-middleware@2.26.1)(webpack@5.91.0(@swc/core@1.7.3)(esbuild@0.21.5))':
     dependencies:
       '@babel/core': 7.24.5
       '@babel/plugin-syntax-bigint': 7.8.3(@babel/core@7.24.5)
@@ -8159,7 +8112,7 @@ snapshots:
       fs-extra: 11.2.0
       image-size: 1.1.1
       loader-utils: 3.2.1
-      next: 14.2.5(@babel/core@7.24.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      next: 14.2.5(@babel/core@7.24.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       node-polyfill-webpack-plugin: 2.0.1(webpack@5.91.0(@swc/core@1.7.3)(esbuild@0.21.5))
       pnp-webpack-plugin: 1.7.0(typescript@5.4.5)
       postcss: 8.4.40
@@ -10026,7 +9979,7 @@ snapshots:
       eslint: 8.0.0
       eslint-import-resolver-node: 0.3.9
       eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.0.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.0.0))(eslint@8.0.0)
-      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@6.21.0(eslint@8.0.0)(typescript@5.4.5))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.0.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.0.0))(eslint@8.0.0))(eslint@8.0.0)
+      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@6.21.0(eslint@8.0.0)(typescript@5.4.5))(eslint-import-resolver-typescript@3.6.1)(eslint@8.0.0)
       eslint-plugin-jsx-a11y: 6.8.0(eslint@8.0.0)
       eslint-plugin-react: 7.34.1(eslint@8.0.0)
       eslint-plugin-react-hooks: 4.6.0(eslint@8.0.0)
@@ -10050,7 +10003,7 @@ snapshots:
       enhanced-resolve: 5.16.0
       eslint: 8.0.0
       eslint-module-utils: 2.8.1(@typescript-eslint/parser@6.21.0(eslint@8.0.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.0.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.0.0))(eslint@8.0.0))(eslint@8.0.0)
-      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@6.21.0(eslint@8.0.0)(typescript@5.4.5))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.0.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.0.0))(eslint@8.0.0))(eslint@8.0.0)
+      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@6.21.0(eslint@8.0.0)(typescript@5.4.5))(eslint-import-resolver-typescript@3.6.1)(eslint@8.0.0)
       fast-glob: 3.3.2
       get-tsconfig: 4.7.3
       is-core-module: 2.13.1
@@ -10072,7 +10025,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.29.1(@typescript-eslint/parser@6.21.0(eslint@8.0.0)(typescript@5.4.5))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.0.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.0.0))(eslint@8.0.0))(eslint@8.0.0):
+  eslint-plugin-import@2.29.1(@typescript-eslint/parser@6.21.0(eslint@8.0.0)(typescript@5.4.5))(eslint-import-resolver-typescript@3.6.1)(eslint@8.0.0):
     dependencies:
       array-includes: 3.1.8
       array.prototype.findlastindex: 1.2.5
@@ -10961,21 +10914,11 @@ snapshots:
 
   istanbul-lib-instrument@5.2.1:
     dependencies:
-      '@babel/core': 7.24.3
-      '@babel/parser': 7.24.1
+      '@babel/core': 7.24.5
+      '@babel/parser': 7.24.5
       '@istanbuljs/schema': 0.1.3
       istanbul-lib-coverage: 3.2.2
       semver: 6.3.1
-    transitivePeerDependencies:
-      - supports-color
-
-  istanbul-lib-instrument@6.0.2:
-    dependencies:
-      '@babel/core': 7.24.3
-      '@babel/parser': 7.24.1
-      '@istanbuljs/schema': 0.1.3
-      istanbul-lib-coverage: 3.2.2
-      semver: 7.6.0
     transitivePeerDependencies:
       - supports-color
 
@@ -11608,10 +11551,6 @@ snapshots:
 
   merge-descriptors@1.0.1: {}
 
-  merge-source-map@1.1.0:
-    dependencies:
-      source-map: 0.6.1
-
   merge-stream@2.0.0: {}
 
   merge2@1.4.1: {}
@@ -11717,7 +11656,7 @@ snapshots:
 
   neo-async@2.6.2: {}
 
-  next@14.2.5(@babel/core@7.24.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  next@14.2.5(@babel/core@7.24.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@next/env': 14.2.5
       '@swc/helpers': 0.5.5
@@ -11727,7 +11666,7 @@ snapshots:
       postcss: 8.4.31
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
-      styled-jsx: 5.1.1(@babel/core@7.24.5)(react@18.3.1)
+      styled-jsx: 5.1.1(@babel/core@7.24.3)(react@18.3.1)
     optionalDependencies:
       '@next/swc-darwin-arm64': 14.2.5
       '@next/swc-darwin-x64': 14.2.5
@@ -12555,12 +12494,6 @@ snapshots:
     dependencies:
       loose-envify: 1.4.0
 
-  schema-utils@2.7.1:
-    dependencies:
-      '@types/json-schema': 7.0.15
-      ajv: 6.12.6
-      ajv-keywords: 3.5.2(ajv@6.12.6)
-
   schema-utils@3.3.0:
     dependencies:
       '@types/json-schema': 7.0.15
@@ -12860,6 +12793,13 @@ snapshots:
   style-loader@3.3.4(webpack@5.91.0(@swc/core@1.7.3)(esbuild@0.21.5)):
     dependencies:
       webpack: 5.91.0(@swc/core@1.7.3)(esbuild@0.21.5)
+
+  styled-jsx@5.1.1(@babel/core@7.24.3)(react@18.3.1):
+    dependencies:
+      client-only: 0.0.1
+      react: 18.3.1
+    optionalDependencies:
+      '@babel/core': 7.24.3
 
   styled-jsx@5.1.1(@babel/core@7.24.5)(react@18.3.1):
     dependencies:
@@ -13217,22 +13157,13 @@ snapshots:
       - supports-color
       - terser
 
-  vite-plugin-istanbul@3.0.4:
-    dependencies:
-      '@istanbuljs/load-nyc-config': 1.1.0
-      istanbul-lib-instrument: 5.2.1
-      picocolors: 1.0.0
-      test-exclude: 6.0.0
-    transitivePeerDependencies:
-      - supports-color
-
-  vite-plugin-storybook-nextjs@0.0.13(@storybook/test@0.0.0-pr-28768-sha-81281ec6(storybook@0.0.0-pr-28768-sha-81281ec6))(next@14.2.5(@babel/core@7.24.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(storybook@0.0.0-pr-28768-sha-81281ec6)(vite@5.3.5(@types/node@20.8.9)(terser@5.30.0)):
+  vite-plugin-storybook-nextjs@0.0.13(@storybook/test@0.0.0-pr-28768-sha-81281ec6(storybook@0.0.0-pr-28768-sha-81281ec6))(next@14.2.5(@babel/core@7.24.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(storybook@0.0.0-pr-28768-sha-81281ec6)(vite@5.3.5(@types/node@20.8.9)(terser@5.30.0)):
     dependencies:
       '@next/env': 14.2.5
       '@storybook/test': 0.0.0-pr-28768-sha-81281ec6(storybook@0.0.0-pr-28768-sha-81281ec6)
       image-size: 1.1.1
       module-alias: 2.2.3
-      next: 14.2.5(@babel/core@7.24.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      next: 14.2.5(@babel/core@7.24.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       storybook: 0.0.0-pr-28768-sha-81281ec6
       ts-dedent: 2.2.0
       vite: 5.3.5(@types/node@20.8.9)(terser@5.30.0)
