@@ -5,7 +5,7 @@ const config: StorybookConfig = {
   addons: [
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
-    '@storybook/addon-coverage',
+    '@storybook/addon-a11y',
     '@chromatic-com/storybook',
   ],
   framework: {
