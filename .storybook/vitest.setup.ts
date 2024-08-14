@@ -5,4 +5,4 @@ import './a11y.vitest.setup'
 
 const annotations = setProjectAnnotations(projectAnnotations)
 
-beforeAll(annotations.beforeAll!)
+beforeAll(annotations.beforeAll)
