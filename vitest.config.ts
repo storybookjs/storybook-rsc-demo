@@ -11,7 +11,6 @@ export default defineConfig({
   ],
   publicDir: './public',
   test: {
-    name: 'storybook',
     include: ['./**/*.{story,stories}.?(c|m)[jt]s?(x)'],
     browser: {
       enabled: true,
@@ -24,14 +23,9 @@ export default defineConfig({
     setupFiles: ['./.storybook/vitest.setup.ts'],
     coverage: {
       all: true,
-      include: [
-        '{app,lib,components}/**/*'
-      ],
-      exclude: [
-        ...coverageConfigDefaults.exclude,
-        '**/*.{stories,mock}.*'
-      ],
-      provider: 'istanbul'
-    }
+      include: ['{app,lib,components}/**/*'],
+      exclude: [...coverageConfigDefaults.exclude, '**/*.{stories,mock}.*'],
+      provider: 'istanbul',
+    },
   },
 })
