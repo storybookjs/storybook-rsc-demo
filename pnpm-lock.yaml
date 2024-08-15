@@ -181,7 +181,7 @@ importers:
         specifier: ^0.0.13
         version: 0.0.13(@storybook/test@8.3.0-alpha.6(storybook@8.3.0-alpha.6))(next@14.2.5(@babel/core@7.24.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(storybook@8.3.0-alpha.6)(vite@5.3.5(@types/node@20.8.9)(terser@5.30.0))
       vitest:
-        specifier: ^2.0.4
+        specifier: 2.0.4
         version: 2.0.4(@types/node@20.8.9)(@vitest/browser@2.0.4)(happy-dom@14.12.3)(jsdom@24.1.1)(terser@5.30.0)
       vitest-axe:
         specifier: ^0.1.0
@@ -13200,7 +13200,7 @@ snapshots:
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@vitest/expect': 2.0.4
-      '@vitest/pretty-format': 2.0.4
+      '@vitest/pretty-format': 2.0.5
       '@vitest/runner': 2.0.4
       '@vitest/snapshot': 2.0.4
       '@vitest/spy': 2.0.4

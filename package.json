@@ -103,7 +103,7 @@
     "typescript": "^5.4.5",
     "vite": "^5.3.5",
     "vite-plugin-storybook-nextjs": "^0.0.13",
-    "vitest": "^2.0.5",
+    "vitest": "2.0.4",
     "vitest-axe": "^0.1.0",
     "wait-on": "^7.2.0"
   },
