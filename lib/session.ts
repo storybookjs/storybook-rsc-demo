@@ -19,28 +19,37 @@ export function createEncrypt() {
   }
 }
 
-// Decrypt
-export function createDecrypt() {
-  return async function decrypt(data: string) {
-    const decrypted = unsign(data, pwUtf8.toString())
-    if (decrypted) return decrypted
-    throw new Error('Invalid signature')
-  }
+export async function decrypt(data: string) {
+  const decrypted = unsign(data, pwUtf8.toString())
+  if (decrypted) return decrypted
+  throw new Error('Invalid signature')
 }
 
 export function getSession(userCookie = '') {
-  const none = [null, null]
+  const none = [null, null] as const
   const value = decodeURIComponent(userCookie)
   if (!value) return none
   const index = value.indexOf(cookieSep)
   if (index === -1) return none
   const user = value.slice(0, index)
-  const session = value.slice(index + cookieSep.length)
+  const session = value.slice(index + cookieSep.length, value.indexOf(';'))
   return [user, session]
 }
 
-export function getUser(userCookie?: string) {
-  return getSession(userCookie)[0]
+export async function getUser(userCookie?: string) {
+  const [user, encryptedUser] = getSession(userCookie)
+  if (user && encryptedUser) {
+    try {
+      const decryptedUser = await decrypt(encryptedUser)
+      if (decryptedUser === user) {
+        return user
+      }
+      return null
+    } catch (e) {
+      return null
+    }
+  }
+  return user
 }
 
 export async function createUserCookie(token: string) {
