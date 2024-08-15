@@ -56,7 +56,7 @@
     "sanitize-html": "^2.13.0"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "^1.2.25",
+    "@chromatic-com/storybook": "^1.6.1",
     "@prisma/client": "^5.11.0",
     "@storybook/addon-a11y": "^8.3.0-alpha.6",
     "@storybook/addon-actions": "^8.3.0-alpha.6",
@@ -89,9 +89,8 @@
     "eslint-plugin-storybook": "^0.8.0",
     "http-server": "^14.1.1",
     "mockdate": "^3.0.5",
-    "module-alias": "^2.2.3",
     "msw": "^2.3.4",
-    "msw-storybook-addon": "^2.0.0",
+    "msw-storybook-addon": "^2.0.3",
     "nyc": "^15.1.0",
     "playwright": "^1.43.0",
     "prettier": "^3.2.5",
