@@ -8,7 +8,7 @@ import { getUserFromSession } from '#lib/session.mock'
 const meta = {
   component: NoteUI,
   async beforeEach() {
-    getUserFromSession.mockReturnValue('storybookjs')
+    getUserFromSession.mockResolvedValue('storybookjs')
     saveNote.mockImplementation(async () => {})
     deleteNote.mockImplementation(async () => {})
   },
@@ -34,12 +34,8 @@ export const SaveAndDeleteShouldTriggerActions: Story = {
     note: notes[0]!,
   },
   play: async ({ canvas, step, userEvent }) => {
-    const titleInput = await canvas.findByLabelText(
-      'Enter a title for your note',
-    )
-    const bodyInput = await canvas.findByLabelText(
-      'Enter the body for your note',
-    )
+    const titleInput = await canvas.findByLabelText('Enter a title for your note')
+    const bodyInput = await canvas.findByLabelText('Enter the body for your note')
     await userEvent.clear(titleInput)
     await userEvent.type(titleInput, 'Edited Title')
     await userEvent.clear(bodyInput)
@@ -49,11 +45,7 @@ export const SaveAndDeleteShouldTriggerActions: Story = {
       const saveButton = await canvas.findByRole('menuitem', { name: /done/i })
       await userEvent.click(saveButton)
       await expect(saveNote).toHaveBeenCalledOnce()
-      await expect(saveNote).toHaveBeenCalledWith(
-        1,
-        'Edited Title',
-        'Edited Body',
-      )
+      await expect(saveNote).toHaveBeenCalledWith(1, 'Edited Title', 'Edited Body')
     })
 
     await step('Delete flow', async () => {

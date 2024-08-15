@@ -10,12 +10,7 @@ type Props = {
   expandedChildren: React.ReactNode
 }
 
-export default function SidebarNote({
-  id,
-  title,
-  children,
-  expandedChildren,
-}: Props) {
+export default function SidebarNote({ id, title, children, expandedChildren }: Props) {
   const router = useRouter()
   const pathname = usePathname()
   const selectedId = Number(pathname?.split('/')[1]) || null
@@ -40,10 +35,7 @@ export default function SidebarNote({
       onAnimationEnd={() => {
         itemRef.current?.classList.remove('flash')
       }}
-      className={[
-        'sidebar-note-list-item',
-        isExpanded ? 'note-expanded' : '',
-      ].join(' ')}
+      className={['sidebar-note-list-item', isExpanded ? 'note-expanded' : ''].join(' ')}
     >
       {children}
       <button
@@ -54,15 +46,11 @@ export default function SidebarNote({
             : isActive
               ? 'var(--tertiary-blue)'
               : undefined,
-          border: isActive
-            ? '1px solid var(--primary-border)'
-            : '1px solid transparent',
+          border: isActive ? '1px solid var(--primary-border)' : '1px solid transparent',
         }}
         onClick={() => {
           // hide the sidebar
-          const sidebarToggle = document.getElementById(
-            'sidebar-toggle',
-          ) as HTMLInputElement
+          const sidebarToggle = document.getElementById('sidebar-toggle') as HTMLInputElement
           if (sidebarToggle) {
             sidebarToggle.checked = true
           }
@@ -79,12 +67,7 @@ export default function SidebarNote({
         }}
       >
         {isExpanded ? (
-          <img
-            src="/chevron-down.svg"
-            width="10px"
-            height="10px"
-            alt="Collapse"
-          />
+          <img src="/chevron-down.svg" width="10px" height="10px" alt="Collapse" />
         ) : (
           <img src="/chevron-up.svg" width="10px" height="10px" alt="Expand" />
         )}

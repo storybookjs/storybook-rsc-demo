@@ -3,11 +3,7 @@ import React from 'react'
 import marked from 'marked'
 import { sanitizeHtml } from '#lib/sanitize-html'
 
-export default function NotePreview({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function NotePreview({ children }: { children: React.ReactNode }) {
   return (
     <div className="note-preview">
       <div

@@ -21,11 +21,7 @@ export const metadata = {
   },
 }
 
-export default async function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html>
       <body>
@@ -42,9 +38,7 @@ export async function Layout({ children }: { children: React.ReactNode }) {
     },
   })
   let notesArray = notes
-    ? (Object.values(notes) as Note[]).sort(
-        (a, b) => Number(a.id) - Number(b.id),
-      )
+    ? (Object.values(notes) as Note[]).sort((a, b) => Number(a.id) - Number(b.id))
     : []
 
   return (

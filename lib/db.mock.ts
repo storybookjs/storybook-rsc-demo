@@ -9,10 +9,7 @@ globalThis.jest = { fn }
 const createPrismaClientMock = (
   data: Parameters<typeof createPrismaMock<PrismaClient>>[0] = {},
 ) => {
-  const db = createPrismaMock<PrismaClient>(
-    data,
-    json.datamodel as Prisma.DMMF.Datamodel,
-  )
+  const db = createPrismaMock<PrismaClient>(data, json.datamodel as Prisma.DMMF.Datamodel)
   // Give some more useful spy names
   for (const [tableName, table] of Object.entries(db)) {
     for (const [methodName, method] of Object.entries(table)) {
@@ -26,13 +23,9 @@ const createPrismaClientMock = (
 
 export let db = createPrismaClientMock()
 
-export function initializeDB(
-  data: Parameters<typeof createPrismaMock<PrismaClient>>[0] = {},
-) {
+export function initializeDB(data: Parameters<typeof createPrismaMock<PrismaClient>>[0] = {}) {
   db = createPrismaClientMock(data)
 
   // @ts-ignore This Error class is not loaded properly in the browser, mocking it for now like a regular Error
-  Prisma.PrismaClientKnownRequestError = class PrismaClientKnownRequestError extends (
-    Error
-  ) {}
+  Prisma.PrismaClientKnownRequestError = class PrismaClientKnownRequestError extends Error {}
 }

@@ -17,9 +17,7 @@ export default function NoteList({ notes, searchText }: Props) {
   if (notes.length === 0) {
     return (
       <div className="notes-empty">
-        {searchText
-          ? `Couldn't find any notes titled "${searchText}".`
-          : 'No notes created yet!'}{' '}
+        {searchText ? `Couldn't find any notes titled "${searchText}".` : 'No notes created yet!'}{' '}
       </div>
     )
   }
@@ -27,9 +25,7 @@ export default function NoteList({ notes, searchText }: Props) {
   return (
     <ul className="notes-list">
       {notes.map((note) =>
-        note &&
-        (!searchText ||
-          note.title.toLowerCase().includes(searchText.toLowerCase())) ? (
+        note && (!searchText || note.title.toLowerCase().includes(searchText.toLowerCase())) ? (
           <li key={note.id}>
             <SidebarNote note={note} />
           </li>
@@ -65,9 +61,7 @@ function SidebarNote({ note }: { note: Note }) {
     <ClientSidebarNote
       id={note.id}
       title={note.title}
-      expandedChildren={
-        <p className="sidebar-note-excerpt">{summary || <i>(No content)</i>}</p>
-      }
+      expandedChildren={<p className="sidebar-note-excerpt">{summary || <i>(No content)</i>}</p>}
     >
       <header className="sidebar-note-header">
         <strong>{note.title}</strong>

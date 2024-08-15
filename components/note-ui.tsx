@@ -8,24 +8,20 @@ import { type Note } from '@prisma/client'
 
 type Props =
   | {
-    note: Partial<Note>
-    isEditing: true
-  }
+      note: Partial<Note>
+      isEditing: true
+    }
   | {
-    note: Note
-    isEditing: false
-  }
+      note: Note
+      isEditing: false
+    }
 
-export default function NoteUI({ note, isEditing }: Props) {
-  const user = getUserFromSession()
+export default async function NoteUI({ note, isEditing }: Props) {
+  const user = await getUserFromSession()
 
   if (isEditing) {
     return (
-      <NoteEditor
-        noteId={note.id}
-        initialTitle={note.title ?? ''}
-        initialBody={note.body ?? ''}
-      />
+      <NoteEditor noteId={note.id} initialTitle={note.title ?? ''} initialBody={note.body ?? ''} />
     )
   }
 
@@ -53,11 +49,7 @@ export default function NoteUI({ note, isEditing }: Props) {
               height={40}
             />
             &nbsp;
-            <a
-              href={`https://github.com/${createdBy}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href={`https://github.com/${createdBy}`} target="_blank" rel="noopener noreferrer">
               {createdBy}
             </a>
           </div>

@@ -37,9 +37,7 @@ export const InputCleared: Story = {
 
     await step('Clear', async () => {
       await fireEvent.change(input, { target: { value: '' } })
-      expect(getRouter().replace).toHaveBeenCalledWith(
-        expect.not.stringContaining('q='),
-      )
+      expect(getRouter().replace).toHaveBeenCalledWith(expect.not.stringContaining('q='))
     })
   },
 }

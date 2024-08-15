@@ -12,11 +12,7 @@ type Props = {
   initialBody: string
 }
 
-export default function NoteEditor({
-  noteId,
-  initialTitle,
-  initialBody,
-}: Props) {
+export default function NoteEditor({ noteId, initialTitle, initialBody }: Props) {
   const { pending } = useFormStatus()
   const [title, setTitle] = useState(initialTitle)
   const [body, setBody] = useState(initialBody)
@@ -39,11 +35,7 @@ export default function NoteEditor({
         <label className="offscreen" htmlFor="note-body-input">
           Enter the body for your note
         </label>
-        <textarea
-          value={body}
-          id="note-body-input"
-          onChange={(e) => setBody(e.target.value)}
-        />
+        <textarea value={body} id="note-body-input" onChange={(e) => setBody(e.target.value)} />
       </form>
       <div className="note-editor-preview">
         <form className="note-editor-menu" role="menubar">
@@ -54,13 +46,7 @@ export default function NoteEditor({
             formAction={() => saveNote(noteId, title, body)}
             role="menuitem"
           >
-            <Image
-              src="/checkmark.svg"
-              width={14}
-              height={10}
-              alt=""
-              role="presentation"
-            />
+            <Image src="/checkmark.svg" width={14} height={10} alt="" role="presentation" />
             Done
           </button>
           {!isDraft && (
@@ -70,13 +56,7 @@ export default function NoteEditor({
               formAction={() => deleteNote(noteId)}
               role="menuitem"
             >
-              <Image
-                src="/cross.svg"
-                width={10}
-                height={10}
-                alt=""
-                role="presentation"
-              />
+              <Image src="/cross.svg" width={10} height={10} alt="" role="presentation" />
               Delete
             </button>
           )}

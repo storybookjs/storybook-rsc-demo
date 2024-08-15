@@ -39,12 +39,8 @@ export const EditNewNote: Story = {}
 
 export const SaveNewNote: Story = {
   play: async ({ canvas, userEvent }) => {
-    const titleInput = await canvas.findByLabelText(
-      'Enter a title for your note',
-    )
-    const bodyInput = await canvas.findByLabelText(
-      'Enter the body for your note',
-    )
+    const titleInput = await canvas.findByLabelText('Enter a title for your note')
+    const bodyInput = await canvas.findByLabelText('Enter the body for your note')
     await userEvent.clear(titleInput)
     await userEvent.type(titleInput, 'New Note Title', {})
     await userEvent.type(bodyInput, 'New Note Body')
