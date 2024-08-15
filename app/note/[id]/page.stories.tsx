@@ -1,5 +1,5 @@
 import { type Meta, type StoryObj } from '@storybook/react'
-import { cookies } from '@storybook/nextjs/headers.mock'
+import { cookies } from '@storybook/experimental-nextjs-vite/headers.mock'
 import { http } from 'msw'
 import { expect } from '@storybook/test'
 import Page from './page'

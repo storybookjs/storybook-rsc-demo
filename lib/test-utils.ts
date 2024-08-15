@@ -1,5 +1,5 @@
 import { expect, waitFor } from '@storybook/test'
-import { getRouter } from '@storybook/nextjs/navigation.mock'
+import { getRouter } from '@storybook/experimental-nextjs-vite/navigation.mock'
 
 export const expectRedirect = async (url: string) => {
   await waitFor(() =>
