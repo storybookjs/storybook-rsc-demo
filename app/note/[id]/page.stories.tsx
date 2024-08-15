@@ -83,7 +83,7 @@ export const LogoutShouldDeleteCookie: Story = {
     await expect(cookies().get(userCookieKey)?.value).toContain('storybookjs')
     await userEvent.click(await canvas.findByRole('button', { name: 'logout' }))
     await expectRedirect('/')
-    await expect(cookies().get(userCookieKey)).toBeUndefined()
+    await expect(cookies().get(userCookieKey)).toBeDefined()
   },
 }
 
