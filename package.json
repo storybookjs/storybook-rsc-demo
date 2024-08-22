@@ -32,6 +32,7 @@
     "dev": "next dev",
     "test": "vitest",
     "lint": "next lint",
+    "typecheck": "tsc",
     "start": "next start",
     "prisma:setup": "dotenv -e .env.local prisma migrate dev && pnpm run generate-dmmf",
     "prisma:seed": "dotenv -e .env.local prisma db seed",

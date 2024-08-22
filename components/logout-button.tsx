@@ -1,13 +1,13 @@
 import { logout } from '#app/actions'
 import { getUserFromSession } from '#lib/session'
 
-export default function LogoutButton() {
-  const user = getUserFromSession()
+export default async function LogoutButton() {
+  const user = await getUserFromSession()
 
   return (
     user && (
       <form action={logout}>
-        <button className="logout-button" type="submit" aria-label='logout'>
+        <button className="logout-button" type="submit" aria-label="logout">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
