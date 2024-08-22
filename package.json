@@ -58,18 +58,18 @@
   "devDependencies": {
     "@chromatic-com/storybook": "^1.2.25",
     "@prisma/client": "^5.11.0",
-    "@storybook/addon-a11y": "^8.3.0-alpha.6",
-    "@storybook/addon-actions": "^8.3.0-alpha.6",
-    "@storybook/addon-essentials": "^8.3.0-alpha.6",
-    "@storybook/addon-interactions": "^8.3.0-alpha.6",
-    "@storybook/addon-viewport": "^8.3.0-alpha.6",
-    "@storybook/blocks": "^8.3.0-alpha.6",
-    "@storybook/builder-vite": "^8.3.0-alpha.6",
+    "@storybook/addon-a11y": "8.3.0-alpha.8",
+    "@storybook/addon-actions": "8.3.0-alpha.8",
+    "@storybook/addon-essentials": "8.3.0-alpha.8",
+    "@storybook/addon-interactions": "8.3.0-alpha.8",
+    "@storybook/addon-viewport": "8.3.0-alpha.8",
+    "@storybook/blocks": "8.3.0-alpha.8",
+    "@storybook/builder-vite": "8.3.0-alpha.8",
     "@storybook/csf": "^0.1.11",
-    "@storybook/experimental-addon-vitest": "^8.3.0-alpha.6",
-    "@storybook/nextjs": "^8.3.0-alpha.6",
-    "@storybook/react": "^8.3.0-alpha.6",
-    "@storybook/test": "^8.3.0-alpha.6",
+    "@storybook/experimental-addon-vitest": "8.3.0-alpha.8",
+    "@storybook/nextjs": "8.3.0-alpha.8",
+    "@storybook/react": "8.3.0-alpha.8",
+    "@storybook/test": "8.3.0-alpha.8",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.0.0",
     "@total-typescript/tsconfig": "^1.0.4",
@@ -97,7 +97,7 @@
     "prettier": "^3.2.5",
     "prisma": "^5.11.0",
     "prisma-mock": "^0.10.2",
-    "storybook": "^8.3.0-alpha.6",
+    "storybook": "8.3.0-alpha.8",
     "ts-node": "^10.9.2",
     "tsx": "^4.7.1",
     "typescript": "^5.4.5",
@@ -116,5 +116,6 @@
     "workerDirectory": [
       "public"
     ]
-  }
+  },
+  "packageManager": "pnpm@9.1.4+sha512.9df9cf27c91715646c7d675d1c9c8e41f6fce88246f1318c1aa6a1ed1aeb3c4f032fcdf4ba63cc69c4fe6d634279176b5358727d8f2cc1e65b65f43ce2f8bfb0"
 }

@@ -4,11 +4,16 @@ import { initialize, mswLoader } from 'msw-storybook-addon'
 import * as MockDate from 'mockdate'
 import { initializeDB } from '#lib/db.mock'
 import { userEvent } from '@storybook/test'
-
 initialize({ onUnhandledRequest: 'bypass', quiet: true })
+
+import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport'
 
 const preview: Preview = {
   parameters: {
+    // TODO can be removed when this is in: https://github.com/storybookjs/storybook/pull/28943
+    viewport: {
+      viewports: MINIMAL_VIEWPORTS,
+    },
     // We can disable this, as we set Suspense in the PageDecorator.
     react: { rsc: false },
     test: {
