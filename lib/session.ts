@@ -30,7 +30,7 @@ export function getSession(userCookie = '') {
   const index = value.indexOf(cookieSep)
   if (index === -1) return none
   const user = value.slice(0, index)
-  const session = value.slice(index + cookieSep.length, value.indexOf(';') + 1)
+  const session = value.slice(index + cookieSep.length)
   return [user, session]
 }
 
