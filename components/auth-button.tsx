@@ -9,8 +9,8 @@ type Props = {
   noteId: number | null
 }
 
-export default function AuthButton({ children, noteId }: Props) {
-  const user = getUserFromSession()
+export default async function AuthButton({ children, noteId }: Props) {
+  const user = await getUserFromSession()
   const isDraft = noteId == null
 
   if (user) {
@@ -18,10 +18,9 @@ export default function AuthButton({ children, noteId }: Props) {
       // Use hard link
       <Link href={`/note/edit/${noteId || ''}`} className="link--unstyled">
         <button
-          className={[
-            'edit-button',
-            isDraft ? 'edit-button--solid' : 'edit-button--outline',
-          ].join(' ')}
+          className={['edit-button', isDraft ? 'edit-button--solid' : 'edit-button--outline'].join(
+            ' ',
+          )}
           role="menuitem"
         >
           {children}
@@ -41,10 +40,9 @@ export default function AuthButton({ children, noteId }: Props) {
   return (
     <form action={login}>
       <button
-        className={[
-          'edit-button',
-          isDraft ? 'edit-button--solid' : 'edit-button--outline',
-        ].join(' ')}
+        className={['edit-button', isDraft ? 'edit-button--solid' : 'edit-button--outline'].join(
+          ' ',
+        )}
         role="menuitem"
       >
         Login to Add
