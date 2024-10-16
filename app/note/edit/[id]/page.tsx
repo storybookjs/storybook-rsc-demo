@@ -13,7 +13,7 @@ type Props = {
 }
 
 export default async function EditPage({ params }: Props) {
-  const user = getUserFromSession()
+  const user = await getUserFromSession()
 
   const note = await db.note.findUnique({
     where: {

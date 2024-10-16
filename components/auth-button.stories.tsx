@@ -7,6 +7,7 @@ const meta = {
   args: {
     noteId: null,
   },
+  parameters: { react: { rsc: true } },
 } satisfies Meta<typeof AuthButton>
 
 export default meta
@@ -15,7 +16,7 @@ type Story = StoryObj<typeof meta>
 
 export const LoggedIn: Story = {
   beforeEach: () => {
-    getUserFromSession.mockReturnValue('storybookjs')
+    getUserFromSession.mockResolvedValue('storybookjs')
   },
   args: { children: 'Add' },
 }

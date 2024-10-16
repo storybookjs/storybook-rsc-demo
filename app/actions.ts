@@ -6,12 +6,8 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { getUserFromSession } from '#lib/session'
 
-export async function saveNote(
-  noteId: number | undefined,
-  title: string,
-  body: string,
-) {
-  const user = getUserFromSession()
+export async function saveNote(noteId: number | undefined, title: string, body: string) {
+  const user = await getUserFromSession()
 
   if (!user) {
     redirect('/')

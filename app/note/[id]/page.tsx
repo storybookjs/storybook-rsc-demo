@@ -11,7 +11,7 @@ type Props = {
 
 export default async function Page({ params }: Props) {
   const note = await db.note.findUnique({ where: { id: Number(params.id) } })
-  if (note === null) {
+  if (note == undefined) {
     return (
       <div className="note--empty-state">
         <span className="note-text--empty-state">
