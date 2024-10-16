@@ -1,14 +1,9 @@
 import { storybookTest } from '@storybook/experimental-addon-test/vitest-plugin'
-import vitePluginNext from 'vite-plugin-storybook-nextjs'
+import { storybookNextJsPlugin } from '@storybook/experimental-nextjs-vite/vite-plugin'
 import { coverageConfigDefaults, defineConfig } from 'vitest/config'
 
 export default defineConfig({
-  plugins: [
-    vitePluginNext(),
-    storybookTest({
-      storybookScript: 'pnpm run storybook --ci',
-    }),
-  ],
+  plugins: [storybookNextJsPlugin(), storybookTest()],
   publicDir: './public',
   test: {
     include: ['./**/*.{story,stories}.?(c|m)[jt]s?(x)'],
