@@ -1,5 +1,8 @@
 {
   "private": true,
+  "engines": {
+    "node": ">=20"
+  },
   "imports": {
     "#app/actions": {
       "storybook": "./app/actions.mock.ts",
@@ -13,6 +16,10 @@
       "storybook": "./lib/db.mock.ts",
       "default": "./lib/db.ts"
     },
+    "#lib/sanitize-html": {
+      "storybook": "./lib/sanitize-html.mock.ts",
+      "default": "./lib/sanitize-html.ts"
+    },
     "#*": [
       "./*",
       "./*.ts",
@@ -23,16 +30,15 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
+    "test": "vitest",
     "lint": "next lint",
+    "typecheck": "tsc",
     "start": "next start",
     "prisma:setup": "dotenv -e .env.local prisma migrate dev && pnpm run generate-dmmf",
     "prisma:seed": "dotenv -e .env.local prisma db seed",
     "prisma:studio": "dotenv -e .env.local prisma studio",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "test-storybook": "test-storybook",
-    "test-storybook:coverage": "test-storybook --coverage && DEBUG='istanbuljs' nyc report --reporter=text --reporter=lcov -t ./coverage/storybook --report-dir ./coverage/storybook",
-    "test-storybook:ci": "concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"pnpm run build-storybook --quiet && http-server storybook-static --port 6006 --silent\" \"wait-on http://127.0.0.1:6006/ && pnpm run test-storybook\"",
     "generate-dmmf": "tsx prisma/generate-dmmf.ts"
   },
   "prisma": {
@@ -44,28 +50,34 @@
     "date-fns": "^3.6.0",
     "marked": "^1.2.9",
     "ms": "^2.1.3",
-    "next": "^14.2.3",
+    "next": "^14.2.5",
     "oauth": "^0.10.0",
-    "react": "^18",
-    "react-dom": "^18",
+    "react": "^18.3",
+    "react-dom": "^18.3",
     "sanitize-html": "^2.13.0"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "^1.6.1",
+    "@chromatic-com/storybook": "3.0.0--canary.342.898d4c4.0",
     "@prisma/client": "^5.11.0",
-    "@storybook/addon-coverage": "^1.0.4",
-    "@storybook/addon-essentials": "^8.2.5",
-    "@storybook/addon-interactions": "^8.2.5",
-    "@storybook/addon-viewport": "^8.2.5",
-    "@storybook/blocks": "^8.2.5",
-    "@storybook/nextjs": "^8.2.5",
-    "@storybook/react": "^8.2.5",
-    "@storybook/test": "^8.2.5",
-    "@storybook/test-runner": "^0.19.1",
+    "@storybook/addon-a11y": "^8.4.6",
+    "@storybook/addon-essentials": "^8.4.6",
+    "@storybook/addon-viewport": "^8.4.6",
+    "@storybook/blocks": "^8.4.6",
+    "@storybook/csf": "^0.1.11",
+    "@storybook/experimental-addon-test": "^8.4.6",
+    "@storybook/experimental-nextjs-vite": "^8.4.6",
+    "@storybook/react": "^8.4.6",
+    "@storybook/test": "^8.4.6",
     "@total-typescript/tsconfig": "^1.0.4",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/sanitize-html": "^2.11.0",
+    "@ungap/with-resolvers": "^0.1.0",
+    "@vitest/browser": "^2.1.8",
+    "@vitest/coverage-istanbul": "^2.1.8",
+    "@vitest/ui": "^2.1.8",
+    "axe-core": "^4.10.0",
     "chromatic": "^11.3.0",
     "concurrently": "^8.2.2",
     "dotenv-cli": "^7.4.1",
@@ -74,26 +86,33 @@
     "eslint-plugin-storybook": "^0.8.0",
     "http-server": "^14.1.1",
     "mockdate": "^3.0.5",
-    "msw": "^2.2.14",
+    "module-alias": "^2.2.3",
+    "msw": "^2.6.6",
     "msw-storybook-addon": "^2.0.3",
     "nyc": "^15.1.0",
     "playwright": "^1.43.0",
     "prettier": "^3.2.5",
     "prisma": "^5.11.0",
     "prisma-mock": "^0.10.2",
-    "storybook": "^8.2.5",
+    "storybook": "^8.4.6",
+    "tinyrainbow": "^1.2.0",
     "ts-node": "^10.9.2",
-    "tsx": "^4.7.1",
+    "tsx": "^4.19.2",
     "typescript": "^5.4.5",
+    "vite": "^6.0.0",
+    "vitest": "^2.1.8",
+    "vitest-axe": "^0.1.0",
     "wait-on": "^7.2.0"
   },
   "prettier": {
     "singleQuote": true,
-    "semi": false
+    "semi": false,
+    "printWidth": 100
   },
   "msw": {
     "workerDirectory": [
       "public"
     ]
-  }
+  },
+  "packageManager": "pnpm@9.1.4+sha512.9df9cf27c91715646c7d675d1c9c8e41f6fce88246f1318c1aa6a1ed1aeb3c4f032fcdf4ba63cc69c4fe6d634279176b5358727d8f2cc1e65b65f43ce2f8bfb0"
 }

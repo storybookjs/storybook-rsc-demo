@@ -5,7 +5,7 @@ import { createUserCookie, userCookieKey } from '#lib/session'
 
 const meta = {
   component: LogoutButton,
-  parameters: { backgrounds: { default: 'dark' } },
+  parameters: { backgrounds: { default: 'dark' }, react: { rsc: true } },
   async beforeEach() {
     cookies().set(userCookieKey, await createUserCookie('storybookjs'))
   },
