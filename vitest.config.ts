@@ -6,7 +6,6 @@ export default defineConfig({
   plugins: [storybookNextJsPlugin(), storybookTest()],
   publicDir: './public',
   test: {
-    include: ['./**/*.{story,stories}.?(c|m)[jt]s?(x)'],
     browser: {
       enabled: true,
       name: 'chromium',
