@@ -1,12 +1,12 @@
 import '../app/style.css'
-import type { Preview } from '@storybook/react'
+import type { Preview } from '@storybook/experimental-nextjs-vite'
 import { initialize, mswLoader } from 'msw-storybook-addon'
 import * as MockDate from 'mockdate'
 import { initializeDB } from '#lib/db.mock'
-import { userEvent } from '@storybook/test'
+import { userEvent } from 'storybook/test'
 initialize({ onUnhandledRequest: 'bypass', quiet: true })
 
-import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport'
+import { MINIMAL_VIEWPORTS } from 'storybook/viewport'
 
 const preview: Preview = {
   parameters: {

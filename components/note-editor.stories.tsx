@@ -1,4 +1,4 @@
-import { type Meta, type StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/experimental-nextjs-vite'
 import NoteEditor from "./note-editor";
 
 const meta = {
