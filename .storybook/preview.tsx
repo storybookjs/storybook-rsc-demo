@@ -14,14 +14,24 @@ const preview: Preview = {
     viewport: {
       viewports: MINIMAL_VIEWPORTS,
     },
+
     // We can disable this, as we set Suspense in the PageDecorator.
     react: { rsc: false },
+
     test: {
       // This is not needed anymore when upgrading to Next 15.
       // In Next 15 ErrorBoundary errors (such as redirect) are only logged, and not thrown.
       dangerouslyIgnoreUnhandledErrors: true,
     },
+
     nextjs: { appDirectory: true },
+
+    a11y: {
+      // 'todo' - show a11y violations in the test UI only
+      // 'error' - fail CI on a11y violations
+      // 'off' - skip a11y checks entirely
+      test: 'todo',
+    },
   },
   loaders: [mswLoader],
   beforeEach({ context, parameters }) {
