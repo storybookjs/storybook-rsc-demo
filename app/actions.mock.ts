@@ -1,4 +1,4 @@
-import { fn } from '@storybook/test'
+import { fn } from 'storybook/test'
 import * as actions from './actions'
 
 export const saveNote = fn(actions.saveNote).mockName('saveNote')

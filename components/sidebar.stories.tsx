@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { type Meta, type StoryObj } from '@storybook/react'
 import Sidebar from './sidebar'
 import { createNotes } from '#mocks/notes'
-import { expect, waitFor } from '@storybook/test'
+import { expect, waitFor } from 'storybook/test'
 
 const meta = {
   component: Sidebar,
