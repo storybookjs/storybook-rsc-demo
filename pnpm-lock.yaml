@@ -62,7 +62,7 @@ importers:
         version: 0.1.13
       '@storybook/experimental-addon-test':
         specifier: ^8.6.11
-        version: 8.6.11(@vitest/browser@2.1.8(@types/node@20.8.9)(playwright@1.43.0)(typescript@5.4.5)(vite@6.0.2(@types/node@20.8.9)(terser@5.30.0)(tsx@4.19.2))(vitest@2.1.8))(@vitest/runner@2.1.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.11(prettier@3.2.5))(vitest@2.1.8(@types/node@20.8.9)(@vitest/browser@2.1.8)(@vitest/ui@2.1.8)(happy-dom@14.12.3)(jsdom@24.1.1)(msw@2.6.6(@types/node@20.8.9)(typescript@5.4.5))(terser@5.30.0))
+        version: 8.6.11(@vitest/browser@2.1.8(@types/node@20.8.9)(playwright@1.51.1)(typescript@5.4.5)(vite@6.0.2(@types/node@20.8.9)(terser@5.30.0)(tsx@4.19.2))(vitest@2.1.8))(@vitest/runner@2.1.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.11(prettier@3.2.5))(vitest@2.1.8(@types/node@20.8.9)(@vitest/browser@2.1.8)(@vitest/ui@2.1.8)(happy-dom@14.12.3)(jsdom@24.1.1)(msw@2.6.6(@types/node@20.8.9)(typescript@5.4.5))(terser@5.30.0))
       '@storybook/experimental-nextjs-vite':
         specifier: ^8.6.11
         version: 8.6.11(@babel/core@7.24.3)(@storybook/test@8.6.11(storybook@8.6.11(prettier@3.2.5)))(next@14.2.5(@babel/core@7.24.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.28.0)(storybook@8.6.11(prettier@3.2.5))(typescript@5.4.5)(vite@6.0.2(@types/node@20.8.9)(terser@5.30.0)(tsx@4.19.2))
@@ -92,7 +92,7 @@ importers:
         version: 0.1.0
       '@vitest/browser':
         specifier: ^2.1.8
-        version: 2.1.8(@types/node@20.8.9)(playwright@1.43.0)(typescript@5.4.5)(vite@6.0.2(@types/node@20.8.9)(terser@5.30.0)(tsx@4.19.2))(vitest@2.1.8)
+        version: 2.1.8(@types/node@20.8.9)(playwright@1.51.1)(typescript@5.4.5)(vite@6.0.2(@types/node@20.8.9)(terser@5.30.0)(tsx@4.19.2))(vitest@2.1.8)
       '@vitest/coverage-istanbul':
         specifier: ^2.1.8
         version: 2.1.8(vitest@2.1.8(@types/node@20.8.9)(@vitest/browser@2.1.8)(@vitest/ui@2.1.8)(happy-dom@14.12.3)(jsdom@24.1.1)(msw@2.6.6(@types/node@20.8.9)(typescript@5.4.5))(terser@5.30.0))
@@ -139,8 +139,8 @@ importers:
         specifier: ^15.1.0
         version: 15.1.0
       playwright:
-        specifier: ^1.43.0
-        version: 1.43.0
+        specifier: 1.51.1
+        version: 1.51.1
       prettier:
         specifier: ^3.2.5
         version: 3.2.5
@@ -4010,14 +4010,14 @@ packages:
     resolution: {integrity: sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==}
     engines: {node: '>=8'}
 
-  playwright-core@1.43.0:
-    resolution: {integrity: sha512-iWFjyBUH97+pUFiyTqSLd8cDMMOS0r2ZYz2qEsPjH8/bX++sbIJT35MSwKnp1r/OQBAqC5XO99xFbJ9XClhf4w==}
-    engines: {node: '>=16'}
+  playwright-core@1.51.1:
+    resolution: {integrity: sha512-/crRMj8+j/Nq5s8QcvegseuyeZPxpQCZb6HNk3Sos3BlZyAknRjoyJPFWkpNn8v0+P3WiwqFF8P+zQo4eqiNuw==, tarball: https://registry.npmjs.org/playwright-core/-/playwright-core-1.51.1.tgz}
+    engines: {node: '>=18'}
     hasBin: true
 
-  playwright@1.43.0:
-    resolution: {integrity: sha512-SiOKHbVjTSf6wHuGCbqrEyzlm6qvXcv7mENP+OZon1I07brfZLGdfWV0l/efAzVx7TF3Z45ov1gPEkku9q25YQ==}
-    engines: {node: '>=16'}
+  playwright@1.51.1:
+    resolution: {integrity: sha512-kkx+MB2KQRkyxjYPc3a0wLZZoDczmppyGJIvQ43l+aZihkaVvmu/21kiyaHeHjiFxjxNNFnUncKmcGIyOojsaw==, tarball: https://registry.npmjs.org/playwright/-/playwright-1.51.1.tgz}
+    engines: {node: '>=18'}
     hasBin: true
 
   polished@4.3.1:
@@ -6316,7 +6316,7 @@ snapshots:
     dependencies:
       type-fest: 2.19.0
 
-  '@storybook/experimental-addon-test@8.6.11(@vitest/browser@2.1.8(@types/node@20.8.9)(playwright@1.43.0)(typescript@5.4.5)(vite@6.0.2(@types/node@20.8.9)(terser@5.30.0)(tsx@4.19.2))(vitest@2.1.8))(@vitest/runner@2.1.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.11(prettier@3.2.5))(vitest@2.1.8(@types/node@20.8.9)(@vitest/browser@2.1.8)(@vitest/ui@2.1.8)(happy-dom@14.12.3)(jsdom@24.1.1)(msw@2.6.6(@types/node@20.8.9)(typescript@5.4.5))(terser@5.30.0))':
+  '@storybook/experimental-addon-test@8.6.11(@vitest/browser@2.1.8(@types/node@20.8.9)(playwright@1.51.1)(typescript@5.4.5)(vite@6.0.2(@types/node@20.8.9)(terser@5.30.0)(tsx@4.19.2))(vitest@2.1.8))(@vitest/runner@2.1.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.11(prettier@3.2.5))(vitest@2.1.8(@types/node@20.8.9)(@vitest/browser@2.1.8)(@vitest/ui@2.1.8)(happy-dom@14.12.3)(jsdom@24.1.1)(msw@2.6.6(@types/node@20.8.9)(typescript@5.4.5))(terser@5.30.0))':
     dependencies:
       '@storybook/global': 5.0.0
       '@storybook/icons': 1.2.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -6327,7 +6327,7 @@ snapshots:
       storybook: 8.6.11(prettier@3.2.5)
       ts-dedent: 2.2.0
     optionalDependencies:
-      '@vitest/browser': 2.1.8(@types/node@20.8.9)(playwright@1.43.0)(typescript@5.4.5)(vite@6.0.2(@types/node@20.8.9)(terser@5.30.0)(tsx@4.19.2))(vitest@2.1.8)
+      '@vitest/browser': 2.1.8(@types/node@20.8.9)(playwright@1.51.1)(typescript@5.4.5)(vite@6.0.2(@types/node@20.8.9)(terser@5.30.0)(tsx@4.19.2))(vitest@2.1.8)
       '@vitest/runner': 2.1.8
       vitest: 2.1.8(@types/node@20.8.9)(@vitest/browser@2.1.8)(@vitest/ui@2.1.8)(happy-dom@14.12.3)(jsdom@24.1.1)(msw@2.6.6(@types/node@20.8.9)(typescript@5.4.5))(terser@5.30.0)
     transitivePeerDependencies:
@@ -6699,7 +6699,7 @@ snapshots:
 
   '@ungap/with-resolvers@0.1.0': {}
 
-  '@vitest/browser@2.1.8(@types/node@20.8.9)(playwright@1.43.0)(typescript@5.4.5)(vite@6.0.2(@types/node@20.8.9)(terser@5.30.0)(tsx@4.19.2))(vitest@2.1.8)':
+  '@vitest/browser@2.1.8(@types/node@20.8.9)(playwright@1.51.1)(typescript@5.4.5)(vite@6.0.2(@types/node@20.8.9)(terser@5.30.0)(tsx@4.19.2))(vitest@2.1.8)':
     dependencies:
       '@testing-library/dom': 10.4.0
       '@testing-library/user-event': 14.5.2(@testing-library/dom@10.4.0)
@@ -6712,7 +6712,7 @@ snapshots:
       vitest: 2.1.8(@types/node@20.8.9)(@vitest/browser@2.1.8)(@vitest/ui@2.1.8)(happy-dom@14.12.3)(jsdom@24.1.1)(msw@2.6.6(@types/node@20.8.9)(typescript@5.4.5))(terser@5.30.0)
       ws: 8.18.0
     optionalDependencies:
-      playwright: 1.43.0
+      playwright: 1.51.1
     transitivePeerDependencies:
       - '@types/node'
       - bufferutil
@@ -9352,11 +9352,11 @@ snapshots:
     dependencies:
       find-up: 4.1.0
 
-  playwright-core@1.43.0: {}
+  playwright-core@1.51.1: {}
 
-  playwright@1.43.0:
+  playwright@1.51.1:
     dependencies:
-      playwright-core: 1.43.0
+      playwright-core: 1.51.1
     optionalDependencies:
       fsevents: 2.3.2
 
@@ -10251,7 +10251,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 20.8.9
-      '@vitest/browser': 2.1.8(@types/node@20.8.9)(playwright@1.43.0)(typescript@5.4.5)(vite@6.0.2(@types/node@20.8.9)(terser@5.30.0)(tsx@4.19.2))(vitest@2.1.8)
+      '@vitest/browser': 2.1.8(@types/node@20.8.9)(playwright@1.51.1)(typescript@5.4.5)(vite@6.0.2(@types/node@20.8.9)(terser@5.30.0)(tsx@4.19.2))(vitest@2.1.8)
       '@vitest/ui': 2.1.8(vitest@2.1.8)
       happy-dom: 14.12.3
       jsdom: 24.1.1

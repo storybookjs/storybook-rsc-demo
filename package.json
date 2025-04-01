@@ -90,7 +90,7 @@
     "msw": "^2.6.6",
     "msw-storybook-addon": "^2.0.4",
     "nyc": "^15.1.0",
-    "playwright": "^1.43.0",
+    "playwright": "1.51.1",
     "prettier": "^3.2.5",
     "prisma": "^5.11.0",
     "prisma-mock": "^0.10.2",
