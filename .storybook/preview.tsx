@@ -1,5 +1,5 @@
 import '../app/style.css'
-import type { Preview } from '@storybook/react'
+import type { Preview } from '@storybook/nextjs-vite'
 import { initialize, mswLoader } from 'msw-storybook-addon'
 import * as MockDate from 'mockdate'
 import { initializeDB } from '#lib/db.mock'
@@ -48,12 +48,6 @@ const preview: Preview = {
     // reset the database to avoid hanging state between stories
     initializeDB()
   },
-}
-
-declare module '@storybook/csf' {
-  interface StoryContext {
-    userEvent: ReturnType<typeof userEvent.setup>
-  }
 }
 
 export default preview

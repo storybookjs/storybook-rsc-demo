@@ -1,6 +1,6 @@
-import { type Meta, type StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/nextjs-vite'
 import LogoutButton from './logout-button'
-import { cookies } from '@storybook/nextjs/headers.mock'
+import { cookies } from '@storybook/nextjs-vite/headers.mock'
 import { createUserCookie, userCookieKey } from '#lib/session'
 
 const meta = {
