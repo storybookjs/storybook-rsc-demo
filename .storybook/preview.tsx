@@ -2,9 +2,14 @@ import '../app/style.css'
 import type { Preview } from '@storybook/react'
 import { initialize, mswLoader } from 'msw-storybook-addon'
 import * as MockDate from 'mockdate'
-import { initializeDB } from '#lib/db.mock'
-import { userEvent } from 'storybook/test'
+import { initializeDB } from '../lib/__mocks__/db'
+import { sb, userEvent } from 'storybook/test'
 initialize({ onUnhandledRequest: 'bypass', quiet: true })
+
+sb.mock('../app/actions', {spy: true});
+sb.mock('../lib/db', {spy: true});
+sb.mock('../lib/session', {spy: true});
+sb.mock('../lib/sanitize-html', {spy: true});
 
 import { MINIMAL_VIEWPORTS } from 'storybook/viewport'
 
