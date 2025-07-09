@@ -1,17 +1,17 @@
-import type { StorybookConfig } from '@storybook/experimental-nextjs-vite'
+import type { StorybookConfig } from '@storybook/nextjs-vite'
 import { mergeConfig } from 'vite'
 import * as path from 'path'
 
 const config: StorybookConfig = {
   stories: ['../docs/**/*.mdx', '../**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
-    '@storybook/addon-essentials',
-    '@storybook/experimental-addon-test',
+    '@storybook/addon-vitest',
     '@storybook/addon-a11y',
     '@chromatic-com/storybook',
+    '@storybook/addon-docs'
   ],
   framework: {
-    name: '@storybook/experimental-nextjs-vite',
+    name: '@storybook/nextjs-vite',
     options: {},
   },
   features: {

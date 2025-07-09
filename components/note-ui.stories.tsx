@@ -1,4 +1,4 @@
-import { expect } from '@storybook/test'
+import { expect } from 'storybook/test'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { deleteNote, saveNote } from '#app/actions.mock'
 import NoteUI from '#components/note-ui'
