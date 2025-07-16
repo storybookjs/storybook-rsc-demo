@@ -2,7 +2,10 @@ import { logout } from '#app/actions'
 import { getUserFromSession } from '#lib/session'
 
 export default async function LogoutButton() {
+  console.log('LogoutButton')
   const user = await getUserFromSession()
+
+  console.log('user', user)
 
   return (
     user && (

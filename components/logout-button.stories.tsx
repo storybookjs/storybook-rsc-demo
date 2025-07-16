@@ -1,13 +1,18 @@
 import { type Meta, type StoryObj } from '@storybook/react'
 import LogoutButton from './logout-button'
-import { cookies } from '@storybook/nextjs/headers.mock'
-import { createUserCookie, userCookieKey } from '#lib/session'
+import { getUserFromSession } from '#lib/session'
+import { mocked } from 'storybook/test'
 
 const meta = {
   component: LogoutButton,
-  parameters: { backgrounds: { default: 'dark' }, react: { rsc: true } },
+  parameters: { react: { rsc: true } },
+  globals: {
+    // 👇 Set background value for all component stories
+    backgrounds: { value: 'dark' },
+  },
   async beforeEach() {
-    cookies().set(userCookieKey, await createUserCookie('storybookjs'))
+    mocked(getUserFromSession).mockResolvedValue('storybookjs')
+
   },
 } satisfies Meta<typeof LogoutButton>
 

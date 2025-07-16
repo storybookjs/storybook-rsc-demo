@@ -1,9 +1,9 @@
 import { expect, mocked } from 'storybook/test'
 import { type Meta, type StoryObj } from '@storybook/react'
-import { deleteNote, saveNote } from '../app/actions'
+import { deleteNote, saveNote } from '#app/actions'
 import NoteUI from '#components/note-ui'
 import { createNotes } from '#mocks/notes'
-import { getUserFromSession } from '../lib/session'
+import { getUserFromSession } from '#lib/session'
 
 const meta = {
   component: NoteUI,
