@@ -1,0 +1,42 @@
+{
+  "testSuite": "BackstopJS",
+  "tests": [
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/backstop_default_BackstopJS_Homepage_0__0_phone.png",
+        "test": "../bitmaps_test/20250725-181859/backstop_default_BackstopJS_Homepage_0__0_phone.png",
+        "selector": "",
+        "fileName": "backstop_default_BackstopJS_Homepage_0__0_phone.png",
+        "label": "BackstopJS Homepage",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "https://garris.github.io/BackstopJS/",
+        "referenceUrl": "",
+        "expect": 0,
+        "viewportLabel": "phone",
+        "engineErrorMsg": "module is not defined",
+        "error": "Reference file not found /home/thomas/Developpments/data4good/storybook-rsc-demo-backstopjs/backstop_data/bitmaps_reference/backstop_default_BackstopJS_Homepage_0__0_phone.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/backstop_default_BackstopJS_Homepage_0__1_tablet.png",
+        "test": "../bitmaps_test/20250725-181859/backstop_default_BackstopJS_Homepage_0__1_tablet.png",
+        "selector": "",
+        "fileName": "backstop_default_BackstopJS_Homepage_0__1_tablet.png",
+        "label": "BackstopJS Homepage",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "https://garris.github.io/BackstopJS/",
+        "referenceUrl": "",
+        "expect": 0,
+        "viewportLabel": "tablet",
+        "engineErrorMsg": "Cannot require() ES Module /home/thomas/Developpments/data4good/storybook-rsc-demo-backstopjs/backstop_data/engine_scripts/puppet/onBefore.js in a cycle. (from /home/thomas/Developpments/data4good/storybook-rsc-demo-backstopjs/node_modules/.pnpm/backstopjs@6.3.25_typescript@5.4.5/node_modules/backstopjs/core/util/runPuppet.js)",
+        "error": "Reference file not found /home/thomas/Developpments/data4good/storybook-rsc-demo-backstopjs/backstop_data/bitmaps_reference/backstop_default_BackstopJS_Homepage_0__1_tablet.png"
+      },
+      "status": "fail"
+    }
+  ],
+  "id": "backstop_default"
+}

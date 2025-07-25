@@ -1,0 +1,114 @@
+{
+  "testSuite": "BackstopJS",
+  "tests": [
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/backstop_default_BackstopJS_Homepage_0__0_phone.png",
+        "test": "../bitmaps_test/20250725-182723/backstop_default_BackstopJS_Homepage_0__0_phone.png",
+        "selector": "",
+        "fileName": "backstop_default_BackstopJS_Homepage_0__0_phone.png",
+        "label": "BackstopJS Homepage",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "https://garris.github.io/BackstopJS/",
+        "referenceUrl": "",
+        "expect": 0,
+        "viewportLabel": "phone",
+        "engineErrorMsg": "require(...) is not a function",
+        "error": "Reference file not found /home/thomas/Developpments/data4good/storybook-rsc-demo-backstopjs/backstop_data/bitmaps_reference/backstop_default_BackstopJS_Homepage_0__0_phone.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/backstop_default_BackstopJS_Homepage_0__1_tablet.png",
+        "test": "../bitmaps_test/20250725-182723/backstop_default_BackstopJS_Homepage_0__1_tablet.png",
+        "selector": "",
+        "fileName": "backstop_default_BackstopJS_Homepage_0__1_tablet.png",
+        "label": "BackstopJS Homepage",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "https://garris.github.io/BackstopJS/",
+        "referenceUrl": "",
+        "expect": 0,
+        "viewportLabel": "tablet",
+        "engineErrorMsg": "require(...) is not a function",
+        "error": "Reference file not found /home/thomas/Developpments/data4good/storybook-rsc-demo-backstopjs/backstop_data/bitmaps_reference/backstop_default_BackstopJS_Homepage_0__1_tablet.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/backstop_default_Note_Edit_0__0_phone.png",
+        "test": "../bitmaps_test/20250725-182723/backstop_default_Note_Edit_0__0_phone.png",
+        "selector": "",
+        "fileName": "backstop_default_Note_Edit_0__0_phone.png",
+        "label": "Note Edit",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "http://localhost:3000/note/edit",
+        "referenceUrl": "",
+        "expect": 0,
+        "viewportLabel": "phone",
+        "engineErrorMsg": "require(...) is not a function",
+        "error": "Reference file not found /home/thomas/Developpments/data4good/storybook-rsc-demo-backstopjs/backstop_data/bitmaps_reference/backstop_default_Note_Edit_0__0_phone.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/backstop_default_Note_Edit_0__1_tablet.png",
+        "test": "../bitmaps_test/20250725-182723/backstop_default_Note_Edit_0__1_tablet.png",
+        "selector": "",
+        "fileName": "backstop_default_Note_Edit_0__1_tablet.png",
+        "label": "Note Edit",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "http://localhost:3000/note/edit",
+        "referenceUrl": "",
+        "expect": 0,
+        "viewportLabel": "tablet",
+        "engineErrorMsg": "require(...) is not a function",
+        "error": "Reference file not found /home/thomas/Developpments/data4good/storybook-rsc-demo-backstopjs/backstop_data/bitmaps_reference/backstop_default_Note_Edit_0__1_tablet.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/backstop_default_Note_Edit_ID_0__0_phone.png",
+        "test": "../bitmaps_test/20250725-182723/backstop_default_Note_Edit_ID_0__0_phone.png",
+        "selector": "",
+        "fileName": "backstop_default_Note_Edit_ID_0__0_phone.png",
+        "label": "Note Edit ID",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "http://localhost:3000/note/edit/1",
+        "referenceUrl": "",
+        "expect": 0,
+        "viewportLabel": "phone",
+        "engineErrorMsg": "require(...) is not a function",
+        "error": "Reference file not found /home/thomas/Developpments/data4good/storybook-rsc-demo-backstopjs/backstop_data/bitmaps_reference/backstop_default_Note_Edit_ID_0__0_phone.png"
+      },
+      "status": "fail"
+    },
+    {
+      "pair": {
+        "reference": "../bitmaps_reference/backstop_default_Note_Edit_ID_0__1_tablet.png",
+        "test": "../bitmaps_test/20250725-182723/backstop_default_Note_Edit_ID_0__1_tablet.png",
+        "selector": "",
+        "fileName": "backstop_default_Note_Edit_ID_0__1_tablet.png",
+        "label": "Note Edit ID",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "http://localhost:3000/note/edit/1",
+        "referenceUrl": "",
+        "expect": 0,
+        "viewportLabel": "tablet",
+        "engineErrorMsg": "require(...) is not a function",
+        "error": "Reference file not found /home/thomas/Developpments/data4good/storybook-rsc-demo-backstopjs/backstop_data/bitmaps_reference/backstop_default_Note_Edit_ID_0__1_tablet.png"
+      },
+      "status": "fail"
+    }
+  ],
+  "id": "backstop_default"
+}

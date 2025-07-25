@@ -39,7 +39,10 @@
     "prisma:studio": "dotenv -e .env.local prisma studio",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "generate-dmmf": "tsx prisma/generate-dmmf.ts"
+    "generate-dmmf": "tsx prisma/generate-dmmf.ts",
+    "backstop:init": "backstop init",
+    "backstop:test": "backstop test",
+    "backstop:approve": "backstop approve"
   },
   "prisma": {
     "seed": "tsx ./prisma/seed.ts && tsx ./prisma/generate-dmmf.ts"
@@ -78,6 +81,8 @@
     "@vitest/coverage-istanbul": "^2.1.8",
     "@vitest/ui": "^2.1.8",
     "axe-core": "^4.10.0",
+    "backstop": "^1.0.1",
+    "backstopjs": "^6.3.25",
     "chromatic": "^11.3.0",
     "concurrently": "^8.2.2",
     "dotenv-cli": "^7.4.1",
