@@ -1,0 +1,10 @@
+{
+  "event_name": "pull_request_target",
+  "action": "closed",
+  "pull_request": {
+    "merged": true,
+    "base": {
+      "ref": "main"
+    }
+  }
+}

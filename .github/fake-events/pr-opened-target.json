@@ -1,0 +1,7 @@
+{
+  "event_name": "pull_request_target",
+  "action": "opened",
+  "pull_request": {
+    "merged": false
+  }
+}
