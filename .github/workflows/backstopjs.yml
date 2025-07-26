@@ -143,6 +143,8 @@ jobs:
       contents: write
       pages: write
       id-token: write
+    environment:
+      name: github-pages  
     steps:
       - name: Checkout gh-pages branch
         uses: actions/checkout@v4
