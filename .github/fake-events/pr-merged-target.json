@@ -1,7 +1,7 @@
 {
   "event_name": "pull_request_target",
   "action": "closed",
-  "pull_request": {
+  "pull_request_target": {
     "merged": true,
     "base": {
       "ref": "main"

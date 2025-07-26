@@ -1,28 +1,61 @@
 name: Fake Backstop Test
 
 on:
-  pull_request:
-    types: [opened, synchronize, closed]
+  push:
+    branches: [main, develop]
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+    branches: [main, develop]
+  workflow_dispatch:
 
 jobs:
   visual-regression:
     runs-on: ubuntu-latest
+    outputs:
+      has-diffs: ${{ steps.check-diffs.outputs.diffs }}
     steps:
-      - name: Job 1 (always runs on PR events)
-        run: echo "✅ Job 1 executed"
+      - name: Simulate test execution
+        id: check-diffs
+        run: |
+          # Simulate random test result (for demonstration)
+          if [ $((RANDOM % 2)) -eq 0 ]; then
+            echo "diffs=true" >> $GITHUB_OUTPUT
+            echo "❌ Visual differences detected"
+          else
+            echo "diffs=false" >> $GITHUB_OUTPUT
+            echo "✅ No visual differences detected"
+          fi
 
   approve-backstop:
     needs: visual-regression
-    if: github.event.pull_request.merged == true && github.event.action == 'closed'
+    if: |
+      github.event_name == 'push' &&
+      github.event.pull_request.merged == true &&
+      github.event.action == 'closed' &&
+      (github.event.pull_request.base.ref == 'main' || github.event.pull_request.base.ref == 'develop')
     runs-on: ubuntu-latest
     steps:
-      - name: Job 2 (only runs on merged PR)
-        run: echo "✅ Job 2 executed (PR was merged)"
+      - name: Simulate reference approval
+        run: |
+          echo "✅ Simulating approval of new reference images"
+          echo "📝 Would normally commit and push changes here"
 
   deploy-pages:
     needs: [visual-regression, approve-backstop]
-    if: always()
+    if: |
+      always() &&
+      needs.visual-regression.outputs.has-diffs == 'true'
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
     steps:
-      - name: Job 3 (runs after Job 1 and waits for Job 2 if it ran)
-        run: echo "✅ Job 3 executed (after Job 1 and maybe Job 2)"
+      - name: Simulate report deployment
+        run: |
+          echo "🚀 Deploying test results to GitHub Pages"
+          echo "📊 Report would be available at: https://example.com/report"
+      
+      - name: Simulate PR comment
+        if: github.event_name == 'pull_request_target' && github.event.pull_request.number
+        run: |
+          echo "💬 Would post comment on PR #${{ github.event.pull_request.number }}"
+          echo "🔗 With link to test results"

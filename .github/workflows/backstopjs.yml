@@ -4,7 +4,7 @@ on:
   push:
     branches: [main, develop]
   pull_request_target:
-    types: [opened, closed, synchronize, reopened]
+    types: [opened, synchronize, reopened]
     branches: [main, develop]
   workflow_dispatch:
 
@@ -133,10 +133,11 @@ jobs:
 
   approve-backstop:
     needs: visual-regression
-    if: github.event_name == 'pull_request_target' &&
-        github.event.pull_request.merged == true &&
-         github.event.action == 'closed' &&
-        (github.event.pull_request.base.ref == 'main' || github.event.pull_request.base.ref == 'develop')
+    if: |
+      github.event_name == 'push' &&
+      github.event.pull_request.merged == true &&
+      github.event.action == 'closed' &&
+      (github.event.pull_request.base.ref == 'main' || github.event.pull_request.base.ref == 'develop')
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -174,7 +175,7 @@ jobs:
       pages: write
       id-token: write
     environment:
-      name: github-pages  
+      name: github-pages
     steps:
       - name: Checkout gh-pages branch
         uses: actions/checkout@v4
