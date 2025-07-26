@@ -1,0 +1,28 @@
+name: Fake Backstop Test
+
+on:
+  pull_request:
+    types: [opened, synchronize, closed]
+
+jobs:
+  visual-regression:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Job 1 (always runs on PR events)
+        run: echo "✅ Job 1 executed"
+
+  approve-backstop:
+    needs: visual-regression
+    if: github.event.pull_request.merged == true && github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Job 2 (only runs on merged PR)
+        run: echo "✅ Job 2 executed (PR was merged)"
+
+  deploy-pages:
+    needs: [visual-regression, approve-backstop]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Job 3 (runs after Job 1 and waits for Job 2 if it ran)
+        run: echo "✅ Job 3 executed (after Job 1 and maybe Job 2)"
