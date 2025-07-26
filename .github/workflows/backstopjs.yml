@@ -141,11 +141,14 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pages: write
+      id-token: write
     steps:
-      - name: Checkout repository
+      - name: Checkout gh-pages branch
         uses: actions/checkout@v4
         with:
           ref: gh-pages
+          fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Download report artifact
@@ -154,18 +157,38 @@ jobs:
           name: gh-pages-artifact
           path: ./report-temp
 
-      - name: Deploy to gh-pages
+      - name: Configure Git
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Deploy report to branch directory
+        run: |
+          # Create branch-specific directory name
           BRANCH_SAFE_NAME=$(echo "${{ github.head_ref || github.ref_name }}" | sed 's|/|-|g')
+          
+          # Ensure reports directory exists
           mkdir -p ./reports/$BRANCH_SAFE_NAME
+          
+          # Copy new report files
           cp -r ./report-temp/* ./reports/$BRANCH_SAFE_NAME/
           
-          git add .
-          git commit -m "chore: deploy BackstopJS report for ${{ github.ref_name }}" || echo "No changes to commit"
-          git push
+          # Stage and commit changes
+          git add ./reports/$BRANCH_SAFE_NAME
+          git commit -m "chore: deploy BackstopJS report for ${{ github.head_ref || github.ref_name }}" || echo "No changes to commit"
+          git push origin gh-pages
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 
   approve-backstop:
     if: github.event_name == 'pull_request_target' && github.event.action == 'closed' && github.event.pull_request.merged == true && (github.event.pull_request.base.ref == 'main' || github.event.pull_request.base.ref == 'develop')
