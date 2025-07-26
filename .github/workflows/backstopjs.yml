@@ -97,14 +97,14 @@ jobs:
         if: steps.detect-diffs.outputs.diffs == 'true'
         uses: actions/upload-artifact@v4
         with:
-          name: gh-pages-artifact-bitmap-references
+          name: gh-pages-artifact-reference
           path: backstop_data/bitmaps_reference/
           retention-days: 1
       - name: Upload tests artifact for deployment
         if: steps.detect-diffs.outputs.diffs == 'true'
         uses: actions/upload-artifact@v4
         with:
-          name: gh-pages-artifact-bitmap-tests
+          name: gh-pages-artifact-tests
           path: backstop_data/bitmaps_test/
           retention-days: 1          
       - name: Comment PR with report link
@@ -180,7 +180,7 @@ jobs:
       - name: Download test artifact
         uses: actions/download-artifact@v4
         with:
-          name: gh-pages-artifact-test
+          name: gh-pages-artifact-tests
           path: ./report-temp
       - name: Configure Git
         run: |
