@@ -113,7 +113,7 @@ jobs:
         with:
           script: |
             const branchSafe = (context.payload.pull_request.head.ref || context.ref).replace(/\//g, "-");
-            const pagesUrl = `https://${context.repo.owner}.github.io/${context.repo.repo}/reports/${branchSafe}/`;
+            const pagesUrl = `https://${context.repo.owner}.github.io/${context.repo.repo}/reports/${branchSafe}/html_report`;
             const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
             const comment = `## 📸 Visual Regression Test Results
             ⚠️ Visual differences detected
