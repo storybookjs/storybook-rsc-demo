@@ -4,7 +4,7 @@ import NoteEditor from "./note-editor";
 const meta = {
   component: NoteEditor,
   args: {
-    initialTitle: 'This title has changed and PR is closed',
+    initialTitle: 'This title has changed again and PR is closed',
     initialBody: 'This is a body',
     noteId: 1,
   }
