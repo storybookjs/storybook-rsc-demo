@@ -170,18 +170,18 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: gh-pages-artifact-index
-          path: ./report-temp
+          path: ./report-temp/html_report
 
       - name: Download reference artifact
         uses: actions/download-artifact@v4
         with:
           name: gh-pages-artifact-reference
-          path: ./report-temp
+          path: ./report-temp/bitmaps_reference
       - name: Download test artifact
         uses: actions/download-artifact@v4
         with:
           name: gh-pages-artifact-tests
-          path: ./report-temp
+          path: ./report-temp/bitmaps_test
       - name: Configure Git
         run: |
           git config user.name "github-actions[bot]"
