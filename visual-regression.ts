@@ -67,6 +67,8 @@ async function main(backstopExecutionMode: string) {
 
 function constructBackstopConfig(scenarios: Scenario[]): Config {
     const { base: engine_scripts, ...scripts } = config.backstopCapture.scripts;
+    const isCI = process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true';
+
     return {
         ...config.backstopCapture.browser,
         ...scripts,
@@ -77,7 +79,7 @@ function constructBackstopConfig(scenarios: Scenario[]): Config {
             engine_scripts,
         },
         scenarios,
-        report: ['browser'],
+        report: isCI ? ['CI'] : ['browser'],
     };
 }
 
