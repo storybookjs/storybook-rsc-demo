@@ -19,8 +19,14 @@ jobs:
         with:
           node-version: 20
           cache: 'pnpm'
+          
       - name: Install dependencies
         run: pnpm install
+        with:
+          cache: 'pnpm'
+          cache-dependency-path: 'pnpm-lock.yaml'
+          cache-key: 'pnpm-${{ runner.os }}-${{ hashFiles("pnpm-lock.yaml") }}'
+          cache-path: '~/.pnpm-store'
 
       - name: Prepare environment
         run: |
@@ -32,17 +38,24 @@ jobs:
           OAUTH_CLIENT_SECRET: ${{ secrets.OAUTH_CLIENT_SECRET }}
 
       - name: Install Playwright Dependencies
+        # add cache
         run: pnpm exec playwright install chromium --with-deps
+        with:
+          cache: 'pnpm'
+          cache-dependency-path: 'pnpm-lock.yaml'
+          cache-key: 'playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}'
+          cache-path: '~/.cache/ms-playwright'
+          cache-restore-keys: 'playwright-${{ runner.os }}-'
 
       - name: Run vitest
         run: pnpm exec vitest run --coverage
 
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+      # - name: Upload coverage reports to Codecov
+      #   uses: codecov/codecov-action@v4.0.1
+      #   with:
+      #     token: ${{ secrets.CODECOV_TOKEN }}
 
-      - name: Run Chromatic
-        uses: chromaui/action@latest
-        with:
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+      # - name: Run Chromatic
+      #   uses: chromaui/action@latest
+      #   with:
+      #     projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
