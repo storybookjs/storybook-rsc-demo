@@ -22,11 +22,11 @@ jobs:
           
       - name: Install dependencies
         run: pnpm install
-        with:
-          cache: 'pnpm'
-          cache-dependency-path: 'pnpm-lock.yaml'
-          cache-key: 'pnpm-${{ runner.os }}-${{ hashFiles("pnpm-lock.yaml") }}'
-          cache-path: '~/.pnpm-store'
+        # with:
+        #   cache: 'pnpm'
+        #   cache-dependency-path: 'pnpm-lock.yaml'
+        #   cache-key: 'pnpm-${{ runner.os }}-${{ hashFiles("pnpm-lock.yaml") }}'
+        #   cache-path: '~/.pnpm-store'
 
       - name: Prepare environment
         run: |
@@ -40,12 +40,12 @@ jobs:
       - name: Install Playwright Dependencies
         # add cache
         run: pnpm exec playwright install chromium --with-deps
-        with:
-          cache: 'pnpm'
-          cache-dependency-path: 'pnpm-lock.yaml'
-          cache-key: 'playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}'
-          cache-path: '~/.cache/ms-playwright'
-          cache-restore-keys: 'playwright-${{ runner.os }}-'
+        # with:
+        #   cache: 'pnpm'
+        #   cache-dependency-path: 'pnpm-lock.yaml'
+        #   cache-key: 'playwright-${{ runner.os }}-${{ hashFiles("pnpm-lock.yaml") }}'
+        #   cache-path: '~/.cache/ms-playwright'
+        #   cache-restore-keys: 'playwright-${{ runner.os }}-'
 
       - name: Run vitest
         run: pnpm exec vitest run --coverage
