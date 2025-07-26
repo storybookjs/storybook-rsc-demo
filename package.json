@@ -41,13 +41,15 @@
     "build-storybook": "storybook build",
     "generate-dmmf": "tsx prisma/generate-dmmf.ts",
     "backstop:init": "backstop init",
-    "backstop:test": "backstop test",
+    "backstop:test": "tsx visual-regression.ts test",
+    "backstop:reference": "tsx visual-regression.ts reference",
     "backstop:approve": "backstop approve"
   },
   "prisma": {
     "seed": "tsx ./prisma/seed.ts && tsx ./prisma/generate-dmmf.ts"
   },
   "dependencies": {
+    "3": "^2.1.0",
     "cheerio": "^1.0.0-rc.12",
     "cookie-signature-edge": "^1.0.7",
     "date-fns": "^3.6.0",

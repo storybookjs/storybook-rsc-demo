@@ -1,4 +1,16 @@
 {
+  "engine": "playwright",
+  "engineOptions": {
+    "args": [
+      "--no-sandbox"
+    ]
+  },
+  "asyncCaptureLimit": 5,
+  "asyncCompareLimit": 50,
+  "debug": false,
+  "debugWindow": false,
+  "onBeforeScript": "playwright/onBefore.js",
+  "onReadyScript": "playwright/onReady.js",
   "id": "backstop_default",
   "viewports": [
     {
@@ -10,83 +22,533 @@
       "label": "tablet",
       "width": 1024,
       "height": 768
-    }
-  ],
-  "onBeforeScript": "puppet/onBefore.cjs",
-  "onReadyScript": "puppet/onReady.cjs",
-  "scenarios": [
-    {
-      "label": "BackstopJS Homepage",
-      "cookiePath": "backstop_data/engine_scripts/cookies.json",
-      "url": "https://garris.github.io/BackstopJS/",
-      "referenceUrl": "",
-      "readyEvent": "",
-      "readySelector": "",
-      "delay": 0,
-      "hideSelectors": [],
-      "removeSelectors": [],
-      "hoverSelector": "",
-      "clickSelector": "",
-      "postInteractionWait": 0,
-      "selectors": [],
-      "selectorExpansion": true,
-      "expect": 0,
-      "misMatchThreshold" : 0.1,
-      "requireSameDimensions": true
     },
     {
-      "label": "Note Edit",
-      "cookiePath": "backstop_data/engine_scripts/cookies.json",
-      "url": "http://localhost:3000/note/edit",
-      "referenceUrl": "",
-      "readyEvent": "",
-      "readySelector": "",
-      "delay": 0,
-      "hideSelectors": [],
-      "removeSelectors": [],
-      "hoverSelector": "",
-      "clickSelector": "",
-      "postInteractionWait": 0,
-      "selectors": [],
-      "selectorExpansion": true,
-      "expect": 0,
-      "misMatchThreshold" : 0.1,
-      "requireSameDimensions": true
-    },
-    {
-      "label": "Note Edit ID",
-      "cookiePath": "backstop_data/engine_scripts/cookies.json",
-      "url": "http://localhost:3000/note/edit/1",
-      "referenceUrl": "",
-      "readyEvent": "",
-      "readySelector": "",
-      "delay": 0,
-      "hideSelectors": [],
-      "removeSelectors": [],
-      "hoverSelector": "",
-      "clickSelector": "",
-      "postInteractionWait": 0,
-      "selectors": [],
-      "selectorExpansion": true,
-      "expect": 0,
-      "misMatchThreshold" : 0.1,
-      "requireSameDimensions": true
+      "label": "desktop",
+      "width": 1920,
+      "height": 1080
     }
   ],
   "paths": {
     "bitmaps_reference": "backstop_data/bitmaps_reference",
     "bitmaps_test": "backstop_data/bitmaps_test",
-    "engine_scripts": "backstop_data/engine_scripts",
     "html_report": "backstop_data/html_report",
-    "ci_report": "backstop_data/ci_report"
+    "ci_report": "backstop_data/ci_report",
+    "engine_scripts": "backstop_data/engine_scripts"
   },
-  "report": ["browser"],
-  "engine": "puppeteer",
-  "engineOptions": {
-    "args": ["--no-sandbox"]
-  },
-  "asyncCaptureLimit": 5,
-  "asyncCompareLimit": 50,
-  "debug": false,
-  "debugWindow": false
+  "scenarios": [
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "app/note/[id]/page Logged In",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=app-note-id-page--logged-in",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "app/note/[id]/page Not Logged In",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=app-note-id-page--not-logged-in",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "app/note/[id]/page Login Should Get O Auth Token And Set Cookie",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=app-note-id-page--login-should-get-o-auth-token-and-set-cookie",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "app/note/[id]/page Logout Should Delete Cookie",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=app-note-id-page--logout-should-delete-cookie",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "app/note/[id]/page Search Input Should Filter Notes",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=app-note-id-page--search-input-should-filter-notes",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "app/note/[id]/page Empty State",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=app-note-id-page--empty-state",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "app/note/[id]/page Loading",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=app-note-id-page--loading",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "app/note/edit/[id]/page Edit Note",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=app-note-edit-id-page--edit-note",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "app/note/edit/[id]/page Unknown Id",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=app-note-edit-id-page--unknown-id",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "app/note/edit/[id]/page Saving Existing Note Should Update DB And Redirect",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=app-note-edit-id-page--saving-existing-note-should-update-db-and-redirect",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "app/note/edit/[id]/page Delete Note Removes From DB And Sidebar",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=app-note-edit-id-page--delete-note-removes-from-db-and-sidebar",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "app/note/edit/page Edit New Note",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=app-note-edit-page--edit-new-note",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "app/note/edit/page Save New Note",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=app-note-edit-page--save-new-note",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "app/note/edit/page Loading",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=app-note-edit-page--loading",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "components/auth-button Logged In",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=components-auth-button--logged-in",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "components/auth-button Logged Out",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=components-auth-button--logged-out",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "components/logout-button Default",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=components-logout-button--default",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "components/note-editor Default",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=components-note-editor--default",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "components/note-editor Draft",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=components-note-editor--draft",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "components/note-list-skeleton Default",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=components-note-list-skeleton--default",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "components/note-list Empty",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=components-note-list--empty",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "components/note-list Default",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=components-note-list--default",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "components/note-preview Default",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=components-note-preview--default",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "components/note-ui Default",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=components-note-ui--default",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "components/note-ui Edit Mode",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=components-note-ui--edit-mode",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "components/note-ui Save And Delete Should Trigger Actions",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=components-note-ui--save-and-delete-should-trigger-actions",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "components/search Default",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=components-search--default",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "components/search With input ▶️",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=components-search--with-input",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "components/search Input cleared ▶️",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=components-search--input-cleared",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "components/sidebar Default",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=components-sidebar--default",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "components/sidebar Empty",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=components-sidebar--empty",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "components/sidebar Notes Expanded",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=components-sidebar--notes-expanded",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "components/sidebar Note Changed Animation",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=components-sidebar--note-changed-animation",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    },
+    {
+      "selectorExpansion": true,
+      "requireSameDimensions": true,
+      "delay": 2000,
+      "postInteractionWait": 500,
+      "hideSelectors": [],
+      "removeSelectors": [],
+      "readySelector": "#storybook-root",
+      "label": "components/sidebar Toggle Sidebar On Mobile",
+      "url": "http://localhost:6006/iframe.html?viewMode=story&id=components-sidebar--toggle-sidebar-on-mobile",
+      "selectors": [
+        "#storybook-root"
+      ],
+      "misMatchThreshold": 0.1
+    }
+  ],
+  "report": [
+    "browser"
+  ]
 }
