@@ -49,6 +49,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # - name: Generate Prisma client
+      #   run: npx prisma generate
+
+      - name: Generate Prisma DMMF
+        run: pnpm generate-dmmf
+
       - name: Install Playwright browsers
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: pnpm playwright install --with-deps chromium
