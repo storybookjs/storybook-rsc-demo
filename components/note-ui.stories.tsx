@@ -1,4 +1,4 @@
-import { expect, sb } from 'storybook/test'
+import { expect, mocked } from 'storybook/test'
 import { type Meta, type StoryObj } from '@storybook/nextjs-vite'
 import NoteUI from '#components/note-ui'
 import { createNotes } from '#mocks/notes'
@@ -11,9 +11,9 @@ const meta = {
   component: NoteUI,
   parameters: { react: { rsc: true } },
   async beforeEach() {
-    sb.mocked(session.getUserFromSession).mockResolvedValue('storybookjs')
-    sb.mocked(actions.saveNote).mockImplementation(async () => {})
-    sb.mocked(actions.deleteNote).mockImplementation(async () => {})
+    mocked(session.getUserFromSession).mockResolvedValue('storybookjs')
+    mocked(actions.saveNote).mockImplementation(async () => {})
+    mocked(actions.deleteNote).mockImplementation(async () => {})
   },
 } satisfies Meta<typeof NoteUI>
 
@@ -47,8 +47,8 @@ export const SaveAndDeleteShouldTriggerActions: Story = {
     await step('Save flow', async () => {
       const saveButton = await canvas.findByRole('menuitem', { name: /done/i })
       await userEvent.click(saveButton)
-      await expect(sb.mocked(actions.saveNote)).toHaveBeenCalledOnce()
-      await expect(sb.mocked(actions.saveNote)).toHaveBeenCalledWith(1, 'Edited Title', 'Edited Body')
+      await expect(mocked(actions.saveNote)).toHaveBeenCalledOnce()
+      await expect(mocked(actions.saveNote)).toHaveBeenCalledWith(1, 'Edited Title', 'Edited Body')
     })
 
     await step('Delete flow', async () => {
@@ -56,8 +56,8 @@ export const SaveAndDeleteShouldTriggerActions: Story = {
         name: /delete/i,
       })
       await userEvent.click(deleteButton)
-      await expect(sb.mocked(actions.deleteNote)).toHaveBeenCalledOnce()
-      await expect(sb.mocked(actions.deleteNote)).toHaveBeenCalledWith(1)
+      await expect(mocked(actions.deleteNote)).toHaveBeenCalledOnce()
+      await expect(mocked(actions.deleteNote)).toHaveBeenCalledWith(1)
     })
   },
 }
