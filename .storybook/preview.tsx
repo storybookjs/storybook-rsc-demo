@@ -1,12 +1,18 @@
 import '../app/style.css'
-import type { Preview } from '@storybook/react'
+import type { Preview } from '@storybook/nextjs-vite'
 import { initialize, mswLoader } from 'msw-storybook-addon'
 import * as MockDate from 'mockdate'
 import { initializeDB } from '#lib/db.mock'
-import { userEvent } from '@storybook/test'
+import { userEvent, sb } from 'storybook/test'
 initialize({ onUnhandledRequest: 'bypass', quiet: true })
 
-import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport'
+// Register modules for mocking using the new sb.mock API
+sb.mock('../app/actions', { spy: true })
+sb.mock('../lib/session', { spy: true })
+sb.mock('../lib/db', { spy: true })
+sb.mock('../lib/sanitize-html', { spy: true })
+
+import { MINIMAL_VIEWPORTS } from 'storybook/viewport'
 
 const preview: Preview = {
   parameters: {
@@ -50,7 +56,7 @@ const preview: Preview = {
   },
 }
 
-declare module '@storybook/csf' {
+declare module 'storybook/internal/csf' {
   interface StoryContext {
     userEvent: ReturnType<typeof userEvent.setup>
   }

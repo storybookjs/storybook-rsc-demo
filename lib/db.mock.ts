@@ -1,5 +1,9 @@
 import { Prisma, type PrismaClient } from '@prisma/client'
-import { fn, isMockFunction } from '@storybook/test'
+import { fn } from '@storybook/test'
+
+const isMockFunction = (obj: any): boolean => {
+  return obj && typeof obj === 'function' && (obj._isMockFunction === true || obj.mocked === true)
+}
 import createPrismaMock from 'prisma-mock'
 import json from '#prisma/dmmf.json'
 

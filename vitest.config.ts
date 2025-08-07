@@ -1,4 +1,4 @@
-import { storybookTest } from '@storybook/experimental-addon-test/vitest-plugin'
+import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
 import { storybookNextJsPlugin } from '@storybook/experimental-nextjs-vite/vite-plugin'
 import { coverageConfigDefaults, defineConfig } from 'vitest/config'
 

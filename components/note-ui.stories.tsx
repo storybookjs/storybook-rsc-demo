@@ -1,17 +1,19 @@
-import { expect } from '@storybook/test'
-import { type Meta, type StoryObj } from '@storybook/react'
-import { deleteNote, saveNote } from '#app/actions.mock'
+import { expect, sb } from 'storybook/test'
+import { type Meta, type StoryObj } from '@storybook/nextjs-vite'
 import NoteUI from '#components/note-ui'
 import { createNotes } from '#mocks/notes'
-import { getUserFromSession } from '#lib/session.mock'
+
+// Import the actual modules that will be mocked by sb.mock
+import * as actions from '#app/actions'
+import * as session from '#lib/session'
 
 const meta = {
   component: NoteUI,
   parameters: { react: { rsc: true } },
   async beforeEach() {
-    getUserFromSession.mockResolvedValue('storybookjs')
-    saveNote.mockImplementation(async () => {})
-    deleteNote.mockImplementation(async () => {})
+    sb.mocked(session.getUserFromSession).mockResolvedValue('storybookjs')
+    sb.mocked(actions.saveNote).mockImplementation(async () => {})
+    sb.mocked(actions.deleteNote).mockImplementation(async () => {})
   },
 } satisfies Meta<typeof NoteUI>
 
@@ -45,8 +47,8 @@ export const SaveAndDeleteShouldTriggerActions: Story = {
     await step('Save flow', async () => {
       const saveButton = await canvas.findByRole('menuitem', { name: /done/i })
       await userEvent.click(saveButton)
-      await expect(saveNote).toHaveBeenCalledOnce()
-      await expect(saveNote).toHaveBeenCalledWith(1, 'Edited Title', 'Edited Body')
+      await expect(sb.mocked(actions.saveNote)).toHaveBeenCalledOnce()
+      await expect(sb.mocked(actions.saveNote)).toHaveBeenCalledWith(1, 'Edited Title', 'Edited Body')
     })
 
     await step('Delete flow', async () => {
@@ -54,8 +56,8 @@ export const SaveAndDeleteShouldTriggerActions: Story = {
         name: /delete/i,
       })
       await userEvent.click(deleteButton)
-      await expect(deleteNote).toHaveBeenCalledOnce()
-      await expect(deleteNote).toHaveBeenCalledWith(1)
+      await expect(sb.mocked(actions.deleteNote)).toHaveBeenCalledOnce()
+      await expect(sb.mocked(actions.deleteNote)).toHaveBeenCalledWith(1)
     })
   },
 }
