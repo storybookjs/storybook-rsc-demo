@@ -22,6 +22,7 @@ export default async function AuthButton({ children, noteId }: Props) {
             ' ',
           )}
           role="menuitem"
+          style={{ backgroundColor: '#007acc' }}
         >
           {children}
           <Image
@@ -44,6 +45,7 @@ export default async function AuthButton({ children, noteId }: Props) {
           ' ',
         )}
         role="menuitem"
+        style={{ backgroundColor: '#007acc' }}
       >
         Login to Add
       </button>
