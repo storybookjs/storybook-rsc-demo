@@ -1,0 +1,321 @@
+name: BackstopJS Visual Regression with Manual Approval
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main, develop]
+  workflow_dispatch:
+    inputs:
+      approve_changes:
+        description: 'Approve visual changes and update reference images'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  visual-regression:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+      pull-requests: write
+    outputs:
+      has-diffs: ${{ steps.detect-diffs.outputs.diffs }}
+      run-id: ${{ github.run_id }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          cache: "pnpm"
+          cache-dependency-path: "pnpm-lock.yaml"
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prepare environment
+        run: pnpm run prisma:setup
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL || 'file:./dev.db' }}
+          SESSION_KEY: ${{ secrets.SESSION_KEY || 'default-session-key' }}
+          OAUTH_CLIENT_KEY: ${{ secrets.OAUTH_CLIENT_KEY || 'default-oauth-key' }}
+          OAUTH_CLIENT_SECRET: ${{ secrets.OAUTH_CLIENT_SECRET || 'default-oauth-secret' }}
+
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm playwright install --with-deps chromium
+
+      - name: Build Storybook
+        run: pnpm build-storybook
+
+      - name: Serve Storybook
+        run: |
+          npx http-server ./storybook-static -p 6006 > /dev/null 2>&1 &
+          npx wait-on http://localhost:6006/iframe.html
+
+      - name: Run BackstopJS tests
+        id: detect-diffs
+        run: |
+          set +e  # Don't exit on failure
+          if pnpm backstop:test; then
+            echo "✅ No visual differences detected"
+            echo "diffs=false" >> $GITHUB_OUTPUT
+            exit 0
+          else
+            echo "⚠️ Visual differences detected"
+            echo "diffs=true" >> $GITHUB_OUTPUT
+            exit 0  # Don't fail the job, let approval handle it
+          fi
+
+      - name: Generate test summary
+        if: always()
+        run: |
+          echo "## 📸 Visual Regression Test Results" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.detect-diffs.outputs.diffs }}" == "true" ]; then
+            echo "⚠️ **Visual differences detected**" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### Next Steps:" >> $GITHUB_STEP_SUMMARY
+            echo "1. 📋 Review the visual diff report in artifacts" >> $GITHUB_STEP_SUMMARY
+            echo "2. ✅ If changes are expected, manually approve them using workflow dispatch" >> $GITHUB_STEP_SUMMARY
+            echo "3. 🔄 Re-run tests after approval to update baseline" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✅ **No visual differences detected**" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Upload complete BackstopJS report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: backstop-complete-report-${{ github.run_id }}
+          path: backstop_data/
+          retention-days: 30
+
+      - name: Upload visual diff report
+        if: steps.detect-diffs.outputs.diffs == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-diff-report-${{ github.run_id }}
+          path: backstop_data/html_report/
+          retention-days: 7
+
+      - name: Comment PR with results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const hasDiffs = '${{ steps.detect-diffs.outputs.diffs }}' === 'true';
+            const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const workflowUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/workflows/backstopjs-with-approval.yml`;
+            
+            let comment;
+            if (hasDiffs) {
+              comment = `## 📸 Visual Regression Test Results
+            
+            ⚠️ **Visual differences detected**
+            
+            ### 📋 What to do next:
+            1. **Review Changes**: Download the \`visual-diff-report-${context.runId}\` artifact to see detailed visual differences
+            2. **If Expected**: Use [workflow dispatch](${workflowUrl}) with "approve_changes" set to true
+            3. **If Unexpected**: Fix the visual issues and push new changes
+            
+            ### 📊 Artifacts Available:
+            - 🔍 [Visual Diff Report](${runUrl}#artifacts) - Detailed comparison
+            - 📦 [Complete BackstopJS Data](${runUrl}#artifacts) - Full test data
+            
+            🔄 **Approve Command**: Go to [Actions](${workflowUrl}) → "Run workflow" → Check "approve_changes" → Run workflow`;
+            } else {
+              comment = `## 📸 Visual Regression Test Results
+            
+            ✅ **No visual differences detected**
+            
+            All visual elements match the baseline references. Great job! 🎉`;
+            }
+            
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
+      - name: Fail if differences detected and not approving
+        if: steps.detect-diffs.outputs.diffs == 'true' && github.event.inputs.approve_changes != 'true'
+        run: |
+          echo "❌ Visual differences detected. Use workflow dispatch with approve_changes=true to approve changes."
+          exit 1
+
+  manual-approval:
+    needs: visual-regression
+    if: github.event.inputs.approve_changes == 'true' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          cache: "pnpm"
+          cache-dependency-path: "pnpm-lock.yaml"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prepare environment
+        run: pnpm run prisma:setup
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL || 'file:./dev.db' }}
+          SESSION_KEY: ${{ secrets.SESSION_KEY || 'default-session-key' }}
+          OAUTH_CLIENT_KEY: ${{ secrets.OAUTH_CLIENT_KEY || 'default-oauth-key' }}
+          OAUTH_CLIENT_SECRET: ${{ secrets.OAUTH_CLIENT_SECRET || 'default-oauth-secret' }}
+
+      - name: Install Playwright browsers
+        run: pnpm playwright install --with-deps chromium
+
+      - name: Build Storybook
+        run: pnpm build-storybook
+
+      - name: Serve Storybook
+        run: |
+          npx http-server ./storybook-static -p 6006 > /dev/null 2>&1 &
+          npx wait-on http://localhost:6006/iframe.html
+
+      - name: Generate new reference images
+        run: pnpm backstop:reference
+
+      - name: Verify no differences after approval
+        run: |
+          if pnpm backstop:test; then
+            echo "✅ Reference images updated successfully"
+          else
+            echo "❌ Still differences after updating references"
+            exit 1
+          fi
+
+      - name: Commit approved reference images
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Add only reference images
+          git add backstop_data/bitmaps_reference/
+          
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "No reference image changes to commit"
+            echo "commit-url=https://github.com/${{ github.repository }}/commit/${{ github.sha }}" >> $GITHUB_OUTPUT
+          else
+            git commit -m "chore: approve BackstopJS visual changes
+
+            - Updated reference images after manual approval
+            - Run ID: ${{ github.run_id }}
+            - Triggered by: ${{ github.actor }}
+            
+            [skip ci]"
+            git push
+            
+            # Get the commit SHA
+            COMMIT_SHA=$(git rev-parse HEAD)
+            echo "commit-url=https://github.com/${{ github.repository }}/commit/$COMMIT_SHA" >> $GITHUB_OUTPUT
+            
+            echo "📝 Reference images updated and committed"
+          fi
+
+      - name: Upload approved references
+        uses: actions/upload-artifact@v4
+        with:
+          name: approved-references-${{ github.run_id }}
+          path: backstop_data/bitmaps_reference/
+          retention-days: 30
+
+      - name: Comment on PR about approval
+        if: github.event.pull_request.number
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const commitUrl = '${{ steps.commit.outputs.commit-url }}';
+            const comment = `## ✅ Visual Changes Approved
+            
+            The visual differences have been manually approved and reference images have been updated.
+            
+            📝 **Changes committed**: ${commitUrl}
+            
+            🔄 You can now re-run the visual regression tests - they should pass.`;
+            
+            await github.rest.issues.createComment({
+              issue_number: context.payload.pull_request.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
+  # Optional: Auto-approve on main branch pushes (for releases)
+  auto-approve-main:
+    needs: visual-regression
+    if: |
+      github.ref == 'refs/heads/main' && 
+      needs.visual-regression.outputs.has-diffs == 'true' &&
+      github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          cache: "pnpm"
+          cache-dependency-path: "pnpm-lock.yaml"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Auto-approve on main branch
+        run: |
+          echo "🚀 Auto-approving visual changes on main branch"
+          pnpm backstop:approve
+          
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add backstop_data/bitmaps_reference/
+          git commit -m "chore: auto-approve BackstopJS references on main branch [skip ci]" || echo "No changes to commit"
+          git push

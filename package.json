@@ -44,7 +44,8 @@
     "backstop:init": "backstop init",
     "backstop:test": "tsx visual-regression.ts test",
     "backstop:reference": "tsx visual-regression.ts reference",
-    "backstop:approve": "backstop approve"
+    "backstop:approve": "backstop approve",
+    "backstop:serve-report": "npx http-server backstop_data/html_report -p 8080 -o"
   },
   "prisma": {
     "seed": "tsx ./prisma/seed.ts && tsx ./prisma/generate-dmmf.ts"
