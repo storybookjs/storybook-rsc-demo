@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { type Meta, type StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/nextjs-vite'
 import Sidebar from './sidebar'
 import { createNotes } from '#mocks/notes'
 import { expect, waitFor } from 'storybook/test'

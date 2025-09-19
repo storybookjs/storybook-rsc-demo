@@ -1,5 +1,5 @@
 import '../app/style.css'
-import type { Preview } from '@storybook/react'
+import type { Preview } from '@storybook/nextjs-vite'
 import { initialize, mswLoader } from 'msw-storybook-addon'
 import * as MockDate from 'mockdate'
 import { initializeDB } from '../lib/__mocks__/db'
