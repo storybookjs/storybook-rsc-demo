@@ -43,7 +43,7 @@
   "devDependencies": {
     "@chromatic-com/storybook": "^4.0.1",
     "@prisma/client": "^5.11.0",
-    "@storybook/addon-a11y": "0.0.0-pr-32455-sha-ed673f07",
+    "@storybook/addon-a11y": "0.0.0-pr-32455-sha-669680c7",
     "@total-typescript/tsconfig": "^1.0.4",
     "@types/node": "^20",
     "@types/react": "^18",
@@ -61,7 +61,7 @@
     "dotenv-cli": "^7.4.1",
     "eslint": "^8",
     "eslint-config-next": "14.2.0",
-    "eslint-plugin-storybook": "0.0.0-pr-32455-sha-ed673f07",
+    "eslint-plugin-storybook": "0.0.0-pr-32455-sha-669680c7",
     "http-server": "^14.1.1",
     "mockdate": "^3.0.5",
     "module-alias": "^2.2.3",
@@ -72,7 +72,7 @@
     "prettier": "^3.2.5",
     "prisma": "^5.11.0",
     "prisma-mock": "^0.10.2",
-    "storybook": "0.0.0-pr-32455-sha-ed673f07",
+    "storybook": "0.0.0-pr-32455-sha-669680c7",
     "tinyrainbow": "^1.2.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.2",
@@ -81,9 +81,9 @@
     "vitest": "^3.0.0",
     "vitest-axe": "^0.1.0",
     "wait-on": "^7.2.0",
-    "@storybook/nextjs-vite": "0.0.0-pr-32455-sha-ed673f07",
-    "@storybook/addon-vitest": "0.0.0-pr-32455-sha-ed673f07",
-    "@storybook/addon-docs": "0.0.0-pr-32455-sha-ed673f07"
+    "@storybook/nextjs-vite": "0.0.0-pr-32455-sha-669680c7",
+    "@storybook/addon-vitest": "0.0.0-pr-32455-sha-669680c7",
+    "@storybook/addon-docs": "0.0.0-pr-32455-sha-669680c7"
   },
   "prettier": {
     "singleQuote": true,

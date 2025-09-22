@@ -1,5 +1,5 @@
+import preview from '#.storybook/preview'
 import { expect } from 'storybook/test'
-import { type Meta, type StoryObj } from '@storybook/nextjs-vite'
 import { cookies } from '@storybook/nextjs/headers.mock'
 import Page from './page'
 import { db } from '#lib/db'
@@ -8,7 +8,7 @@ import { PageDecorator } from '#.storybook/decorators'
 import { expectRedirect } from '#lib/test-utils'
 import EditSkeleton from '#app/note/edit/loading'
 
-const meta = {
+const meta = preview.meta({
   component: Page,
   parameters: { layout: 'fullscreen' },
   decorators: [PageDecorator],
@@ -29,22 +29,14 @@ const meta = {
       },
     })
   },
-} satisfies Meta<typeof Page>
+})
 
-export default meta
+export const EditNewNote = meta.story()
 
-type Story = StoryObj<typeof meta>
-
-export const EditNewNote: Story = {}
-
-export const SaveNewNote: Story = {
+export const SaveNewNote = meta.story({
   play: async ({ canvas, userEvent }) => {
-    const titleInput = await canvas.findByLabelText(
-      'Enter a title for your note',
-    )
-    const bodyInput = await canvas.findByLabelText(
-      'Enter the body for your note',
-    )
+    const titleInput = await canvas.findByLabelText('Enter a title for your note')
+    const bodyInput = await canvas.findByLabelText('Enter the body for your note')
     await userEvent.clear(titleInput)
     await userEvent.type(titleInput, 'New Note Title', {})
     await userEvent.type(bodyInput, 'New Note Body')
@@ -59,8 +51,8 @@ export const SaveNewNote: Story = {
       }),
     )
   },
-}
+})
 
-export const Loading: Story = {
+export const Loading = meta.story({
   render: () => <EditSkeleton />,
-}
+})

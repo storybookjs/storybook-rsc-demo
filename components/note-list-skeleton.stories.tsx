@@ -1,11 +1,8 @@
-import { type Meta, type StoryObj } from '@storybook/nextjs-vite'
-import NoteListSkeleton from "./note-list-skeleton";
+import preview from '#.storybook/preview'
+import NoteListSkeleton from './note-list-skeleton'
 
-const meta = {
+const meta = preview.meta({
   component: NoteListSkeleton,
-} satisfies Meta<typeof NoteListSkeleton>
+})
 
-export default meta;
-
-type Story = StoryObj<typeof meta>
-export const Default: Story = {}
+export const Default = meta.story()

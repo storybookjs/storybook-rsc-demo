@@ -1,18 +1,15 @@
+import preview from '#.storybook/preview'
 import { getRouter } from '@storybook/nextjs/navigation.mock'
-import { type Meta, type StoryObj } from '@storybook/nextjs-vite'
 import Search from './search'
 import { expect, fireEvent } from 'storybook/test'
 
-const meta = {
+const meta = preview.meta({
   component: Search,
-} satisfies Meta<typeof Search>
+})
 
-export default meta
+export const Default = meta.story()
 
-type Story = StoryObj<typeof meta>
-export const Default: Story = {}
-
-export const WithInput = {
+export const WithInput = meta.story({
   name: 'With input ▶️',
   play: async ({ canvas, step }) => {
     const input = canvas.getByRole('textbox')
@@ -24,9 +21,9 @@ export const WithInput = {
       )
     })
   },
-} satisfies Story
+})
 
-export const InputCleared: Story = {
+export const InputCleared = meta.story({
   name: 'Input cleared ▶️',
   play: async ({ context, canvas, step }) => {
     // eslint-disable-next-line storybook/context-in-play-function
@@ -37,9 +34,7 @@ export const InputCleared: Story = {
 
     await step('Clear', async () => {
       await fireEvent.change(input, { target: { value: '' } })
-      expect(getRouter().replace).toHaveBeenCalledWith(
-        expect.not.stringContaining('q='),
-      )
+      expect(getRouter().replace).toHaveBeenCalledWith(expect.not.stringContaining('q='))
     })
   },
-}
+})

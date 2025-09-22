@@ -1,14 +1,16 @@
-import type { StorybookConfig } from '@storybook/nextjs-vite'
+import { defineMain } from '@storybook/nextjs-vite/node'
 import { mergeConfig } from 'vite'
 import * as path from 'path'
+import { createRequire } from 'node:module'
+const require = createRequire(import.meta.url)
 
-const config: StorybookConfig = {
+export default defineMain({
   stories: ['../docs/**/*.mdx', '../**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
     '@storybook/addon-vitest',
     '@storybook/addon-a11y',
     '@chromatic-com/storybook',
-    '@storybook/addon-docs'
+    '@storybook/addon-docs',
   ],
   framework: {
     name: '@storybook/nextjs-vite',
@@ -31,5 +33,4 @@ const config: StorybookConfig = {
       },
     })
   },
-}
-export default config
+})

@@ -1,21 +1,18 @@
-import { type Meta, type StoryObj } from '@storybook/nextjs-vite'
-import NoteEditor from "./note-editor";
+import preview from '#.storybook/preview'
+import NoteEditor from './note-editor'
 
-const meta = {
+const meta = preview.meta({
   component: NoteEditor,
   args: {
     initialTitle: 'This is a title',
     initialBody: 'This is a body',
     noteId: 1,
-  }
-} satisfies Meta<typeof NoteEditor>
+  },
+})
 
-export default meta;
-
-type Story = StoryObj<typeof meta>
-export const Default: Story = {}
-export const Draft: Story = {
+export const Default = meta.story()
+export const Draft = meta.story({
   args: {
     noteId: undefined,
-  }
-}
+  },
+})

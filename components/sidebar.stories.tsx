@@ -1,28 +1,25 @@
+import preview from '#.storybook/preview'
 import { useEffect, useState } from 'react'
-import { type Meta, type StoryObj } from '@storybook/nextjs-vite'
 import Sidebar from './sidebar'
 import { createNotes } from '#mocks/notes'
 import { expect, waitFor } from 'storybook/test'
 
-const meta = {
+const meta = preview.meta({
   component: Sidebar,
   args: {
     notes: createNotes(),
     children: null,
   },
-} satisfies Meta<typeof Sidebar>
+})
 
-export default meta
-
-type Story = StoryObj<typeof meta>
-export const Default: Story = {}
-export const Empty: Story = {
+export const Default = meta.story()
+export const Empty = meta.story({
   args: {
     notes: [],
   },
-}
+})
 
-export const NotesExpanded: Story = {
+export const NotesExpanded = meta.story({
   play: async ({ canvas, userEvent }) => {
     const expanders = canvas.getAllByAltText(/expand/i)
 
@@ -30,11 +27,11 @@ export const NotesExpanded: Story = {
       await userEvent.click(expander)
     })
   },
-}
+})
 
 const changeNoteGate = Promise.withResolvers<void>()
 
-export const NoteChangedAnimation: Story = {
+export const NoteChangedAnimation = meta.story({
   render: () => {
     const [notes, setNotes] = useState(createNotes())
     useEffect(() => {
@@ -56,9 +53,9 @@ export const NoteChangedAnimation: Story = {
   play: async () => {
     await changeNoteGate.promise
   },
-}
+})
 
-export const ToggleSidebarOnMobile: Story = {
+export const ToggleSidebarOnMobile = meta.story({
   parameters: {
     viewport: {
       defaultViewport: 'mobile1',
@@ -84,7 +81,7 @@ export const ToggleSidebarOnMobile: Story = {
       expect(isElementInView(searchInput)).toBe(false)
     })
   },
-}
+})
 
 /**
  * assertion to check if an element is in or out of the viewport,

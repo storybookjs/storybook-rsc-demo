@@ -1,25 +1,21 @@
-import { type Meta, type StoryObj } from '@storybook/nextjs-vite'
+import preview from '#.storybook/preview'
 import AuthButton from './auth-button'
 import { getUserFromSession } from '#lib/session'
 import { mocked } from 'storybook/test'
 
-const meta = {
+const meta = preview.meta({
   component: AuthButton,
   args: {
     noteId: null,
   },
   parameters: { react: { rsc: true } },
-} satisfies Meta<typeof AuthButton>
+})
 
-export default meta
-
-type Story = StoryObj<typeof meta>
-
-export const LoggedIn: Story = {
+export const LoggedIn = meta.story({
   beforeEach: () => {
     mocked(getUserFromSession).mockResolvedValue('storybookjs')
   },
   args: { children: 'Add' },
-}
+})
 
-export const LoggedOut: Story = {}
+export const LoggedOut = meta.story()

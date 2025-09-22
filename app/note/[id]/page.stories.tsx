@@ -1,4 +1,4 @@
-import { type Meta, type StoryObj } from '@storybook/nextjs-vite'
+import preview from '#.storybook/preview'
 import { cookies } from '@storybook/nextjs/headers.mock'
 import { http } from 'msw'
 import { expect, mocked } from 'storybook/test'
@@ -11,7 +11,7 @@ import * as auth from '#app/auth/route'
 import { expectRedirect } from '#lib/test-utils'
 import NoteSkeleton from '#app/note/[id]/loading'
 
-const meta = {
+const meta = preview.meta({
   component: Page,
   decorators: [PageDecorator],
   parameters: { layout: 'fullscreen' },
@@ -32,21 +32,17 @@ const meta = {
       },
     })
   },
-} satisfies Meta<typeof Page>
+})
 
-export default meta
-
-type Story = StoryObj<typeof meta>
-
-export const LoggedIn: Story = {
+export const LoggedIn = meta.story({
   async beforeEach() {
     cookies().set(userCookieKey, await createUserCookie('storybookjs'))
   },
-}
+})
 
-export const NotLoggedIn: Story = {}
+export const NotLoggedIn = meta.story()
 
-export const LoginShouldGetOAuthTokenAndSetCookie: Story = {
+export const LoginShouldGetOAuthTokenAndSetCookie = meta.story({
   parameters: {
     msw: {
       // Mock out OAUTH
@@ -74,9 +70,9 @@ export const LoginShouldGetOAuthTokenAndSetCookie: Story = {
     await expectRedirect('/')
     await expect(cookies().get(userCookieKey)?.value).toContain('storybookjs')
   },
-}
+})
 
-export const LogoutShouldDeleteCookie: Story = {
+export const LogoutShouldDeleteCookie = meta.story({
   play: async ({ mount, userEvent }) => {
     cookies().set(userCookieKey, await createUserCookie('storybookjs'))
     const canvas = await mount()
@@ -85,20 +81,20 @@ export const LogoutShouldDeleteCookie: Story = {
     await expectRedirect('/')
     await expect(cookies().get(userCookieKey)).toBeUndefined()
   },
-}
+})
 
-export const SearchInputShouldFilterNotes: Story = {
+export const SearchInputShouldFilterNotes = meta.story({
   parameters: {
     nextjs: { navigation: { query: { q: 'RSC' } } },
   },
-}
+})
 
-export const EmptyState: Story = {
+export const EmptyState = meta.story({
   async beforeEach() {
     initializeDB({}) // init an empty DB
   },
-}
+})
 
-export const Loading: Story = {
+export const Loading = meta.story({
   render: () => <NoteSkeleton />,
-}
+})

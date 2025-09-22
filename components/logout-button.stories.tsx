@@ -1,9 +1,9 @@
-import { type Meta, type StoryObj } from '@storybook/nextjs-vite'
+import preview from '#.storybook/preview'
 import LogoutButton from './logout-button'
 import { getUserFromSession } from '#lib/session'
 import { mocked } from 'storybook/test'
 
-const meta = {
+const meta = preview.meta({
   component: LogoutButton,
   parameters: { react: { rsc: true } },
   globals: {
@@ -12,12 +12,7 @@ const meta = {
   },
   async beforeEach() {
     mocked(getUserFromSession).mockResolvedValue('storybookjs')
-
   },
-} satisfies Meta<typeof LogoutButton>
+})
 
-export default meta
-
-type Story = StoryObj<typeof meta>
-
-export const Default: Story = {}
+export const Default = meta.story()

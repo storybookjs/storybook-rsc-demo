@@ -1,19 +1,25 @@
+import { definePreview } from '@storybook/nextjs-vite'
 import '../app/style.css'
-import type { Preview } from '@storybook/nextjs-vite'
 import { initialize, mswLoader } from 'msw-storybook-addon'
 import * as MockDate from 'mockdate'
+import addonVitest from '@storybook/addon-vitest'
+import addonA11y from '@storybook/addon-a11y'
+import addonDocs from '@storybook/addon-docs'
 import { initializeDB } from '../lib/__mocks__/db'
 import { sb, userEvent } from 'storybook/test'
 initialize({ onUnhandledRequest: 'bypass', quiet: true })
 
-sb.mock('../app/actions', {spy: true});
-sb.mock('../lib/db', {spy: true});
-sb.mock('../lib/session', {spy: true});
-sb.mock('../lib/sanitize-html', {spy: true});
+sb.mock('../app/actions.ts', { spy: true })
+sb.mock('../lib/db.ts', { spy: true })
+sb.mock('../lib/session.ts', { spy: true })
+sb.mock('../lib/sanitize-html.ts', { spy: true })
 
 import { MINIMAL_VIEWPORTS } from 'storybook/viewport'
 
-const preview: Preview = {
+export default definePreview({
+  addons: [
+    addonVitest(), addonDocs(), addonA11y()
+  ],
   parameters: {
     // TODO can be removed when this is in: https://github.com/storybookjs/storybook/pull/28943
     viewport: {
@@ -53,12 +59,4 @@ const preview: Preview = {
     // reset the database to avoid hanging state between stories
     initializeDB()
   },
-}
-
-declare module 'storybook/internal/csf' {
-  interface StoryContext {
-    userEvent: ReturnType<typeof userEvent.setup>
-  }
-}
-
-export default preview
+})

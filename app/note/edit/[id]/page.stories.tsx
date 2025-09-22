@@ -1,5 +1,5 @@
+import preview from '#.storybook/preview'
 import { expect } from 'storybook/test'
-import { type Meta, type StoryObj } from '@storybook/nextjs-vite'
 import { cookies } from '@storybook/nextjs/headers.mock'
 import Page from './page'
 import { db } from '#lib/db'
@@ -7,7 +7,7 @@ import { createUserCookie, userCookieKey } from '#lib/session'
 import { PageDecorator } from '#.storybook/decorators'
 import { expectRedirect } from '#lib/test-utils'
 
-const meta = {
+const meta = preview.meta({
   component: Page,
   decorators: [PageDecorator],
   parameters: { layout: 'fullscreen' },
@@ -29,19 +29,15 @@ const meta = {
       },
     })
   },
-} satisfies Meta<typeof Page>
+})
 
-export default meta
+export const EditNote = meta.story()
 
-type Story = StoryObj<typeof meta>
-
-export const EditNote: Story = {}
-
-export const UnknownId: Story = {
+export const UnknownId = meta.story({
   args: { params: { id: '999' } },
-}
+})
 
-export const SavingExistingNoteShouldUpdateDBAndRedirect: Story = {
+export const SavingExistingNoteShouldUpdateDBAndRedirect = meta.story({
   play: async ({ userEvent, canvas }) => {
     const titleInput = await canvas.findByLabelText('Enter a title for your note')
     const bodyInput = await canvas.findByLabelText('Enter the body for your note')
@@ -61,9 +57,9 @@ export const SavingExistingNoteShouldUpdateDBAndRedirect: Story = {
       }),
     )
   },
-}
+})
 
-export const DeleteNoteRemovesFromDBAndSidebar: Story = {
+export const DeleteNoteRemovesFromDBAndSidebar = meta.story({
   play: async ({ canvas, userEvent }) => {
     await expect(
       await db.note.findMany({ where: { id: 2 } }),
@@ -79,4 +75,4 @@ export const DeleteNoteRemovesFromDBAndSidebar: Story = {
       'Note with id 2 does not exist anymore',
     ).toHaveLength(0)
   },
-}
+})
