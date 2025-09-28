@@ -1,4 +1,4 @@
-import { definePreview } from '@storybook/nextjs-vite'
+import { definePreview } from '@storybook/nextjs-vite-rsc'
 import '../app/style.css'
 import { initialize, mswLoader } from 'msw-storybook-addon'
 import * as MockDate from 'mockdate'
@@ -17,9 +17,7 @@ sb.mock('../lib/sanitize-html.ts', { spy: true })
 import { MINIMAL_VIEWPORTS } from 'storybook/viewport'
 
 export default definePreview({
-  addons: [
-    addonVitest(), addonDocs(), addonA11y()
-  ],
+  addons: [addonVitest(), addonDocs(), addonA11y()],
   parameters: {
     // TODO can be removed when this is in: https://github.com/storybookjs/storybook/pull/28943
     viewport: {

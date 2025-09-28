@@ -1,4 +1,4 @@
-import { defineMain } from '@storybook/nextjs-vite/node'
+import { defineMain } from '@storybook/nextjs-vite-rsc/node'
 import { mergeConfig } from 'vite'
 import * as path from 'path'
 import { createRequire } from 'node:module'
@@ -13,7 +13,7 @@ export default defineMain({
     '@storybook/addon-docs',
   ],
   framework: {
-    name: '@storybook/nextjs-vite',
+    name: '@storybook/nextjs-vite-rsc',
     options: {},
   },
   features: {
