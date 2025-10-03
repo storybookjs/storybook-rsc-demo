@@ -52,6 +52,6 @@ export async function GET(request: Request) {
   }
 
   const cookieValue = await createUserCookie(token)
-  cookies().set(userCookieKey, cookieValue, { secure: true, httpOnly: true })
+  ;(await cookies()).set(userCookieKey, cookieValue, { secure: true, httpOnly: true })
   redirect('/')
 }

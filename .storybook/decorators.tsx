@@ -1,8 +1,7 @@
-import { type Decorator } from '@storybook/nextjs-vite-rsc'
 import { Layout } from '#app/layout'
-import { Suspense } from 'react'
+import { type ReactNode, Suspense } from 'react'
 
-export const PageDecorator: Decorator = (Story) => {
+export const PageDecorator = (Story: () => ReactNode) => {
   return (
     <Suspense>
       <Layout>

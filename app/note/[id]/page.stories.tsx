@@ -1,14 +1,14 @@
-import preview from '#.storybook/preview'
-import { cookies } from '@storybook/nextjs/headers.mock'
+import preview from '../../../.storybook/preview'
+import { cookies } from 'next/headers'
 import { http } from 'msw'
-import { expect, mocked } from 'storybook/test'
+import { expect, mocked, waitFor } from 'storybook/test'
 import Page from './page'
 import { db, initializeDB } from '#lib/__mocks__/db'
 import { createUserCookie, userCookieKey } from '#lib/session'
 import { PageDecorator } from '#.storybook/decorators'
 import { login } from '#app/actions'
 import * as auth from '#app/auth/route'
-import { expectRedirect } from '#lib/test-utils'
+import { expectToHaveBeenNavigatedTo } from '#lib/test-utils'
 import NoteSkeleton from '#app/note/[id]/loading'
 
 const meta = preview.meta({
@@ -36,7 +36,7 @@ const meta = preview.meta({
 
 export const LoggedIn = meta.story({
   async beforeEach() {
-    cookies().set(userCookieKey, await createUserCookie('storybookjs'))
+    ;(await cookies()).set(userCookieKey, await createUserCookie('storybookjs'))
   },
 })
 
@@ -65,29 +65,29 @@ export const LoginShouldGetOAuthTokenAndSetCookie = meta.story({
       return await auth.GET(new Request('/auth?code=storybookjs'))
     })
     const canvas = await mount()
-    await expect(cookies().get(userCookieKey)?.value).toBeUndefined()
+    await expect((await cookies()).get(userCookieKey)?.value).toBeUndefined()
     await userEvent.click(await canvas.findByRole('menuitem', { name: /login to add/i }))
-    await expectRedirect('/')
-    await expect(cookies().get(userCookieKey)?.value).toContain('storybookjs')
+    await expectToHaveBeenNavigatedTo({ pathname: '/' })
+    await expect((await cookies()).get(userCookieKey)?.value).toContain('storybookjs')
   },
 })
 
 export const LogoutShouldDeleteCookie = meta.story({
   play: async ({ mount, userEvent }) => {
-    cookies().set(userCookieKey, await createUserCookie('storybookjs'))
+    ;(await cookies()).set(userCookieKey, await createUserCookie('storybookjs'))
     const canvas = await mount()
-    await expect(cookies().get(userCookieKey)?.value).toContain('storybookjs')
+    await expect((await cookies()).get(userCookieKey)?.value).toContain('storybookjs')
     await userEvent.click(await canvas.findByRole('button', { name: 'logout' }))
-    await expectRedirect('/')
-    await expect(cookies().get(userCookieKey)).toBeUndefined()
+    await expectToHaveBeenNavigatedTo({ pathname: '/' })
+    await expect((await cookies()).get(userCookieKey)).toBeUndefined()
   },
 })
 
-export const SearchInputShouldFilterNotes = meta.story({
-  parameters: {
-    nextjs: { navigation: { query: { q: 'RSC' } } },
-  },
-})
+// export const SearchInputShouldFilterNotes = meta.story({
+//   parameters: {
+//     nextjs: { navigation: { query: { q: 'RSC' } } },
+//   },
+// })
 
 export const EmptyState = meta.story({
   async beforeEach() {

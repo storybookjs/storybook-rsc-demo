@@ -3,7 +3,7 @@
   "compilerOptions": {
     "lib": ["esnext", "dom", "dom.iterable"],
     "noEmit": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
     "plugins": [
       {

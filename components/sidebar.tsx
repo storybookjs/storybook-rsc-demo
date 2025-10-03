@@ -1,7 +1,7 @@
 'use client'
 
 import React, { Suspense } from 'react'
-import Link from 'next/link'
+// import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 
 import NoteList from '#components/note-list'
@@ -20,7 +20,7 @@ export default function Sidebar({ children, notes }: Props) {
     <>
       <input type="checkbox" className="sidebar-toggle" id="sidebar-toggle" />
       <section className="col sidebar">
-        <Link href={'/'} className="link--unstyled">
+        <a href={'/'} className="link--unstyled">
           <section className="sidebar-header">
             <Image
               className="logo"
@@ -32,7 +32,7 @@ export default function Sidebar({ children, notes }: Props) {
             />
             <strong>React Notes</strong>
           </section>
-        </Link>
+        </a>
         <section className="sidebar-menu" role="menubar">
           <SearchField />
           {children}

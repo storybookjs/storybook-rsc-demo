@@ -56,10 +56,10 @@ export const NoteChangedAnimation = meta.story({
 })
 
 export const ToggleSidebarOnMobile = meta.story({
+  globals: {
+    viewport: 'mobile1',
+  },
   parameters: {
-    viewport: {
-      defaultViewport: 'mobile1',
-    },
     chromatic: { viewports: [320] },
   },
   play: async ({ canvas, step, userEvent }) => {

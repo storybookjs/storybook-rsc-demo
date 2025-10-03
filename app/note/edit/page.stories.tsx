@@ -1,19 +1,19 @@
 import preview from '#.storybook/preview'
 import { expect } from 'storybook/test'
-import { cookies } from '@storybook/nextjs/headers.mock'
+import { cookies } from 'next/headers'
 import Page from './page'
 import { db } from '#lib/db'
 import { createUserCookie, userCookieKey } from '#lib/session'
-import { PageDecorator } from '#.storybook/decorators'
-import { expectRedirect } from '#lib/test-utils'
+import { expectToHaveBeenNavigatedTo } from '#lib/test-utils'
 import EditSkeleton from '#app/note/edit/loading'
+import { PageDecorator } from '#.storybook/decorators'
 
 const meta = preview.meta({
   component: Page,
   parameters: { layout: 'fullscreen' },
   decorators: [PageDecorator],
   async beforeEach() {
-    cookies().set(userCookieKey, await createUserCookie('storybookjs'))
+    ;(await cookies()).set(userCookieKey, await createUserCookie('storybookjs'))
     await db.note.create({
       data: {
         title: 'Module mocking in Storybook?',
@@ -42,7 +42,7 @@ export const SaveNewNote = meta.story({
     await userEvent.type(bodyInput, 'New Note Body')
     await userEvent.click(await canvas.findByRole('menuitem', { name: /done/i }))
 
-    await expectRedirect('/note/3')
+    await expectToHaveBeenNavigatedTo({ pathname: '/note/3' })
 
     await expect(await db.note.findUnique({ where: { id: 3 } })).toEqual(
       expect.objectContaining({
