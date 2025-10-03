@@ -1,7 +1,7 @@
 import preview from '../../../.storybook/preview'
 import { cookies } from 'next/headers'
 import { http } from 'msw'
-import { expect, mocked, waitFor } from 'storybook/test'
+import { expect, mocked } from 'storybook/test'
 import Page from './page'
 import { db, initializeDB } from '#lib/__mocks__/db'
 import { createUserCookie, userCookieKey } from '#lib/session'
@@ -10,6 +10,7 @@ import { login } from '#app/actions'
 import * as auth from '#app/auth/route'
 import { expectToHaveBeenNavigatedTo } from '#lib/test-utils'
 import NoteSkeleton from '#app/note/[id]/loading'
+import { getWorker } from 'msw-storybook-addon'
 
 const meta = preview.meta({
   component: Page,
@@ -49,38 +50,24 @@ LoggedIn.test('log out should delete cookie', async ({ canvas, userEvent }) => {
 
 export const NotLoggedIn = meta.story()
 
-NotLoggedIn.test(
-  'login should get oauth token and set cookie',
-  {
-    parameters: {
-      msw: {
-        // Mock out OAUTH
-        handlers: [
-          http.post('https://github.com/login/oauth/access_token', async ({ request }) => {
-            let json = (await request.json()) as any
-            return Response.json({ access_token: json.code })
-          }),
-          http.get('https://api.github.com/user', async ({ request }) =>
-            Response.json({
-              login: request.headers.get('Authorization')?.replace('token ', ''),
-            }),
-          ),
-        ],
-      },
-    },
-    async beforeEach() {
-      mocked(login).mockImplementation(async () => {
-        return await auth.GET(new Request('/auth?code=storybookjs'))
-      })
-    },
-  },
-  async ({ canvas, userEvent }) => {
-    await expect((await cookies()).get(userCookieKey)?.value).toBeUndefined()
-    await userEvent.click(await canvas.findByRole('menuitem', { name: /login to add/i }))
-    await expectToHaveBeenNavigatedTo({ pathname: '/' })
-    await expect((await cookies()).get(userCookieKey)?.value).toContain('storybookjs')
-  },
-)
+NotLoggedIn.test('login should get oauth token and set cookie', async ({ canvas, userEvent }) => {
+  getWorker().use(
+    http.post('https://github.com/login/oauth/access_token', async ({ request }) =>
+      Response.json({ access_token: ((await request.json()) as any).code }),
+    ),
+    http.get('https://api.github.com/user', async ({ request }) =>
+      Response.json({ login: request.headers.get('Authorization')?.replace('token ', '') }),
+    ),
+  )
+  mocked(login).mockImplementation(async () => {
+    return await auth.GET(new Request('/auth?code=storybookjs'))
+  })
+
+  await expect((await cookies()).get(userCookieKey)?.value).toBeUndefined()
+  await userEvent.click(await canvas.findByRole('menuitem', { name: /login to add/i }))
+  await expectToHaveBeenNavigatedTo({ pathname: '/' })
+  await expect((await cookies()).get(userCookieKey)?.value).toContain('storybookjs')
+})
 
 export const EmptyState = meta.story({
   async beforeEach() {
