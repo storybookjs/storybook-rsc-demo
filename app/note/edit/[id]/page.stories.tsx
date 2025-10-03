@@ -33,12 +33,9 @@ const meta = preview.meta({
 
 export const EditNote = meta.story()
 
-export const UnknownId = meta.story({
-  args: { params: { id: '999' } },
-})
-
-export const SavingExistingNoteShouldUpdateDBAndRedirect = meta.story({
-  play: async ({ userEvent, canvas }) => {
+EditNote.test(
+  'saving existing note should update db and redirect',
+  async ({ canvas, userEvent }) => {
     const titleInput = await canvas.findByLabelText('Enter a title for your note')
     const bodyInput = await canvas.findByLabelText('Enter the body for your note')
 
@@ -56,20 +53,22 @@ export const SavingExistingNoteShouldUpdateDBAndRedirect = meta.story({
       }),
     )
   },
+)
+
+EditNote.test('delete note removes from db and sidebar', async ({ canvas, userEvent }) => {
+  await expect(
+    await db.note.findMany({ where: { id: 2 } }),
+    'Note with id 2 does exist',
+  ).toHaveLength(1)
+
+  await userEvent.click(await canvas.findByRole('menuitem', { name: /delete/i }))
+  await expectToHaveBeenNavigatedTo({ pathname: '/' })
+  await expect(
+    await db.note.findMany({ where: { id: 2 } }),
+    'Note with id 2 does not exist anymore',
+  ).toHaveLength(0)
 })
 
-export const DeleteNoteRemovesFromDBAndSidebar = meta.story({
-  play: async ({ canvas, userEvent }) => {
-    await expect(
-      await db.note.findMany({ where: { id: 2 } }),
-      'Note with id 2 does exist',
-    ).toHaveLength(1)
-
-    await userEvent.click(await canvas.findByRole('menuitem', { name: /delete/i }))
-    await expectToHaveBeenNavigatedTo({ pathname: '/' })
-    await expect(
-      await db.note.findMany({ where: { id: 2 } }),
-      'Note with id 2 does not exist anymore',
-    ).toHaveLength(0)
-  },
+export const UnknownId = meta.story({
+  args: { params: { id: '999' } },
 })

@@ -14,6 +14,7 @@ export default defineMain({
   },
   features: {
     experimentalRSC: true,
+    experimentalTestSyntax: true,
   },
   staticDirs: ['../public'],
   async viteFinal(config) {

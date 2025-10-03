@@ -33,24 +33,22 @@ const meta = preview.meta({
 
 export const EditNewNote = meta.story()
 
-export const SaveNewNote = meta.story({
-  play: async ({ canvas, userEvent }) => {
-    const titleInput = await canvas.findByLabelText('Enter a title for your note')
-    const bodyInput = await canvas.findByLabelText('Enter the body for your note')
-    await userEvent.clear(titleInput)
-    await userEvent.type(titleInput, 'New Note Title', {})
-    await userEvent.type(bodyInput, 'New Note Body')
-    await userEvent.click(await canvas.findByRole('menuitem', { name: /done/i }))
+EditNewNote.test('save should create new note and redirect', async ({ canvas, userEvent }) => {
+  const titleInput = await canvas.findByLabelText('Enter a title for your note')
+  const bodyInput = await canvas.findByLabelText('Enter the body for your note')
+  await userEvent.clear(titleInput)
+  await userEvent.type(titleInput, 'New Note Title', {})
+  await userEvent.type(bodyInput, 'New Note Body')
+  await userEvent.click(await canvas.findByRole('menuitem', { name: /done/i }))
 
-    await expectToHaveBeenNavigatedTo({ pathname: '/note/3' })
+  await expectToHaveBeenNavigatedTo({ pathname: '/note/3' })
 
-    await expect(await db.note.findUnique({ where: { id: 3 } })).toEqual(
-      expect.objectContaining({
-        title: 'New Note Title',
-        body: 'New Note Body',
-      }),
-    )
-  },
+  await expect(await db.note.findUnique({ where: { id: 3 } })).toEqual(
+    expect.objectContaining({
+      title: 'New Note Title',
+      body: 'New Note Body',
+    }),
+  )
 })
 
 export const Loading = meta.story({
