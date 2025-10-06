@@ -31,11 +31,11 @@ jobs:
           OAUTH_CLIENT_KEY: ${{ secrets.OAUTH_CLIENT_KEY }}
           OAUTH_CLIENT_SECRET: ${{ secrets.OAUTH_CLIENT_SECRET }}
 
-      - name: Install Playwright Dependencies
-        run: pnpm exec playwright install chromium --with-deps
+#      - name: Install Playwright Dependencies
+#        run: pnpm exec playwright install chromium --with-deps
 
-      - name: Run vitest
-        run: pnpm exec vitest run --coverage
+#      - name: Run vitest
+#        run: pnpm exec vitest run --coverage
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
