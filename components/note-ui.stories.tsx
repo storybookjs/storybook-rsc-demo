@@ -1,35 +1,31 @@
-import { expect } from '@storybook/test'
-import { type Meta, type StoryObj } from '@storybook/react'
-import { deleteNote, saveNote } from '#app/actions.mock'
+import preview from '#.storybook/preview'
+import { expect, mocked } from 'storybook/test'
+import { deleteNote, saveNote } from '#app/actions'
 import NoteUI from '#components/note-ui'
 import { createNotes } from '#mocks/notes'
-import { getUserFromSession } from '#lib/session.mock'
+import { getUserFromSession } from '#lib/session'
 
-const meta = {
+const meta = preview.meta({
   component: NoteUI,
   parameters: { react: { rsc: true } },
   async beforeEach() {
-    getUserFromSession.mockResolvedValue('storybookjs')
-    saveNote.mockImplementation(async () => {})
-    deleteNote.mockImplementation(async () => {})
+    mocked(getUserFromSession).mockResolvedValue('storybookjs')
+    mocked(saveNote).mockImplementation(async () => {})
+    mocked(deleteNote).mockImplementation(async () => {})
   },
-} satisfies Meta<typeof NoteUI>
-
-export default meta
-
-type Story = StoryObj<typeof meta>
+})
 
 const notes = createNotes()
 
-export const Default: Story = {
+export const Default = meta.story({
   args: { isEditing: false, note: notes[0]! },
-}
+})
 
-export const EditMode: Story = {
+export const EditMode = meta.story({
   args: { isEditing: true, note: notes[0]! },
-}
+})
 
-export const SaveAndDeleteShouldTriggerActions: Story = {
+export const SaveAndDeleteShouldTriggerActions = meta.story({
   args: {
     isEditing: true,
     note: notes[0]!,
@@ -58,4 +54,4 @@ export const SaveAndDeleteShouldTriggerActions: Story = {
       await expect(deleteNote).toHaveBeenCalledWith(1)
     })
   },
-}
+})

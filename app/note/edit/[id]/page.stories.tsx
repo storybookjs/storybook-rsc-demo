@@ -1,19 +1,19 @@
-import { expect } from '@storybook/test'
-import { type Meta, type StoryObj } from '@storybook/react'
-import { cookies } from '@storybook/nextjs/headers.mock'
+import preview from '#.storybook/preview'
+import { expect, waitFor } from 'storybook/test'
+import { cookies } from 'next/headers'
 import Page from './page'
 import { db } from '#lib/db'
 import { createUserCookie, userCookieKey } from '#lib/session'
+import { expectToHaveBeenNavigatedTo } from '#lib/test-utils'
 import { PageDecorator } from '#.storybook/decorators'
-import { expectRedirect } from '#lib/test-utils'
 
-const meta = {
+const meta = preview.meta({
   component: Page,
   decorators: [PageDecorator],
   parameters: { layout: 'fullscreen' },
   args: { params: { id: '2' } },
   async beforeEach() {
-    cookies().set(userCookieKey, await createUserCookie('storybookjs'))
+    ;(await cookies()).set(userCookieKey, await createUserCookie('storybookjs'))
     await db.note.create({
       data: {
         title: 'Module mocking in Storybook?',
@@ -29,20 +29,13 @@ const meta = {
       },
     })
   },
-} satisfies Meta<typeof Page>
+})
 
-export default meta
+export const EditNote = meta.story()
 
-type Story = StoryObj<typeof meta>
-
-export const EditNote: Story = {}
-
-export const UnknownId: Story = {
-  args: { params: { id: '999' } },
-}
-
-export const SavingExistingNoteShouldUpdateDBAndRedirect: Story = {
-  play: async ({ userEvent, canvas }) => {
+EditNote.test(
+  'saving existing note should update db and redirect',
+  async ({ canvas, userEvent }) => {
     const titleInput = await canvas.findByLabelText('Enter a title for your note')
     const bodyInput = await canvas.findByLabelText('Enter the body for your note')
 
@@ -52,8 +45,7 @@ export const SavingExistingNoteShouldUpdateDBAndRedirect: Story = {
     await userEvent.type(bodyInput, 'Edited Body')
     await userEvent.click(await canvas.findByRole('menuitem', { name: /done/i }))
 
-    await expectRedirect('/note/2')
-
+    await expectToHaveBeenNavigatedTo({ pathname: '/note/2' })
     await expect(await db.note.findUnique({ where: { id: 2 } })).toEqual(
       expect.objectContaining({
         title: 'Edited Title',
@@ -61,22 +53,22 @@ export const SavingExistingNoteShouldUpdateDBAndRedirect: Story = {
       }),
     )
   },
-}
+)
 
-export const DeleteNoteRemovesFromDBAndSidebar: Story = {
-  play: async ({ canvas, userEvent }) => {
-    await expect(
-      await db.note.findMany({ where: { id: 2 } }),
-      'Note with id 2 does exist',
-    ).toHaveLength(1)
+EditNote.test('delete note removes from db and sidebar', async ({ canvas, userEvent }) => {
+  await expect(
+    await db.note.findMany({ where: { id: 2 } }),
+    'Note with id 2 does exist',
+  ).toHaveLength(1)
 
-    await userEvent.click(await canvas.findByRole('menuitem', { name: /delete/i }))
+  await userEvent.click(await canvas.findByRole('menuitem', { name: /delete/i }))
+  await expectToHaveBeenNavigatedTo({ pathname: '/' })
+  await expect(
+    await db.note.findMany({ where: { id: 2 } }),
+    'Note with id 2 does not exist anymore',
+  ).toHaveLength(0)
+})
 
-    await expectRedirect('/')
-
-    await expect(
-      await db.note.findMany({ where: { id: 2 } }),
-      'Note with id 2 does not exist anymore',
-    ).toHaveLength(0)
-  },
-}
+export const UnknownId = meta.story({
+  args: { params: { id: '999' } },
+})

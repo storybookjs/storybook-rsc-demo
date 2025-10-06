@@ -56,7 +56,7 @@ export async function createUserCookie(token: string) {
 }
 
 export async function getUserFromSession() {
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   const userCookie = cookieStore.get(userCookieKey)
   return await getUser(userCookie?.value)
 }

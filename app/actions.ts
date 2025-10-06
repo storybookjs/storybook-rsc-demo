@@ -41,7 +41,7 @@ export async function deleteNote(noteId: number) {
 }
 
 export async function logout() {
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   cookieStore.delete(userCookieKey)
 
   redirect('/')

@@ -1,15 +1,12 @@
-import { type Meta, type StoryObj } from '@storybook/react'
-import NotePreview from "./note-preview";
+import preview from '#.storybook/preview'
+import NotePreview from './note-preview'
 
-const meta = {
+const meta = preview.meta({
   component: NotePreview,
-} satisfies Meta<typeof NotePreview>
+})
 
-export default meta;
-
-type Story = StoryObj<typeof meta>
-export const Default: Story = {
+export const Default = meta.story({
   args: {
-    children: "<h3>Some heading</h3>\n<i>italian text</i>"
-  }
-}
+    children: '<h3>Some heading</h3>\n<i>italian text</i>',
+  },
+})

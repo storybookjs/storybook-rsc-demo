@@ -1,18 +1,30 @@
 import '../app/style.css'
-import type { Preview } from '@storybook/react'
 import { initialize, mswLoader } from 'msw-storybook-addon'
 import * as MockDate from 'mockdate'
-import { initializeDB } from '#lib/db.mock'
-import { userEvent } from '@storybook/test'
+import addonVitest from '@storybook/addon-vitest'
+import addonA11y from '@storybook/addon-a11y'
+// import addonDocs from '@storybook/addon-docs'
+import { initializeDB } from '#lib/__mocks__/db'
+import { MINIMAL_VIEWPORTS } from 'storybook/viewport'
+import { ImageDecorator } from '#.storybook/image-decorator'
+import { sb, userEvent } from 'storybook/test'
+
 initialize({ onUnhandledRequest: 'bypass', quiet: true })
 
-import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport'
+sb.mock('../app/actions.ts', { spy: true })
+// sb.mock('../lib/db.ts')
+sb.mock('../lib/session.ts', { spy: true })
+sb.mock('../lib/sanitize-html.ts', { spy: true })
 
-const preview: Preview = {
+// Somehow the use client transform does not work with a normal import here
+import { definePreview } from '../node_modules/@storybook/nextjs-vite-rsc'
+
+export default definePreview({
+  addons: [addonVitest(), addonA11y()],
   parameters: {
     // TODO can be removed when this is in: https://github.com/storybookjs/storybook/pull/28943
     viewport: {
-      viewports: MINIMAL_VIEWPORTS,
+      options: MINIMAL_VIEWPORTS,
     },
 
     // We can disable this, as we set Suspense in the PageDecorator.
@@ -33,8 +45,15 @@ const preview: Preview = {
       test: 'todo',
     },
   },
+  decorators: [
+    (Story, context) => (
+      <ImageDecorator>
+        <Story />
+      </ImageDecorator>
+    ),
+  ],
   loaders: [mswLoader],
-  beforeEach({ context, parameters }) {
+  async beforeEach({ context, parameters }) {
     context.userEvent = userEvent.setup({
       // When running vitest in browser mode, the pointer events are not correctly simulated.
       // This can be related to this [known issue](https://github.com/microsoft/playwright/issues/12821).
@@ -48,12 +67,9 @@ const preview: Preview = {
     // reset the database to avoid hanging state between stories
     initializeDB()
   },
-}
-
-declare module '@storybook/csf' {
-  interface StoryContext {
-    userEvent: ReturnType<typeof userEvent.setup>
-  }
-}
-
-export default preview
+}) as any as ReactPreview<NextJsTypes & AddonTypes & A11yTypes>
+// some hackery to get the types to work while using a node_modules import
+import type { ReactPreview } from '@storybook/react'
+import { type AddonTypes } from 'storybook/internal/csf'
+import type { A11yTypes } from '@storybook/addon-a11y'
+import type { NextJsTypes } from '@storybook/nextjs-vite-rsc'

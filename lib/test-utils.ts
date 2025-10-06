@@ -1,8 +1,7 @@
-import { expect, waitFor } from '@storybook/test'
-import { getRouter } from '@storybook/nextjs/navigation.mock'
+import { expect, waitFor } from 'storybook/test'
 
-export const expectRedirect = async (url: string) => {
-  await waitFor(() =>
-    expect(getRouter().push).toHaveBeenLastCalledWith(url, expect.anything()),
+export async function expectToHaveBeenNavigatedTo(url: Partial<URL>) {
+  await waitFor(async () =>
+    expect((globalThis as any).onNavigate).toHaveBeenCalledWith(expect.objectContaining(url)),
   )
 }

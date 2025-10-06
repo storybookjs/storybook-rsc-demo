@@ -1,5 +1,5 @@
 import { Prisma, type PrismaClient } from '@prisma/client'
-import { fn, isMockFunction } from '@storybook/test'
+import { fn, isMockFunction } from 'storybook/test'
 import createPrismaMock from 'prisma-mock'
 import json from '#prisma/dmmf.json'
 

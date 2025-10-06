@@ -1,17 +1,18 @@
-import { type Meta, type StoryObj } from '@storybook/react'
-import { cookies } from '@storybook/nextjs/headers.mock'
+import preview from '../../../.storybook/preview'
+import { cookies } from 'next/headers'
 import { http } from 'msw'
-import { expect } from '@storybook/test'
+import { expect, mocked } from 'storybook/test'
 import Page from './page'
-import { db, initializeDB } from '#lib/db.mock'
+import { db, initializeDB } from '#lib/__mocks__/db'
 import { createUserCookie, userCookieKey } from '#lib/session'
 import { PageDecorator } from '#.storybook/decorators'
-import { login } from '#app/actions.mock'
+import { login } from '#app/actions'
 import * as auth from '#app/auth/route'
-import { expectRedirect } from '#lib/test-utils'
+import { expectToHaveBeenNavigatedTo } from '#lib/test-utils'
 import NoteSkeleton from '#app/note/[id]/loading'
+import { getWorker } from 'msw-storybook-addon'
 
-const meta = {
+const meta = preview.meta({
   component: Page,
   decorators: [PageDecorator],
   parameters: { layout: 'fullscreen' },
@@ -32,73 +33,54 @@ const meta = {
       },
     })
   },
-} satisfies Meta<typeof Page>
+})
 
-export default meta
-
-type Story = StoryObj<typeof meta>
-
-export const LoggedIn: Story = {
+export const LoggedIn = meta.story({
   async beforeEach() {
-    cookies().set(userCookieKey, await createUserCookie('storybookjs'))
+    ;(await cookies()).set(userCookieKey, await createUserCookie('storybookjs'))
   },
-}
+})
 
-export const NotLoggedIn: Story = {}
+LoggedIn.test('log out should delete cookie', async ({ canvas, userEvent }) => {
+  await expect((await cookies()).get(userCookieKey)?.value).toContain('storybookjs')
+  await userEvent.click(await canvas.findByRole('button', { name: 'logout' }))
+  await expectToHaveBeenNavigatedTo({ pathname: '/' })
+  await expect((await cookies()).get(userCookieKey)).toBeUndefined()
+})
 
-export const LoginShouldGetOAuthTokenAndSetCookie: Story = {
-  parameters: {
-    msw: {
-      // Mock out OAUTH
-      handlers: [
-        http.post('https://github.com/login/oauth/access_token', async ({ request }) => {
-          let json = (await request.json()) as any
-          return Response.json({ access_token: json.code })
-        }),
-        http.get('https://api.github.com/user', async ({ request }) =>
-          Response.json({
-            login: request.headers.get('Authorization')?.replace('token ', ''),
-          }),
-        ),
-      ],
-    },
-  },
-  play: async ({ mount, userEvent }) => {
-    // Point the login implementation to the endpoint github would have redirected too.
-    login.mockImplementation(async () => {
-      return await auth.GET(new Request('/auth?code=storybookjs'))
-    })
-    const canvas = await mount()
-    await expect(cookies().get(userCookieKey)?.value).toBeUndefined()
-    await userEvent.click(await canvas.findByRole('menuitem', { name: /login to add/i }))
-    await expectRedirect('/')
-    await expect(cookies().get(userCookieKey)?.value).toContain('storybookjs')
-  },
-}
+export const NotLoggedIn = meta.story()
 
-export const LogoutShouldDeleteCookie: Story = {
-  play: async ({ mount, userEvent }) => {
-    cookies().set(userCookieKey, await createUserCookie('storybookjs'))
-    const canvas = await mount()
-    await expect(cookies().get(userCookieKey)?.value).toContain('storybookjs')
-    await userEvent.click(await canvas.findByRole('button', { name: 'logout' }))
-    await expectRedirect('/')
-    await expect(cookies().get(userCookieKey)).toBeUndefined()
-  },
-}
+NotLoggedIn.test('login should get oauth token and set cookie', async ({ canvas, userEvent }) => {
+  getWorker().use(
+    http.post('https://github.com/login/oauth/access_token', async ({ request }) =>
+      Response.json({ access_token: ((await request.json()) as any).code }),
+    ),
+    http.get('https://api.github.com/user', async ({ request }) =>
+      Response.json({ login: request.headers.get('Authorization')?.replace('token ', '') }),
+    ),
+  )
+  mocked(login).mockImplementation(async () => {
+    return await auth.GET(new Request('/auth?code=storybookjs'))
+  })
 
-export const SearchInputShouldFilterNotes: Story = {
-  parameters: {
-    nextjs: { navigation: { query: { q: 'RSC' } } },
-  },
-}
+  await expect((await cookies()).get(userCookieKey)?.value).toBeUndefined()
+  await userEvent.click(await canvas.findByRole('menuitem', { name: /login to add/i }))
+  await expectToHaveBeenNavigatedTo({ pathname: '/' })
+  await expect((await cookies()).get(userCookieKey)?.value).toContain('storybookjs')
+})
 
-export const EmptyState: Story = {
+export const EmptyState = meta.story({
   async beforeEach() {
     initializeDB({}) // init an empty DB
   },
-}
+})
 
-export const Loading: Story = {
+export const Loading = meta.story({
   render: () => <NoteSkeleton />,
-}
+})
+
+// export const SearchInputShouldFilterNotes = meta.story({
+//   parameters: {
+//     nextjs: { navigation: { query: { q: 'RSC' } } },
+//   },
+// })

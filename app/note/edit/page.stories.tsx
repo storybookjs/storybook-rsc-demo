@@ -1,19 +1,19 @@
-import { expect } from '@storybook/test'
-import { type Meta, type StoryObj } from '@storybook/react'
-import { cookies } from '@storybook/nextjs/headers.mock'
+import preview from '#.storybook/preview'
+import { expect } from 'storybook/test'
+import { cookies } from 'next/headers'
 import Page from './page'
 import { db } from '#lib/db'
 import { createUserCookie, userCookieKey } from '#lib/session'
-import { PageDecorator } from '#.storybook/decorators'
-import { expectRedirect } from '#lib/test-utils'
+import { expectToHaveBeenNavigatedTo } from '#lib/test-utils'
 import EditSkeleton from '#app/note/edit/loading'
+import { PageDecorator } from '#.storybook/decorators'
 
-const meta = {
+const meta = preview.meta({
   component: Page,
   parameters: { layout: 'fullscreen' },
   decorators: [PageDecorator],
   async beforeEach() {
-    cookies().set(userCookieKey, await createUserCookie('storybookjs'))
+    ;(await cookies()).set(userCookieKey, await createUserCookie('storybookjs'))
     await db.note.create({
       data: {
         title: 'Module mocking in Storybook?',
@@ -29,38 +29,28 @@ const meta = {
       },
     })
   },
-} satisfies Meta<typeof Page>
+})
 
-export default meta
+export const EditNewNote = meta.story()
 
-type Story = StoryObj<typeof meta>
+EditNewNote.test('save should create new note and redirect', async ({ canvas, userEvent }) => {
+  const titleInput = await canvas.findByLabelText('Enter a title for your note')
+  const bodyInput = await canvas.findByLabelText('Enter the body for your note')
+  await userEvent.clear(titleInput)
+  await userEvent.type(titleInput, 'New Note Title', {})
+  await userEvent.type(bodyInput, 'New Note Body')
+  await userEvent.click(await canvas.findByRole('menuitem', { name: /done/i }))
 
-export const EditNewNote: Story = {}
+  await expectToHaveBeenNavigatedTo({ pathname: '/note/3' })
 
-export const SaveNewNote: Story = {
-  play: async ({ canvas, userEvent }) => {
-    const titleInput = await canvas.findByLabelText(
-      'Enter a title for your note',
-    )
-    const bodyInput = await canvas.findByLabelText(
-      'Enter the body for your note',
-    )
-    await userEvent.clear(titleInput)
-    await userEvent.type(titleInput, 'New Note Title', {})
-    await userEvent.type(bodyInput, 'New Note Body')
-    await userEvent.click(await canvas.findByRole('menuitem', { name: /done/i }))
+  await expect(await db.note.findUnique({ where: { id: 3 } })).toEqual(
+    expect.objectContaining({
+      title: 'New Note Title',
+      body: 'New Note Body',
+    }),
+  )
+})
 
-    await expectRedirect('/note/3')
-
-    await expect(await db.note.findUnique({ where: { id: 3 } })).toEqual(
-      expect.objectContaining({
-        title: 'New Note Title',
-        body: 'New Note Body',
-      }),
-    )
-  },
-}
-
-export const Loading: Story = {
+export const Loading = meta.story({
   render: () => <EditSkeleton />,
-}
+})

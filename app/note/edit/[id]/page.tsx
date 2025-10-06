@@ -23,7 +23,7 @@ export default async function EditPage({ params }: Props) {
 
   const isCreator = note?.createdBy === user || true
 
-  if (note === null) {
+  if (note == null) {
     return (
       <div className="note--empty-state">
         <span className="note-text--empty-state">
