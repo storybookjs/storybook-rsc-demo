@@ -12,7 +12,7 @@ import { sb, userEvent } from 'storybook/test'
 initialize({ onUnhandledRequest: 'bypass', quiet: true })
 
 sb.mock('../app/actions.ts', { spy: true })
-// sb.mock('../lib/db.ts', { spy: true })
+// sb.mock('../lib/db.ts')
 sb.mock('../lib/session.ts', { spy: true })
 sb.mock('../lib/sanitize-html.ts', { spy: true })
 
