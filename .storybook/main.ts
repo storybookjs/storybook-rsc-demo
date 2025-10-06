@@ -6,7 +6,6 @@ const require = createRequire(import.meta.url)
 
 export default defineMain({
   stories: ['../**/*.stories.@(js|jsx|mjs|ts|tsx)'],
-
   addons: ['@storybook/addon-vitest', '@storybook/addon-a11y', '@chromatic-com/storybook'],
   framework: {
     name: '@storybook/nextjs-vite-rsc',
@@ -15,6 +14,7 @@ export default defineMain({
   features: {
     experimentalRSC: true,
     experimentalTestSyntax: true,
+    developmentModeForBuild: true,
   },
   staticDirs: ['../public'],
   async viteFinal(config) {
@@ -34,7 +34,8 @@ export default defineMain({
               'next/image',
               'next/dist/client/image-component',
               'next/dist/shared/lib/image-config-context.shared-runtime',
-              'next/dist/shared/lib/image-config'
+              'next/dist/shared/lib/image-config',
+              'next/dist/client/app-dir/link'
             ],
           },
         },

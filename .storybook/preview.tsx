@@ -17,9 +17,7 @@ sb.mock('../lib/session.ts', { spy: true })
 sb.mock('../lib/sanitize-html.ts', { spy: true })
 
 // Somehow the use client transform does not work with a normal import here
-const { definePreview } = (await import(
-  '../node_modules/' + '@storybook/nextjs-vite-rsc'
-)) as typeof import('@storybook/nextjs-vite-rsc')
+import { definePreview } from '../node_modules/@storybook/nextjs-vite-rsc'
 
 export default definePreview({
   addons: [addonVitest(), addonA11y()],
@@ -69,4 +67,9 @@ export default definePreview({
     // reset the database to avoid hanging state between stories
     initializeDB()
   },
-})
+}) as any as ReactPreview<NextJsTypes & AddonTypes & A11yTypes>
+// some hackery to get the types to work while using a node_modules import
+import type { ReactPreview } from '@storybook/react'
+import { type AddonTypes } from 'storybook/internal/csf'
+import type { A11yTypes } from '@storybook/addon-a11y'
+import type { NextJsTypes } from '@storybook/nextjs-vite-rsc'

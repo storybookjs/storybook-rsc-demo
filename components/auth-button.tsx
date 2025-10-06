@@ -1,5 +1,4 @@
 import { type ReactNode } from 'react'
-import Link from 'next/link'
 import Image from 'next/image'
 import { getUserFromSession } from '#lib/session'
 import { login } from '#app/actions'
@@ -16,7 +15,7 @@ export default async function AuthButton({ children, noteId }: Props) {
   if (user) {
     return (
       // Use hard link
-      <Link href={`/note/edit/${noteId || ''}`} className="link--unstyled">
+      <a href={`/note/edit/${noteId || ''}`} className="link--unstyled">
         <button
           className={['edit-button', isDraft ? 'edit-button--solid' : 'edit-button--outline'].join(
             ' ',
@@ -33,7 +32,7 @@ export default async function AuthButton({ children, noteId }: Props) {
             height={40}
           />
         </button>
-      </Link>
+      </a>
     )
   }
 
