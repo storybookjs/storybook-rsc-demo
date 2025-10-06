@@ -26,7 +26,7 @@
     "prisma:seed": "dotenv -e .env.local prisma db seed",
     "prisma:studio": "dotenv -e .env.local prisma studio",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build && npx http-server storybook-static",
+    "build-storybook": "storybook build",
     "generate-dmmf": "tsx prisma/generate-dmmf.ts"
   },
   "prisma": {
