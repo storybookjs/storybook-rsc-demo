@@ -23,7 +23,7 @@ export default definePreview({
   parameters: {
     // TODO can be removed when this is in: https://github.com/storybookjs/storybook/pull/28943
     viewport: {
-      viewports: MINIMAL_VIEWPORTS,
+      options: MINIMAL_VIEWPORTS,
     },
 
     // We can disable this, as we set Suspense in the PageDecorator.
