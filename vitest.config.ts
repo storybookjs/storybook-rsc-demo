@@ -1,5 +1,5 @@
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
-import { storybookNextJsPlugin } from '@storybook/experimental-nextjs-vite/vite-plugin'
+import { storybookNextJsPlugin } from '@storybook/nextjs-vite/vite-plugin'
 import { coverageConfigDefaults, defineConfig } from 'vitest/config'
 
 export default defineConfig({
