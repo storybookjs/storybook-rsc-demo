@@ -3,7 +3,6 @@ import { cookies } from '@storybook/nextjs-vite/headers.mock'
 import { http } from 'msw'
 import { expect,mocked } from 'storybook/test'
 import Page from './page'
-// @ts-expect-error - initializeDB is not exported from the original module, but from its mock
 import { db, initializeDB } from '#lib/db'
 import { createUserCookie, userCookieKey } from '#lib/session'
 import { PageDecorator } from '#.storybook/decorators'
