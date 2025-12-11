@@ -4,10 +4,6 @@
     "node": ">=20"
   },
   "imports": {
-    "#lib/db": {
-      "storybook": "./lib/db.mock.ts",
-      "default": "./lib/db.ts"
-    },
     "#*": [
       "./*",
       "./*.ts",

@@ -2,7 +2,8 @@ import '../app/style.css'
 import type { Preview } from '@storybook/nextjs-vite'
 import { initialize, mswLoader } from 'msw-storybook-addon'
 import * as MockDate from 'mockdate'
-import { initializeDB } from '#lib/db.mock'
+// @ts-expect-error - initializeDB is not exported from the original module, but from its mock
+import { initializeDB } from '#lib/db'
 import { sb,
 userEvent } from 'storybook/test'
 initialize({ onUnhandledRequest: 'bypass', quiet: true })
@@ -12,6 +13,7 @@ import { MINIMAL_VIEWPORTS } from 'storybook/viewport'
 sb.mock(import('../app/actions.ts'), {spy: true});
 sb.mock(import('../lib/session.ts'), {spy: true});
 sb.mock(import('../lib/sanitize-html.ts'));
+sb.mock(import('../lib/db.ts'));
 
 const preview: Preview = {
   parameters: {
