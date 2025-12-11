@@ -1,9 +1,7 @@
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-
-import { defaultExclude,
-defineConfig } from 'vitest/config'
 import { playwright } from '@vitest/browser-playwright'
+import { defineConfig } from 'vitest/config'
 
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
 
@@ -23,10 +21,8 @@ export default defineConfig({
         ],
         test: {
           name: 'storybook',
-          exclude: defaultExclude,
           browser: {
             enabled: true,
-            headless: true,
             provider: playwright(),
             instances: [
               {
