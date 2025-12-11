@@ -11,7 +11,12 @@ const config: StorybookConfig = {
     '../app/**/*.stories.@(js|jsx|mjs|ts|tsx)',
     '../components/**/*.stories.@(js|jsx|mjs|ts|tsx)',
   ],
-  addons: ['@storybook/addon-a11y', '@chromatic-com/storybook', '@storybook/addon-vitest'],
+  addons: [
+    '@storybook/addon-docs',
+    '@storybook/addon-a11y',
+    '@chromatic-com/storybook',
+    '@storybook/addon-vitest',
+  ],
   framework: '@storybook/nextjs-vite',
   features: {
     experimentalRSC: true,
