@@ -1,20 +1,28 @@
 import type { StorybookConfig } from '@storybook/nextjs-vite'
 import { mergeConfig } from 'vite'
 import * as path from 'path'
+import { createRequire } from 'module'
+
+const require = createRequire(import.meta.url)
 
 const config: StorybookConfig = {
-  stories: ['../docs/**/*.mdx', '../app/**/*.stories.@(js|jsx|mjs|ts|tsx)', '../components/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+  stories: [
+    '../docs/**/*.mdx',
+    '../app/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+    '../components/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+  ],
   addons: [
+    '@storybook/addon-docs',
     '@storybook/addon-a11y',
     '@chromatic-com/storybook',
-    '@storybook/addon-vitest'
+    '@storybook/addon-vitest',
   ],
-  framework: {
-    name: '@storybook/nextjs-vite',
-    options: {},
-  },
+  framework: '@storybook/nextjs-vite',
   features: {
     experimentalRSC: true,
+  },
+  core: {
+    disableTelemetry: true,
   },
   staticDirs: ['../public'],
   async viteFinal(config) {
