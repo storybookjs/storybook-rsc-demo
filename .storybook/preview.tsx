@@ -10,6 +10,7 @@ initialize({ onUnhandledRequest: 'bypass', quiet: true })
 import { MINIMAL_VIEWPORTS } from 'storybook/viewport'
 
 sb.mock(import('../app/actions.ts'), {spy: true});
+sb.mock(import('../lib/session.ts'), {spy: true});
 
 const preview: Preview = {
   parameters: {

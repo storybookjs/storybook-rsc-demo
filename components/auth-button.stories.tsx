@@ -1,6 +1,7 @@
 import { type Meta, type StoryObj } from '@storybook/nextjs-vite'
 import AuthButton from './auth-button'
-import { getUserFromSession } from '#lib/session.mock'
+import { getUserFromSession } from '#lib/session'
+import { mocked } from 'storybook/test';
 
 const meta = {
   component: AuthButton,
@@ -16,7 +17,7 @@ type Story = StoryObj<typeof meta>
 
 export const LoggedIn: Story = {
   beforeEach: () => {
-    getUserFromSession.mockResolvedValue('storybookjs')
+    mocked(getUserFromSession).mockResolvedValue('storybookjs')
   },
   args: { children: 'Add' },
 }

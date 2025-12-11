@@ -4,10 +4,6 @@
     "node": ">=20"
   },
   "imports": {
-    "#lib/session": {
-      "storybook": "./lib/session.mock.ts",
-      "default": "./lib/session.ts"
-    },
     "#lib/db": {
       "storybook": "./lib/db.mock.ts",
       "default": "./lib/db.ts"
