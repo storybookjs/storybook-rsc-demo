@@ -6,10 +6,10 @@ import { initializeDB } from '../lib/__mocks__/db'
 import { sb, userEvent } from 'storybook/test'
 initialize({ onUnhandledRequest: 'bypass', quiet: true })
 
-sb.mock('../app/actions', {spy: true});
-sb.mock('../lib/db', {spy: true});
-sb.mock('../lib/session', {spy: true});
-sb.mock('../lib/sanitize-html', {spy: true});
+sb.mock(import('../app/actions'), {spy: true});
+sb.mock(import('../lib/db'), {spy: true});
+sb.mock(import('../lib/session'), {spy: true});
+sb.mock(import('../lib/sanitize-html'), {spy: true});
 
 import { MINIMAL_VIEWPORTS } from 'storybook/viewport'
 
