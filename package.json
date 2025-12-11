@@ -70,7 +70,7 @@
     "@ungap/with-resolvers": "^0.1.0",
     "@vitest/browser": "^4.0.0",
     "@vitest/browser-playwright": "^4.0.0",
-    "@vitest/coverage-istanbul": "^4.0.0",
+    "@vitest/coverage-v8": "^4.0.0",
     "@vitest/ui": "^4.0.0",
     "axe-core": "^4.10.0",
     "chromatic": "^11.3.0",

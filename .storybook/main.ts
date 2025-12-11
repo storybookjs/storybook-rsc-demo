@@ -12,12 +12,12 @@ const config: StorybookConfig = {
     '../components/**/*.stories.@(js|jsx|mjs|ts|tsx)',
   ],
   addons: ['@storybook/addon-a11y', '@chromatic-com/storybook', '@storybook/addon-vitest'],
-  framework: {
-    name: '@storybook/nextjs-vite',
-    options: {},
-  },
+  framework: '@storybook/nextjs-vite',
   features: {
     experimentalRSC: true,
+  },
+  core: {
+    disableTelemetry: true,
   },
   staticDirs: ['../public'],
   async viteFinal(config) {
