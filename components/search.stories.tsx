@@ -1,7 +1,7 @@
-import { getRouter } from '@storybook/nextjs/navigation.mock'
-import { type Meta, type StoryObj } from '@storybook/react'
+import { getRouter } from '@storybook/nextjs-vite/navigation.mock'
+import { type Meta, type StoryObj } from '@storybook/nextjs-vite'
 import Search from './search'
-import { expect, fireEvent } from '@storybook/test'
+import { expect, fireEvent } from 'storybook/test'
 
 const meta = {
   component: Search,

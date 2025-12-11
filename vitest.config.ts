@@ -1,26 +1,36 @@
-import { storybookTest } from '@storybook/experimental-addon-test/vitest-plugin'
-import { storybookNextJsPlugin } from '@storybook/experimental-nextjs-vite/vite-plugin'
-import { coverageConfigDefaults, defineConfig } from 'vitest/config'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 
+import { defineConfig } from 'vitest/config'
+
+import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
+
+const dirname =
+  typeof __dirname !== 'undefined' ? __dirname : path.dirname(fileURLToPath(import.meta.url))
+
+// More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
-  plugins: [storybookNextJsPlugin(), storybookTest()],
-  publicDir: './public',
   test: {
-    include: ['./**/*.{story,stories}.?(c|m)[jt]s?(x)'],
-    browser: {
-      enabled: true,
-      name: 'chromium',
-      provider: 'playwright',
-      headless: true,
-      screenshotFailures: false,
-    },
-    isolate: false,
-    setupFiles: ['./.storybook/vitest.setup.ts'],
-    coverage: {
-      all: true,
-      include: ['{app,lib,components}/**/*'],
-      exclude: [...coverageConfigDefaults.exclude, '**/*.{stories,mock}.*'],
-      provider: 'istanbul',
-    },
+    projects: [
+      {
+        extends: true,
+        plugins: [
+          // The plugin will run tests for the stories defined in your Storybook config
+          // See options at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon#storybooktest
+          storybookTest({ configDir: path.join(dirname, '.storybook') }),
+        ],
+        test: {
+          name: 'storybook',
+          browser: {
+            enabled: true,
+            headless: true,
+            provider: 'playwright',
+            instances: [{ browser: 'chromium' }],
+          },
+          isolate: false,
+          setupFiles: ['.storybook/vitest.setup.ts'],
+        },
+      },
+    ],
   },
 })

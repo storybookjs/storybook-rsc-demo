@@ -1,5 +1,5 @@
-import { expect } from '@storybook/test'
-import { type Meta, type StoryObj } from '@storybook/react'
+import { expect } from 'storybook/test'
+import { type Meta, type StoryObj } from '@storybook/nextjs-vite'
 import { deleteNote, saveNote } from '#app/actions.mock'
 import NoteUI from '#components/note-ui'
 import { createNotes } from '#mocks/notes'
