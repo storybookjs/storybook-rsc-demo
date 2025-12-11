@@ -1,17 +1,17 @@
-import { expect } from 'storybook/test'
+import { expect, mocked } from 'storybook/test'
 import { type Meta, type StoryObj } from '@storybook/nextjs-vite'
-import { deleteNote, saveNote } from '#app/actions.mock'
+import { deleteNote, saveNote } from '#app/actions'
 import NoteUI from '#components/note-ui'
 import { createNotes } from '#mocks/notes'
-import { getUserFromSession } from '#lib/session.mock'
+import { getUserFromSession } from '#lib/session'
 
 const meta = {
   component: NoteUI,
   parameters: { react: { rsc: true } },
   async beforeEach() {
-    getUserFromSession.mockResolvedValue('storybookjs')
-    saveNote.mockImplementation(async () => {})
-    deleteNote.mockImplementation(async () => {})
+    mocked(getUserFromSession).mockResolvedValue('storybookjs')
+    mocked(saveNote).mockImplementation(async () => {}).mockClear()
+    mocked(deleteNote).mockImplementation(async () => {}).mockClear()
   },
 } satisfies Meta<typeof NoteUI>
 

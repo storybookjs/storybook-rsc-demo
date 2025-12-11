@@ -1,12 +1,12 @@
 import { type Meta, type StoryObj } from '@storybook/nextjs-vite'
 import { cookies } from '@storybook/nextjs-vite/headers.mock'
 import { http } from 'msw'
-import { expect } from 'storybook/test'
+import { expect,mocked } from 'storybook/test'
 import Page from './page'
-import { db, initializeDB } from '#lib/db.mock'
+import { db, initializeDB } from '#lib/db'
 import { createUserCookie, userCookieKey } from '#lib/session'
 import { PageDecorator } from '#.storybook/decorators'
-import { login } from '#app/actions.mock'
+import { login } from '#app/actions'
 import * as auth from '#app/auth/route'
 import { expectRedirect } from '#lib/test-utils'
 import NoteSkeleton from '#app/note/[id]/loading'
@@ -65,7 +65,7 @@ export const LoginShouldGetOAuthTokenAndSetCookie: Story = {
   },
   play: async ({ mount, userEvent }) => {
     // Point the login implementation to the endpoint github would have redirected too.
-    login.mockImplementation(async () => {
+    mocked(login).mockImplementation(async () => {
       return await auth.GET(new Request('/auth?code=storybookjs'))
     })
     const canvas = await mount()

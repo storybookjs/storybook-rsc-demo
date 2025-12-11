@@ -4,22 +4,6 @@
     "node": ">=20"
   },
   "imports": {
-    "#app/actions": {
-      "storybook": "./app/actions.mock.ts",
-      "default": "./app/actions.ts"
-    },
-    "#lib/session": {
-      "storybook": "./lib/session.mock.ts",
-      "default": "./lib/session.ts"
-    },
-    "#lib/db": {
-      "storybook": "./lib/db.mock.ts",
-      "default": "./lib/db.ts"
-    },
-    "#lib/sanitize-html": {
-      "storybook": "./lib/sanitize-html.mock.ts",
-      "default": "./lib/sanitize-html.ts"
-    },
     "#*": [
       "./*",
       "./*.ts",
