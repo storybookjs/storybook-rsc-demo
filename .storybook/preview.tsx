@@ -3,10 +3,13 @@ import type { Preview } from '@storybook/nextjs-vite'
 import { initialize, mswLoader } from 'msw-storybook-addon'
 import * as MockDate from 'mockdate'
 import { initializeDB } from '#lib/db.mock'
-import { userEvent } from 'storybook/test'
+import { sb,
+userEvent } from 'storybook/test'
 initialize({ onUnhandledRequest: 'bypass', quiet: true })
 
 import { MINIMAL_VIEWPORTS } from 'storybook/viewport'
+
+sb.mock(import('../app/actions.ts'), {spy: true});
 
 const preview: Preview = {
   parameters: {
