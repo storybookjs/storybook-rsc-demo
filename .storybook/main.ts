@@ -24,8 +24,7 @@ const config: StorybookConfig = {
       // https://github.com/prisma/prisma/issues/12504#issuecomment-1827097530
       resolve: {
         alias: {
-          '.prisma/client/index-browser': require
-            .resolve('@prisma/client/index-browser')
+          '.prisma/client/index-browser': import.meta.resolve('@prisma/client/index-browser')
             .replace(`@prisma${path.sep}client`, `.prisma${path.sep}client`),
         },
       },

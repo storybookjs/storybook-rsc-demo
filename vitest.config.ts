@@ -1,23 +1,22 @@
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
-import { storybookNextJsPlugin } from '@storybook/nextjs-vite/vite-plugin'
 import { coverageConfigDefaults, defineConfig } from 'vitest/config'
+import { playwright } from '@vitest/browser-playwright'
 
 export default defineConfig({
-  plugins: [storybookNextJsPlugin(), storybookTest()],
+  plugins: [storybookTest()],
   publicDir: './public',
   test: {
-    include: ['./**/*.{story,stories}.?(c|m)[jt]s?(x)'],
     browser: {
       enabled: true,
-      name: 'chromium',
-      provider: 'playwright',
-      headless: true,
-      screenshotFailures: false,
+      provider: playwright(),
+      instances: [{
+        browser: 'chromium',
+        headless: true,
+        screenshotFailures: false
+      }]
     },
-    isolate: false,
     setupFiles: ['./.storybook/vitest.setup.ts'],
     coverage: {
-      all: true,
       include: ['{app,lib,components}/**/*'],
       exclude: [...coverageConfigDefaults.exclude, '**/*.{stories,mock}.*'],
       provider: 'istanbul',
