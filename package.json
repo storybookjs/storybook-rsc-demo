@@ -8,10 +8,6 @@
       "storybook": "./lib/db.mock.ts",
       "default": "./lib/db.ts"
     },
-    "#lib/sanitize-html": {
-      "storybook": "./lib/sanitize-html.mock.ts",
-      "default": "./lib/sanitize-html.ts"
-    },
     "#*": [
       "./*",
       "./*.ts",
