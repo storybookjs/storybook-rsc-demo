@@ -55,10 +55,4 @@ const preview: Preview = {
   },
 }
 
-declare module 'storybook/internal/csf' {
-  interface StoryContext {
-    userEvent: ReturnType<typeof userEvent.setup>
-  }
-}
-
 export default preview
