@@ -1,6 +1,6 @@
 import { expect } from 'storybook/test'
 import { type Meta, type StoryObj } from '@storybook/nextjs-vite'
-import { cookies } from '@storybook/nextjs/headers.mock'
+import { cookies } from '@storybook/nextjs-vite/headers.mock'
 import Page from './page'
 import { db } from '#lib/db'
 import { createUserCookie, userCookieKey } from '#lib/session'
