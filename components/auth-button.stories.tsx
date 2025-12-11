@@ -1,4 +1,4 @@
-import { type Meta, type StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/nextjs-vite'
 import AuthButton from './auth-button'
 import { getUserFromSession } from '#lib/session'
 import { mocked } from 'storybook/test'

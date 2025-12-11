@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { type Meta, type StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/nextjs-vite'
 import Sidebar from './sidebar'
 import { createNotes } from '#mocks/notes'
 import { expect, waitFor } from 'storybook/test'
@@ -60,11 +60,9 @@ export const NoteChangedAnimation: Story = {
 
 export const ToggleSidebarOnMobile: Story = {
   parameters: {
-    viewport: {
-      defaultViewport: 'mobile1',
-    },
-    chromatic: { viewports: [320] },
+    chromatic: { viewports: [320] }
   },
+
   play: async ({ canvas, step, userEvent }) => {
     const searchInput = canvas.getByRole('menubar')
 
@@ -84,6 +82,13 @@ export const ToggleSidebarOnMobile: Story = {
       expect(isElementInView(searchInput)).toBe(false)
     })
   },
+
+  globals: {
+    viewport: {
+      value: 'mobile1',
+      isRotated: false
+    }
+  }
 }
 
 /**

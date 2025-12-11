@@ -1,5 +1,5 @@
 import '../app/style.css'
-import type { Preview } from '@storybook/react'
+import type { Preview } from '@storybook/nextjs-vite'
 import { initialize, mswLoader } from 'msw-storybook-addon'
 import * as MockDate from 'mockdate'
 import { initializeDB } from '../lib/__mocks__/db'
@@ -17,7 +17,7 @@ const preview: Preview = {
   parameters: {
     // TODO can be removed when this is in: https://github.com/storybookjs/storybook/pull/28943
     viewport: {
-      viewports: MINIMAL_VIEWPORTS,
+      options: MINIMAL_VIEWPORTS,
     },
 
     // We can disable this, as we set Suspense in the PageDecorator.
